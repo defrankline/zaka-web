@@ -8,7 +8,7 @@ import {ReminderCategory} from './reminder-category';
 import {ReminderCategoryService} from './reminder-category.service';
 import {FormComponent} from './form/form.component';
 import {environment} from '../../../environments/environment.prod';
-import {ToastService} from '../../utils/toast';
+import {ToastService} from "../../shared/services/toast.service";
 
 @Component({
   selector: 'app-reminder-category',
@@ -69,7 +69,7 @@ export class ReminderCategoryComponent implements OnInit {
       if (response) {
         const items = this.reminderCategoryListSubject.getValue();
         items.push(response.data);
-        this.toast.show('Reminder Category created successfully!');
+        this.toast.success('Success!','Reminder Category created successfully!');
       }
     });
   }
@@ -91,7 +91,7 @@ export class ReminderCategoryComponent implements OnInit {
       if (response) {
         const items = this.reminderCategoryListSubject.getValue();
         items[index] = response.data;
-        this.toast.show('Reminder Category updated successfully!');
+        this.toast.success('Success!','Reminder Category updated successfully!');
       }
     });
   }
@@ -110,7 +110,7 @@ export class ReminderCategoryComponent implements OnInit {
           .subscribe((response) => {
             const items = this.reminderCategoryListSubject.getValue();
             items.splice(index, 1);
-            this.toast.show('Reminder Category deleted successfully!');
+            this.toast.success('Success!','Reminder Category deleted successfully!');
           });
       }
     });

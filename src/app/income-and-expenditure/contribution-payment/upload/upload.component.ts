@@ -6,10 +6,9 @@ import Swal from 'sweetalert2';
 import {saveAs} from 'file-saver';
 import {DatePipe} from '@angular/common';
 import {ContributionPaymentUploadDto, ContributionPaymentUploadItemDto} from '../contribution-payment';
-import {Division} from '../../../settings/division/division';
-import {ToastService} from '../../../utils/toast';
-import {TemplateService} from '../../../utils/template.service';
+import {ToastService} from "../../../shared/services/toast.service";
 import {ContributionPaymentService} from '../contribution-payment.service';
+import {TemplateService} from "../../../shared/services/template.service";
 
 
 @Component({
@@ -105,7 +104,7 @@ export class UploadComponent implements OnInit {
         });
         if (errors.length > 0) {
           console.log(errors);
-          this.toast.show('File has some blank fields: cardNumber, amount, date, itemCode, paymentMethodCode cannot be blank');
+          this.toast.success('Success!','File has some blank fields: cardNumber, amount, date, itemCode, paymentMethodCode cannot be blank');
         } else {
           const payload = {
             items: this.products,
@@ -120,7 +119,7 @@ export class UploadComponent implements OnInit {
     this.contributionPaymentService.upload(contributionPaymentUploadDto).subscribe(response => {
       this.dialogRef.close(response);
     }, error => {
-      this.toast.show('Payment Could Not be Uploaded!');
+      this.toast.success('Success!','Payment Could Not be Uploaded!');
     });
   }
 

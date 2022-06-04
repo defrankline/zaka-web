@@ -11,7 +11,7 @@ import {GfsCode} from './gfs-code';
 import {GfsCodeService} from './gfs-code.service';
 import {FormComponent} from './form/form.component';
 import {environment} from '../../../environments/environment.prod';
-import {ToastService} from '../../utils/toast';
+import {ToastService} from "../../shared/services/toast.service";
 
 @Component({
   selector: 'app-gfs-code',
@@ -78,7 +78,7 @@ export class GfsCodeComponent implements OnInit {
     this.formResponseSubscription = dl.afterClosed().subscribe((response: any) => {
       if (response) {
         this.loadData(this.page, this.size, this.queryString);
-        this.toast.show('Fund Source/Expense Item Saved successfully!');
+        this.toast.success('Success!','Fund Source/Expense Item Saved successfully!');
       }
     });
   }
@@ -96,7 +96,7 @@ export class GfsCodeComponent implements OnInit {
         this.deleteSubscription = this.gfsCodeService.delete(row.id)
           .subscribe((response) => {
             this.loadData(this.page, this.size, this.queryString);
-            this.toast.show('Fund Source/Expense Item deleted successfully!');
+            this.toast.success('Success!','Fund Source/Expense Item deleted successfully!');
           });
       }
     });
@@ -135,7 +135,7 @@ export class GfsCodeComponent implements OnInit {
       if (result.value) {
         this.deleteSubscription = this.gfsCodeService.publish(gfsCode.id)
           .subscribe((response) => {
-            this.toast.show('Fund Source Published Successfully!');
+            this.toast.success('Success!','Fund Source Published Successfully!');
           });
       }
     });
@@ -154,7 +154,7 @@ export class GfsCodeComponent implements OnInit {
         this.gfsCodeService.sync()
           .subscribe((response) => {
             this.loadData(this.page, this.size, this.queryString);
-            this.toast.show('Fund Sources & Expense Items Synchronized Successfully!');
+            this.toast.success('Success!','Fund Sources & Expense Items Synchronized Successfully!');
           });
       }
     });

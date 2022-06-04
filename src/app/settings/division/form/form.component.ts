@@ -4,8 +4,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DivisionLevelService} from '../../level/level.service';
 import {DivisionLevel} from '../../level/level';
 import {DivisionService} from '../division.service';
-import {ToastService} from '../../../utils/toast';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-form',
@@ -99,7 +99,7 @@ export class FormComponent implements OnInit {
     this.hierarchyService.update(division).subscribe(response => {
       this.dialogRef.close(response);
     }, error => {
-      this.toast.show('Error', error.error.message);
+      this.toast.error('Error', error.error.message);
     });
   }
 
@@ -108,7 +108,7 @@ export class FormComponent implements OnInit {
       .subscribe(response => {
         this.dialogRef.close(response);
       }, error => {
-        this.toast.show('Error', error.error.message);
+        this.toast.error('Error', error.error.message);
       });
   }
 

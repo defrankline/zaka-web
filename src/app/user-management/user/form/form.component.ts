@@ -1,7 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ToastService} from '../../../utils/toast';
 import {User} from '../user';
 import {UserService} from '../user.service';
 import {Division} from '../../../settings/division/division';
@@ -9,6 +8,7 @@ import {Role} from '../../role/role';
 import {RoleService} from '../../role/role.service';
 import {DivisionService} from '../../../settings/division/division.service';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-form',
@@ -126,7 +126,7 @@ export class FormComponent implements OnInit {
     this.userService.update(user).subscribe(response => {
       this.dialogRef.close(response);
     }, error => {
-      this.toast.show('Error', error.error.message);
+      this.toast.success('Success!',error.error.message);
     });
   }
 
@@ -135,7 +135,7 @@ export class FormComponent implements OnInit {
       .subscribe(response => {
         this.dialogRef.close(response);
       }, error => {
-        this.toast.show('Error', error.error.message);
+        this.toast.success('Success!',error.error.message);
       });
   }
 

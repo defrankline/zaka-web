@@ -6,7 +6,7 @@ import {finalize} from 'rxjs/operators';
 import {AccountType} from '../account-type';
 import {AccountTypeService} from '../account-type.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ToastService} from '../../../utils/toast/toast.service';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-account-type-form',
@@ -73,7 +73,7 @@ export class AccountTypeFormComponent implements OnInit, OnDestroy {
         .subscribe(response => {
           this.dialogRef.close(response);
         }, error => {
-          this.toast.show(error.error.message);
+          this.toast.success('Success!',error.error.message);
         });
     } else {
       this.loading = true;
@@ -82,7 +82,7 @@ export class AccountTypeFormComponent implements OnInit, OnDestroy {
         .subscribe(response => {
           this.dialogRef.close(response);
         }, error => {
-          this.toast.show('Ledger Account Type could not be updated!');
+          this.toast.success('Success!','Ledger Account Type could not be updated!');
         });
     }
   }

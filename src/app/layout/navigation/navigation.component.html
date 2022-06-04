@@ -4,9 +4,7 @@
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
     <span class="app-title">
-        <img class="logo-title img-thumbnail" *ngIf="logo" [src]="logo" alt="{{'logo'|translate}}">
-        <span *ngxPermissionsExcept="roles">{{user?.data?.currentUserDto?.user?.company?.name}}</span>
-        <span *ngxPermissionsOnly="roles">{{user?.data?.currentUserDto?.user?.adminHierarchy?.name}} </span>
+        <span *ngIf="getCurrentUser()|async as currentUser">{{currentUser.administrationDivision.name}}</span>
     </span>
     <span class="example-spacer"></span>
     <button mat-icon-button (click)="toggleTheme()" matTooltip="Toggle dark theme">
@@ -14,39 +12,6 @@
         brightness_6
       </mat-icon>
     </button>
-
-    <!-- ? below menu will help us change the color at run-time. -->
-
-   <!-- <button mat-button [matMenuTriggerFor]="menu" class="menu-button" matTooltip="Select a theme color">
-      {{ themeColor }}
-    </button>
-
-    <ng-template #noRadio>
-      radio_button_unchecked
-    </ng-template>
-
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="themeColor = 'primary'">
-        <mat-icon [color]="themeColor === 'primary' ? 'primary' : 'no-color'">
-          <ng-container *ngIf="themeColor === 'primary'; else noRadio">radio_button_checked</ng-container>
-        </mat-icon>
-        Primary
-      </button>
-      <button mat-menu-item (click)="themeColor = 'warn'">
-        <mat-icon [color]="themeColor === 'warn' ? 'warn' : 'no-color'">
-          <ng-container *ngIf="themeColor === 'warn'; else noRadio">radio_button_checked</ng-container>
-        </mat-icon>
-        Warn
-      </button>
-      <button mat-menu-item (click)="themeColor = 'accent'">
-        <mat-icon [color]="themeColor === 'accent' ? 'accent' : 'no-color'">
-          <ng-container *ngIf="themeColor === 'accent'; else noRadio">radio_button_checked</ng-container>
-        </mat-icon>
-        Accent
-      </button>
-    </mat-menu>-->
-
-    <!--language-->
     <button mat-icon-button [matMenuTriggerFor]="language" matTooltip="Language" aria-label="Language">
       <mat-icon svgIcon="translate"></mat-icon>
     </button>
@@ -139,28 +104,23 @@
         <div class="route-loader" *ngIf="{ loading: loading$ | async } as route">
           <mat-progress-bar *ngIf="route.loading" color="accent" mode="indeterminate"></mat-progress-bar>
         </div>
-        <div class="sidenav-item my-4">
-          <button mat-button *ngxPermissionsOnly="['ROLE_USER']" color="primary" (click)="downloadLedgerNew()" matTooltip="Download My Ledger">
-            <mat-icon>picture_as_pdf</mat-icon> My Ledger
-          </button>
-        </div>
         <mat-divider></mat-divider>
         <div class="sidenav-item my-4">
-          <mat-accordion *ngIf="getMenu()|async as menu" class="mat-elevation-z0">
+          <mat-accordion *ngIf="getMunu()|async as menu" class="mat-elevation-z0">
             <mat-expansion-panel class="mat-elevation-z0" *ngFor="let tile of menu" (opened)="panelOpenState = true"
                                  (closed)="panelOpenState = false" [hideToggle]="tile.children.length === 0">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  <span style="font-size: 18px;">{{tile.title|translate}}</span>
+                  <span style="font-size: 18px;">{{tile.name|translate}}</span>
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <mat-nav-list>
                 <ng-container *ngIf="tile.children.length > 0">
                   <a *ngFor="let item of tile.children"
                      mat-list-item
-                     [routerLink]="'/app/'+tile.link+'/'+item.link"
+                     [routerLink]="'/app/'+tile.url+'/'+item.url"
                      routerLinkActive="list-item-active">
-                    {{item.title|translate}}
+                    {{item.name|translate}}
                   </a>
                 </ng-container>
               </mat-nav-list>

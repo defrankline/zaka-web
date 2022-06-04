@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AuthGuard} from '../../interceptors/auth.guard';
 import {DivisionComponent} from './division.component';
 import {FormComponent} from '../tile/form/form.component';
+import {AuthGuard} from "../../auth/auth.guard";
 
 const routes: Routes = [
   {path: '', component: DivisionComponent, canActivate: [AuthGuard], data: {title: 'Divisions'}},

@@ -12,7 +12,7 @@ import {AccountType} from '../../account-type/account-type';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {environment} from '../../../../environments/environment.prod';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
-import {ToastService} from '../../../utils/toast/toast.service';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-account-group-list',
@@ -60,7 +60,7 @@ export class AccountGroupListComponent implements OnInit {
     this.accountTypeService.getAll().subscribe((response) => {
       this.accountTypes = response.data;
     }, error => {
-      this.toast.show('LedgerAccount Type could not be loaded!');
+      this.toast.success('Success!','LedgerAccount Type could not be loaded!');
     });
   }
 
@@ -68,7 +68,7 @@ export class AccountGroupListComponent implements OnInit {
     this.accountSubTypeService.getAll('_', accountType.id).subscribe((response) => {
       this.accountSubTypes = response.data;
     }, error => {
-      this.toast.show('LedgerAccount Sub-Type could not be loaded!');
+      this.toast.success('Success!','LedgerAccount Sub-Type could not be loaded!');
     });
   }
 
@@ -103,7 +103,7 @@ export class AccountGroupListComponent implements OnInit {
     dl.afterClosed().subscribe((response: any) => {
       if (response) {
         this.loadData(this.page, this.size, this.queryString, this.accountSubTypeId);
-        this.toast.show('Account Group created successfully!');
+        this.toast.success('Success!','Account Group created successfully!');
       }
     });
   }
@@ -124,7 +124,7 @@ export class AccountGroupListComponent implements OnInit {
     dl.afterClosed().subscribe((response: any) => {
       if (response) {
         this.loadData(this.page, this.size, this.queryString, this.accountSubTypeId);
-        this.toast.show('LedgerAccount Group updated successfully!');
+        this.toast.success('Success!','LedgerAccount Group updated successfully!');
       }
     });
   }
@@ -142,7 +142,7 @@ export class AccountGroupListComponent implements OnInit {
         this.accountGroupService.delete(row.id)
           .subscribe((response) => {
             this.loadData(this.page, this.size, this.queryString, this.accountSubTypeId);
-            this.toast.show('Ledger Account Group deleted successfully!');
+            this.toast.success('Success!','Ledger Account Group deleted successfully!');
           });
       }
     });

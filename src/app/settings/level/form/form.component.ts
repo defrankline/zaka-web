@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ToastService} from '../../../utils/toast/toast.service';
 import {DivisionLevel} from '../level';
 import {DivisionLevelService} from '../level.service';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-form',
@@ -46,7 +46,7 @@ export class FormComponent implements OnInit {
         position: this.positionControl.value as number
       } as DivisionLevel;
       this.service.store(payload).subscribe(response => {
-        this.toast.show(response.message);
+        this.toast.success('Success!',response.message);
         this.close();
       });
     } else {
@@ -56,7 +56,7 @@ export class FormComponent implements OnInit {
         position: this.positionControl.value as number
       } as DivisionLevel;
       this.service.update(payload).subscribe(response => {
-        this.toast.show(response.message);
+        this.toast.success('Success!',response.message);
         this.close();
       });
     }

@@ -15,7 +15,8 @@ import {AccountTypeService} from '../../account-type/account-type.service';
 import {AccountType} from '../../account-type/account-type';
 import {AccountSubType} from '../../account-sub-type/account-sub-type';
 import {environment} from '../../../../environments/environment.prod';
-import {ToastService} from '../../../utils/toast/toast.service';
+import {ToastService} from "../../../shared/services/toast.service";
+
 
 @Component({
   selector: 'app-account-list',
@@ -74,7 +75,7 @@ export class AccountListComponent implements OnInit {
     this.accountTypeService.getAll().subscribe((response) => {
       this.accountTypes = response.data;
     }, error => {
-      this.toast.show('LedgerAccount Type could not be loaded!');
+      this.toast.success('Success!','LedgerAccount Type could not be loaded!');
     });
   }
 
@@ -140,7 +141,7 @@ export class AccountListComponent implements OnInit {
       if (response) {
         const items = this.accountListSubject.getValue();
         items.push(response.data);
-        this.toast.show('LedgerAccount created successfully!');
+        this.toast.success('Success!','LedgerAccount created successfully!');
       }
     });
   }
@@ -162,7 +163,7 @@ export class AccountListComponent implements OnInit {
       if (response) {
         const items = this.accountListSubject.getValue();
         items[index] = response.data;
-        this.toast.show('LedgerAccount  updated successfully!');
+        this.toast.success('Success!','LedgerAccount  updated successfully!');
       }
     });
   }
@@ -180,7 +181,7 @@ export class AccountListComponent implements OnInit {
           .subscribe((response) => {
             const items = this.accountListSubject.getValue();
             items.splice(index, 1);
-            this.toast.show('LedgerAccount  deleted successfully!');
+            this.toast.success('Success!','LedgerAccount  deleted successfully!');
           });
       }
     });

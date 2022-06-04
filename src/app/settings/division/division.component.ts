@@ -4,9 +4,9 @@ import {DivisionService} from './division.service';
 import {Division, DivisionTree} from './division';
 import {FormComponent} from './form/form.component';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {ToastService} from '../../utils/toast/toast.service';
-import {CustomResponse} from '../../utils/custom-response';
+import {CustomResponse} from "../../shared/custom-response";
 import Swal from 'sweetalert2';
+import {ToastService} from "../../shared/services/toast.service";
 
 @Component({
   selector: 'app-division',
@@ -48,7 +48,7 @@ export class DivisionComponent implements OnInit {
     dl.afterClosed().subscribe((response: CustomResponse) => {
       if (response) {
         this.loadCurrentUserTree();
-        this.toast.show(response.message);
+        this.toast.success('Success!',response.message);
       }
     });
   }
@@ -70,7 +70,7 @@ export class DivisionComponent implements OnInit {
         this.divisionService.delete(row.id)
           .subscribe((response) => {
             this.loadCurrentUserTree();
-            this.toast.show(response.message);
+            this.toast.success('Success!',response.message);
           });
       }
     });

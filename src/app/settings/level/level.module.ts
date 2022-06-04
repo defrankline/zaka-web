@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LevelComponent } from './level.component';
 import { FormComponent } from './form/form.component';
 import {DivisionLevelRoutingModule} from './division-level-routing.module';
-import {SharedModule} from '../../utils/shared.module';
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   declarations: [

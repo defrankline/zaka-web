@@ -2,8 +2,8 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {RoleComponent} from './role.component';
 import {FormComponent} from './form/form.component';
-import {AuthGuard} from '../../interceptors/auth.guard';
 import {TileRoleComponent} from './tile-role/tile-role.component';
+import {AuthGuard} from "../../auth/auth.guard";
 
 const routes: Routes = [
   {path: '', component: RoleComponent, canActivate: [AuthGuard], data: {title: 'Roles'}},

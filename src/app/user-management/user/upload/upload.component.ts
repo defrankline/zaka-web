@@ -12,6 +12,8 @@ import {saveAs} from 'file-saver';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
 import {DivisionService} from '../../../settings/division/division.service';
 import {FormControl, Validators} from '@angular/forms';
+import {ToastService} from "../../../shared/services/toast.service";
+import {TemplateService} from "../../../shared/services/template.service";
 
 @Component({
   selector: 'app-upload',
@@ -155,7 +157,7 @@ export class UploadComponent implements OnInit {
           }
         });
         if (errors.length > 0) {
-          this.toast.show('File has some blank fields, firstName, surname, gender, cardNumber cannot be blank');
+          this.toast.success('Success!','File has some blank fields, firstName, surname, gender, cardNumber cannot be blank');
         } else {
           const adminDivision = this.administrativeDivisionControl.value as Division;
           const admin = {

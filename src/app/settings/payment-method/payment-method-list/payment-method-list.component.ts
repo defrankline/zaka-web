@@ -11,7 +11,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {environment} from '../../../../environments/environment.prod';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
-import {ToastService} from '../../../utils/toast/toast.service';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-payment-method-list',
@@ -73,7 +73,7 @@ export class PaymentMethodListComponent implements OnInit {
     dl.afterClosed().subscribe((response: any) => {
       if (response) {
         this.loadData(this.page, this.size, this.queryString);
-        this.toast.show('Payment Method created successfully!');
+        this.toast.success('Success!','Payment Method created successfully!');
       }
     });
   }
@@ -91,7 +91,7 @@ export class PaymentMethodListComponent implements OnInit {
         this.paymentMethodService.delete(row.id)
           .subscribe((response) => {
             this.loadData(this.page, this.size, this.queryString);
-            this.toast.show('Payment Method deleted successfully!');
+            this.toast.success('Success!','Payment Method deleted successfully!');
           });
       }
     });

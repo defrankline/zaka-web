@@ -11,7 +11,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {environment} from '../../../../environments/environment.prod';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
-import {ToastService} from '../../../utils/toast/toast.service';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-account-type-list',
@@ -77,7 +77,7 @@ export class AccountTypeListComponent implements OnInit {
       if (response) {
         const items = this.accountTypeListSubject.getValue();
         items.push(response.data);
-        this.toast.show('AccountType created successfully!');
+        this.toast.success('Success!','AccountType created successfully!');
       }
     });
   }
@@ -99,7 +99,7 @@ export class AccountTypeListComponent implements OnInit {
       if (response) {
         const items = this.accountTypeListSubject.getValue();
         items[index] = response.data;
-        this.toast.show('Ledger Account Type updated successfully!');
+        this.toast.success('Success!','Ledger Account Type updated successfully!');
       }
     });
   }
@@ -118,7 +118,7 @@ export class AccountTypeListComponent implements OnInit {
           .subscribe((response) => {
             const items = this.accountTypeListSubject.getValue();
             items.splice(index, 1);
-            this.toast.show('Ledger Account Type deleted successfully!');
+            this.toast.success('Success!','Ledger Account Type deleted successfully!');
           });
       }
     });

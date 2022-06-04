@@ -10,7 +10,7 @@ import {AccountGroupService} from '../../account-group/account-group.service';
 import {AccountTypeService} from '../../account-type/account-type.service';
 import {AccountType} from '../../account-type/account-type';
 import {AccountSubType} from '../../account-sub-type/account-sub-type';
-import {ToastService} from '../../../utils/toast/toast.service';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-account-form',
@@ -58,7 +58,7 @@ export class AccountFormComponent implements OnInit {
     this.accountTypeService.getAll().subscribe((response) => {
       this.accountTypes = response.data;
     }, error => {
-      this.toast.show('LedgerAccount Type could not be loaded!');
+      this.toast.success('Success!','LedgerAccount Type could not be loaded!');
     });
   }
 
@@ -66,7 +66,7 @@ export class AccountFormComponent implements OnInit {
     this.accountSubTypeService.getAll('_', accountType.id).subscribe((response) => {
       this.accountSubTypes = response.data;
     }, error => {
-      this.toast.show('LedgerAccount Sub-Type could not be loaded!');
+      this.toast.success('Success!','LedgerAccount Sub-Type could not be loaded!');
     });
   }
 
@@ -74,7 +74,7 @@ export class AccountFormComponent implements OnInit {
     this.accountGroupService.getAll('_', accountSubType.id).subscribe((response) => {
       this.accountGroups = response.data;
     }, error => {
-      this.toast.show('LedgerAccount Groups could not be loaded!');
+      this.toast.success('Success!','LedgerAccount Groups could not be loaded!');
     });
   }
 
@@ -114,7 +114,7 @@ export class AccountFormComponent implements OnInit {
         .subscribe(response => {
           this.dialogRef.close(response);
         }, error => {
-          this.toast.show(error.error.message);
+          this.toast.success('Success!',error.error.message);
         });
     } else {
       this.loading = true;
@@ -123,7 +123,7 @@ export class AccountFormComponent implements OnInit {
         .subscribe(response => {
           this.dialogRef.close(response);
         }, error => {
-          this.toast.show('LedgerAccount could not be updated!');
+          this.toast.success('Success!','LedgerAccount could not be updated!');
         });
     }
   }

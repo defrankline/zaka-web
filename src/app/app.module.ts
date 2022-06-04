@@ -19,6 +19,7 @@ import {LoaderInterceptor} from './loader-interceptor';
 import {ServerDownHandlerInterceptor} from './auth/server-down-handler.interceptor';
 import {NgIdleKeepaliveModule} from "@ng-idle/keepalive";
 import { ModalModule } from 'ngx-bootstrap/modal';
+import {NgxWebstorageModule} from "ngx-webstorage";
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,7 +37,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     RouterModule.forRoot([], {useHash: true}),
     FlexLayoutModule,
     HttpClientModule,
-
     NgIdleKeepaliveModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
@@ -44,6 +44,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
+    }),
+    NgxWebstorageModule.forRoot({
+      prefix: 'zaka-app',
+      separator: '-',
+      caseSensitive: true,
     }),
   ],
   providers: [

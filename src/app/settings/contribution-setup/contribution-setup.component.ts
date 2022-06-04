@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
 import {Contribution} from './contribution';
 import {ContributionService} from './contribution.service';
-import {ToastService} from '../../utils/toast';
+import {ToastService} from "../../shared/services/toast.service";
 
 @Component({
   selector: 'app-contribution-setup',
@@ -74,7 +74,7 @@ export class ContributionSetupComponent implements OnInit {
     dl.afterClosed().subscribe((response: any) => {
       if (response) {
         this.loadData(this.page, this.size, this.queryString);
-        this.toast.show('Contribution Saved successfully!');
+        this.toast.success('Success!','Contribution Saved successfully!');
       }
     });
   }
@@ -92,7 +92,7 @@ export class ContributionSetupComponent implements OnInit {
         this.contributionService.delete(row.id)
           .subscribe((response) => {
             this.loadData(this.page, this.size, this.queryString);
-            this.toast.show('Contribution deleted successfully!');
+            this.toast.success('Success!','Contribution deleted successfully!');
           });
       }
     });

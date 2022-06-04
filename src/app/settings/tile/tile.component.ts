@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from '../../../environments/environment.prod';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {ToastService} from '../../utils/toast/toast.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {Tile} from './tile';
 import {TileService} from './tile.service';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
+import {ToastService} from "../../shared/services/toast.service";
 
 @Component({
   selector: 'app-tile',
@@ -64,7 +64,7 @@ export class TileComponent implements OnInit {
         this.tileService.delete(tile.id)
           .subscribe((response) => {
             this.loadData(this.page, this.size);
-            this.toast.show(response.message);
+            this.toast.success('Success!',response.message);
           });
       }
     });

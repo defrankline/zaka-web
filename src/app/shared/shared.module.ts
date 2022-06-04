@@ -5,13 +5,6 @@ import {IconService} from './services/icon.service';
 import {DomSanitizer, Title} from '@angular/platform-browser';
 import {FooterComponent} from './footer/footer.component';
 import {AboutComponent} from './about/about.component';
-import {ViewLoanGuarantorListComponent} from './view-loan-guarantor-list';
-import {ViewLoanCollateralListComponent} from './view-loan-collateral-list';
-import {ViewLoanUsageListComponent} from './view-loan-usage-list';
-import {ViewMemberFinancialProfileComponent} from './view-member-financial-profile';
-import {ViewPdfAttachmentComponent} from './view-pdf-attachment';
-import {ViewImageAttachmentComponent} from './view-image-attachment';
-import {ViewLoanRepaymentScheduleListComponent} from './view-loan-repayment-schedule-list';
 import {MaterialModule} from './material.module';
 import {CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule} from 'ng2-currency-mask';
 import {TranslateModule} from '@ngx-translate/core';
@@ -19,11 +12,8 @@ import {NgbPopoverModule} from '@ng-bootstrap/ng-bootstrap';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {NguCarouselModule} from '@ngu/carousel';
 import {RouterModule} from '@angular/router';
-import {InpasswordComponent} from './inpassword/inpassword.component';
 import {MatIconRegistry} from '@angular/material/icon';
 import {GroupByPipe} from './group-by.pipe';
-import {TileComponent} from './tile/tile.component';
-import {ViewAttachmentComponent} from './view-attachment';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {MY_FORMATS} from './date-input-format';
@@ -31,16 +21,11 @@ import {BaseTableModule} from './base-table/base-table.module';
 import {DialogHeaderModule} from './dialog-header/dialog-header.module';
 import {SimpleInputModule} from './base-form/simple-input/simple-input.module';
 import {SimpleSelectModule} from './base-form/simple-select/simple-select.module';
-import {SubmitButtonModule} from './submit-button/submit-button.module';
 import {NgxPrintModule} from 'ngx-print';
-import {PaymentReceivingAccountComponent} from "./payment-receiving-account/payment-receiving-account.component";
+import {TreeModule} from "@circlon/angular-tree-component";
 
 const items = [
-  ViewLoanGuarantorListComponent, ViewLoanCollateralListComponent, ViewLoanUsageListComponent,
-  InpasswordComponent,
-  ViewMemberFinancialProfileComponent, ViewAttachmentComponent, ViewPdfAttachmentComponent,
-  ViewImageAttachmentComponent,
-  ViewLoanRepaymentScheduleListComponent
+
 ];
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -54,23 +39,22 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 };
 
 @NgModule({
-  declarations: [FooterComponent, AboutComponent, TileComponent, items, GroupByPipe, PaymentReceivingAccountComponent],
+  declarations: [FooterComponent, AboutComponent, items, GroupByPipe],
   imports: [
-    CommonModule, RouterModule, MaterialModule, NguCarouselModule, CurrencyMaskModule,
+    CommonModule, RouterModule, TreeModule, MaterialModule, NguCarouselModule, CurrencyMaskModule,
     NgbPopoverModule, FlexLayoutModule,
     TranslateModule
   ],
   exports: [
-    NgxPermissionsModule, RouterModule, MaterialModule, NguCarouselModule, CurrencyMaskModule,
+    NgxPermissionsModule, RouterModule, TreeModule, MaterialModule, NguCarouselModule, CurrencyMaskModule,
     NgbPopoverModule,
-    FlexLayoutModule, TranslateModule, GroupByPipe, TileComponent,
-    items, FooterComponent, InpasswordComponent,
+    FlexLayoutModule, TranslateModule, GroupByPipe,
+    items, FooterComponent,
     BaseTableModule,
     DialogHeaderModule,
     SimpleInputModule,
     SimpleSelectModule,
-    SubmitButtonModule,
-    NgxPrintModule, PaymentReceivingAccountComponent
+    NgxPrintModule
   ],
   providers: [
     Title,

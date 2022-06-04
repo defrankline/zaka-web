@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {PaymentMethod} from './payment-method';
 import {environment} from '../../../environments/environment.prod';
-import {CustomResponse} from '../../utils/custom-response';
+import {CustomResponse} from "../../shared/custom-response";
 
 @Injectable({
   providedIn: 'root'

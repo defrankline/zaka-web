@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../environments/environment.prod';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {ToastService} from '../../utils/toast/toast.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {DivisionLevel} from './level';
 import {DivisionLevelService} from './level.service';
+import {ToastService} from "../../shared/services/toast.service";
 
 @Component({
   selector: 'app-level',
@@ -58,7 +58,7 @@ export class LevelComponent implements OnInit {
         this.service.delete(role.id)
           .subscribe((response) => {
             this.loadData(this.page, this.size);
-            this.toast.show(response.message);
+            this.toast.success('Success!',response.message);
           });
       }
     });

@@ -13,7 +13,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {environment} from '../../../../environments/environment.prod';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
-import {ToastService} from '../../../utils/toast/toast.service';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-account-sub-type-list',
@@ -65,7 +65,7 @@ export class AccountSubTypeListComponent implements OnInit {
     this.accountTypeService.getAll().subscribe((response) => {
       this.accountTypes = response.data;
     }, error => {
-      this.toast.show('Ledger Account Type could not be loaded!');
+      this.toast.success('Success!','Ledger Account Type could not be loaded!');
     });
   }
 
@@ -115,7 +115,7 @@ export class AccountSubTypeListComponent implements OnInit {
       if (response) {
         const items = this.accountSubTypeListSubject.getValue();
         items.push(response.data);
-        this.toast.show('LedgerAccount Sub-Type created successfully!');
+        this.toast.success('Success!','LedgerAccount Sub-Type created successfully!');
       }
     });
   }
@@ -137,7 +137,7 @@ export class AccountSubTypeListComponent implements OnInit {
       if (response) {
         const items = this.accountSubTypeListSubject.getValue();
         items[index] = response.data;
-        this.toast.show('LedgerAccount Sub-Type updated successfully!');
+        this.toast.success('Success!','LedgerAccount Sub-Type updated successfully!');
       }
     });
   }
@@ -156,7 +156,7 @@ export class AccountSubTypeListComponent implements OnInit {
           .subscribe((response) => {
             const items = this.accountSubTypeListSubject.getValue();
             items.splice(index, 1);
-            this.toast.show('LedgerAccount Sub-Type deleted successfully!');
+            this.toast.success('Success!','LedgerAccount Sub-Type deleted successfully!');
           });
       }
     });

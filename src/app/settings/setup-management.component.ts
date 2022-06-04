@@ -3,9 +3,9 @@ import {environment} from '../../environments/environment.prod';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Role} from '../user-management/role/role';
 import {RoleService} from '../user-management/role/role.service';
-import {ToastService} from '../utils/toast/toast.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
+import {ToastService} from "../shared/services/toast.service";
 
 @Component({
   selector: 'app-setup-management',
@@ -58,7 +58,7 @@ export class SetupManagementComponent implements OnInit {
         this.roleService.delete(role.id)
           .subscribe((response) => {
             this.loadData(this.page, this.size);
-            this.toast.show(response.message);
+            this.toast.success('Success!',response.message);
           });
       }
     });

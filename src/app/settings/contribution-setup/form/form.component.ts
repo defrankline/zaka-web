@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ToastService} from '../../../utils/toast';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
 import {Contribution} from '../contribution';
 import {ContributionService} from '../contribution.service';
@@ -10,6 +9,7 @@ import {GfsCode} from '../../gfs-code/gfs-code';
 import {GfsCodeService} from '../../gfs-code/gfs-code.service';
 import {LiturgicalYearService} from '../../liturgical-year/liturgical-year.service';
 import {LiturgicalYear} from '../../liturgical-year/liturgical-year';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-form',
@@ -89,7 +89,7 @@ export class FormComponent implements OnInit {
     this.contributionService.getAll().subscribe((response) => {
       this.contributions = response.data;
     }, error => {
-      this.toast.show('Contributions could not be loaded!');
+      this.toast.success('Success!','Contributions could not be loaded!');
     });
   }
 
@@ -134,7 +134,7 @@ export class FormComponent implements OnInit {
         .subscribe(response => {
           this.dialogRef.close(response);
         }, error => {
-          this.toast.show('Error', error.error.message);
+          this.toast.success('Success!','Error', error.error.message);
         });
     } else {
       this.loading = true;
@@ -144,7 +144,7 @@ export class FormComponent implements OnInit {
           this.dialogRef.close(response);
         }, error => {
 
-          this.toast.show('Contribution could not be updated!');
+          this.toast.success('Success!','Contribution could not be updated!');
         });
     }
   }

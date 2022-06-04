@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
-import {UserService} from './user-management/user';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from './auth/auth.service';
 import {NgxPermissionsService} from 'ngx-permissions';
@@ -14,6 +13,8 @@ import {LoaderService} from './loader.service';
 import {BsModalRef, BsModalService, ModalDirective} from "ngx-bootstrap/modal";
 import {Keepalive} from "@ng-idle/keepalive";
 import {DEFAULT_INTERRUPTSOURCES, Idle} from "@ng-idle/core";
+import {UserService} from "./user-management/user/user.service";
+import {User} from "./user-management/user/user";
 
 const {CURRENT_USER} = StorageKey;
 
@@ -40,6 +41,7 @@ export class AppComponent implements OnInit, AfterViewInit {
               private activatedRoute: ActivatedRoute,
               private titleService: Title,
               private idle: Idle,
+              private permissionsService: NgxPermissionsService,
               private keepalive: Keepalive,
               private modalService: BsModalService,
               private appService: AppService,
@@ -94,13 +96,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    if (!this.authService.isLogged()) {
+    if (!this.authService.isLoggedIn()) {
       this.router.navigate(['/auth/login']);
     } else {
       this.currentUser = this.storage.read(CURRENT_USER) || '';
       const roles = this.currentUser.data.currentUserDto.roles as Role[];
       const userId = this.currentUser.data.currentUserDto.user.id as number;
-      this.loadPermissions(userId, roles);
+      this.loadCurrenUser();
     }
 
     this.dynamicTitle();
@@ -120,15 +122,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.reset();
   }
 
-  loadPermissions(userId: number, roles: Role[]): void {
-    const permissions = [];
-    roles.map(row => {
-      permissions.push(row.name);
+  loadCurrenUser(): void {
+    this.authService.currentUser().subscribe(response => {
+      const user = response.data as User;
+      this.permissionsService.loadPermissions(this.authService.processRoles(user.roles));
     });
-    if (userId === 4528857) {
-      permissions.push('ROLE_SUPER_USER');
-    }
-    this.ngxPermissionsService.loadPermissions(permissions);
   }
 
   getChild(activatedRoute: ActivatedRoute): ActivatedRoute {

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment.prod';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {CustomResponse} from '../../utils/custom-response';
+import {CustomResponse} from "../../shared/custom-response";
 import {Division} from './division';
 
 @Injectable({

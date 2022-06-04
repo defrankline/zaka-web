@@ -10,9 +10,9 @@ import Swal from 'sweetalert2';
 import {SmsService} from '../sms.service';
 import {ValidMobileNumberCountDto} from '../valid-mobile-number-count-dto';
 import {Division} from '../../../settings/division/division';
-import {ToastService} from '../../../utils/toast';
 import {DivisionService} from '../../../settings/division/division.service';
 import {environment} from '../../../../environments/environment.prod';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-recipient',
@@ -96,7 +96,7 @@ export class RecipientComponent implements OnInit {
       if (result.value) {
         this.smsService.publish(this.sms.id).subscribe((response) => {
           this.dialogRef.close(response);
-        }, error => this.toast.show(error.error.message));
+        }, error => this.toast.success('Success!',error.error.message));
       }
     });
   }

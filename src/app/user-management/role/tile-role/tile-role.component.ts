@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ToastService} from '../../../utils/toast/toast.service';
 import {RoleService} from '../role.service';
 import {environment} from '../../../../environments/environment.prod';
 import {BehaviorSubject, Observable} from 'rxjs';
@@ -11,6 +10,7 @@ import {TileRole} from '../../../settings/tile/tile-role/tile-role';
 import {Tile} from '../../../settings/tile/tile';
 import {TileRoleService} from '../../../settings/tile/tile-role/tile-role.service';
 import {TileService} from '../../../settings/tile/tile.service';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-tile-role',
@@ -90,7 +90,7 @@ export class TileRoleComponent implements OnInit {
         this.tileRoleService.delete(tileRole.id)
           .subscribe((response) => {
             this.loadData(this.roleId, this.page, this.size);
-            this.toast.show(response.message);
+            this.toast.success('Success!',response.message);
           });
       }
     });
@@ -104,7 +104,7 @@ export class TileRoleComponent implements OnInit {
     this.tileRoleService.store(payload).subscribe(response => {
       this.showForm = false;
       this.loadData(this.roleId, this.page, this.size);
-      this.toast.show(response.message);
+      this.toast.success('Success!',response.message);
     });
   }
 

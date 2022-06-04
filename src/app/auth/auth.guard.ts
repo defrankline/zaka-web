@@ -1,34 +1,27 @@
-import { Injectable } from '@angular/core';
-import {
-    ActivatedRouteSnapshot,
-    RouterStateSnapshot,
-    UrlTree,
-    CanActivate,
-    Router,
-} from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {AuthService} from "./auth.service";
+import {ToastService} from "../shared/services/toast.service";
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-    constructor(private authService: AuthService, private router: Router) {}
 
-    canActivate(
-        route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot,
-    ):
-        | Observable<boolean | UrlTree>
-        | Promise<boolean | UrlTree>
-        | boolean
-        | UrlTree {
-        if (this.authService.isLogged()) {
-            this.authService.redirectUrl = null;
-            return true;
-        }
-        this.authService.redirectUrl = state.url;
-        this.router.navigate(['']);
-        return false;
+  constructor(private auth: AuthService,
+              private router: Router,
+              private toast: ToastService) {
+  }
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    if (this.auth.isLoggedIn()) {
+      return true;
     }
+    this.router.navigate(['/auth/login']);
+    this.toast.error('Access Denied!', 'You do not have permission to view this page');
+    return false;
+  }
 }

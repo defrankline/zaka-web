@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment.prod';
-import {CustomResponse} from '../../utils/custom-response';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Tile} from './tile';
+import {CustomResponse} from "../../shared/custom-response";
 
 @Injectable({
   providedIn: 'root'

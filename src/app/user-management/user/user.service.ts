@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment.prod';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {CustomResponse} from '../../utils/custom-response';
 import {User, UserUpload} from './user';
-import {Login, LoginResponse} from '../../views/login/login';
-import {map} from 'rxjs/operators';
+import {CustomResponse} from "../../shared/custom-response";
+import {PasswordReset} from "../password-reset-form/password-reset";
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +34,10 @@ export class UserService {
         query: `${query}`,
       }
     });
+  }
+
+  public passwordReset(passwordReset: PasswordReset): Observable<CustomResponse> {
+    return this.http.post(this.URL + '/passwordReset', passwordReset) as Observable<CustomResponse>;
   }
 
   public currentUser(): Observable<CustomResponse> {

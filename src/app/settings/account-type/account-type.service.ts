@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AccountType} from './account-type';
-import {CustomResponse} from '../../utils/custom-response';
 import {environment} from '../../../environments/environment.prod';
 import {BalanceNatureItem} from '../account/ledger-account';
+import {CustomResponse} from "../../shared/custom-response";
 
 @Injectable({
   providedIn: 'root'

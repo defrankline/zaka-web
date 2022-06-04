@@ -7,8 +7,6 @@ import {BulkSmsDto, Sms} from '../sms';
 
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
 import {RecipientService} from '../recipient/recipient.service';
 import {Recipient} from '../recipient/recipient';
 import Swal from 'sweetalert2';
@@ -18,8 +16,8 @@ import {ReminderCategory} from '../../../settings/reminder-category/reminder-cat
 import {UserService} from '../../../user-management/user/user.service';
 import {ReminderCategoryService} from '../../../settings/reminder-category/reminder-category.service';
 import {DivisionService} from '../../../settings/division/division.service';
-import {ToastService} from '../../../utils/toast';
 import {ITreeOptions} from '@circlon/angular-tree-component';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-form',
@@ -180,7 +178,7 @@ export class FormComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.destinations);
       this.memberControl.reset();
     } else {
-      this.toast.show('Member already added!');
+      this.toast.success('Success!','Member already added!');
     }
   }
 
@@ -253,13 +251,13 @@ export class FormComponent implements OnInit {
   private create(payload: BulkSmsDto): void {
     this.smsService.store(payload).subscribe(response => {
       this.dialogRef.close(response);
-    }, error => this.toast.show(error.error.message));
+    }, error => this.toast.success('Success!',error.error.message));
   }
 
   private update(payload: BulkSmsDto): void {
     this.smsService.update(payload).subscribe(response => {
       this.dialogRef.close(response);
-    }, error => this.toast.show(error.error.message));
+    }, error => this.toast.success('Success!',error.error.message));
   }
 
   private loadRecipients(id: number): void {

@@ -7,7 +7,7 @@ import {PaymentMethod} from '../payment-method';
 import {PaymentMethodService} from '../payment-method.service';
 import {LedgerAccount} from '../../account/ledger-account';
 import {AccountService} from '../../account/account.service';
-import {ToastService} from '../../../utils/toast/toast.service';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-payment-method-form',
@@ -101,7 +101,7 @@ export class PaymentMethodFormComponent implements OnInit {
         .subscribe(response => {
           this.dialogRef.close(response);
         }, error => {
-          this.toast.show('Payment Method could not be updated!');
+          this.toast.success('Success!','Payment Method could not be updated!');
         });
     }
   }

@@ -7,11 +7,11 @@ import {SmsService} from './sms.service';
 import {FormComponent} from './form/form.component';
 import {RecipientComponent} from './recipient/recipient.component';
 import {Division} from '../../settings/division/division';
-import {ToastService} from '../../utils/toast';
 import {DivisionService} from '../../settings/division/division.service';
 import {environment} from '../../../environments/environment.prod';
 import {FormControl} from '@angular/forms';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
+import {ToastService} from "../../shared/services/toast.service";
 
 @Component({
   selector: 'app-sms',
@@ -87,7 +87,7 @@ export class SmsComponent implements OnInit {
     dl.afterClosed().subscribe((response: any) => {
       if (response) {
         this.loadData(this.query, this.page, this.size);
-        this.toast.show('SMS created successfully!');
+        this.toast.success('Success!','SMS created successfully!');
       }
     });
   }
@@ -108,7 +108,7 @@ export class SmsComponent implements OnInit {
     dl.afterClosed().subscribe((response: any) => {
       if (response) {
         this.loadData(this.query, this.page, this.size);
-        this.toast.show('SMS updated successfully!');
+        this.toast.success('Success!','SMS updated successfully!');
       }
     });
   }
@@ -126,7 +126,7 @@ export class SmsComponent implements OnInit {
         this.smsService.delete(row.id)
           .subscribe((response) => {
             this.loadData(this.query, this.page, this.size);
-            this.toast.show('SMS deleted successfully!');
+            this.toast.success('Success!','SMS deleted successfully!');
           });
       }
     });
@@ -144,8 +144,8 @@ export class SmsComponent implements OnInit {
       if (result.value) {
         this.smsService.publish(row.id).subscribe((response) => {
           this.loadData(this.query, this.page, this.size);
-          this.toast.show('SMS Published Successfully!');
-        }, error => this.toast.show(error.error.message));
+          this.toast.success('Success!','SMS Published Successfully!');
+        }, error => this.toast.success('Success!',error.error.message));
       }
     });
   }
@@ -179,12 +179,12 @@ export class SmsComponent implements OnInit {
       if (response) {
         if (response.status === 200) {
           this.loadData(this.query, this.page, this.size);
-          this.toast.show('SMS Published Successfully!');
+          this.toast.success('Success!','SMS Published Successfully!');
         } else {
-          this.toast.show(response.message);
+          this.toast.success('Success!',response.message);
         }
       }
-    }, error => this.toast.show(error.error.message));
+    }, error => this.toast.success('Success!',error.error.message));
   }
 
   resend(row: Sms): void {
@@ -199,8 +199,8 @@ export class SmsComponent implements OnInit {
       if (result.value) {
         this.smsService.publish(row.id).subscribe((response) => {
           this.loadData(this.query, this.page, this.size);
-          this.toast.show('SMS Sent Successfully!');
-        }, error => this.toast.show(error.error.message));
+          this.toast.success('Success!','SMS Sent Successfully!');
+        }, error => this.toast.success('Success!',error.error.message));
       }
     });
   }

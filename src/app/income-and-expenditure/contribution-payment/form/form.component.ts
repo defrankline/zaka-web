@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {FormControl, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
-import {ToastService} from '../../../utils/toast';
+import {ToastService} from "../../../shared/services/toast.service";
 import {ContributionService} from '../../../settings/contribution-setup/contribution.service';
 import {Contribution} from '../../../settings/contribution-setup/contribution';
 import {ContributionPaymentUploadDto, ContributionPaymentUploadItemDto} from '../contribution-payment';
@@ -94,7 +94,7 @@ export class FormComponent implements OnInit {
       this.dialogRef.close(response);
       this.isLoading = false;
     }, error => {
-      this.toast.show('Error', 'success');
+      this.toast.error('Error!', error.error.message);
       this.isLoading = false;
     });
   }
@@ -104,7 +104,7 @@ export class FormComponent implements OnInit {
       this.paymentMethods = response.data;
       this.paymentMethodControl.setValue(this.paymentMethods[0]);
     }, error => {
-      this.toast.show('Oops! Payment Methods could not be loaded!', 'error');
+      this.toast.error('Error!', 'Oops! Payment Methods could not be loaded!');
     });
   }
 
@@ -113,7 +113,7 @@ export class FormComponent implements OnInit {
       this.contributions = response.data;
       this.contributionControl.setValue(this.contributions[0]);
     }, error => {
-      this.toast.show('Oops! Contributions could not be loaded!', 'error');
+      this.toast.error('Error!', 'Oops! Contributions could not be loaded!');
     });
   }
 

@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../../../environments/environment.prod';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {CustomResponse} from '../../../utils/custom-response';
 import {TileRole} from './tile-role';
+import {CustomResponse} from "../../../shared/custom-response";
 
 @Injectable({
   providedIn: 'root'

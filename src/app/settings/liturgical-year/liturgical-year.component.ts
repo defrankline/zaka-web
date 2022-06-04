@@ -11,7 +11,7 @@ import {environment} from '../../../environments/environment.prod';
 import {FormComponent} from './form/form.component';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
-import {ToastService} from '../../utils/toast/toast.service';
+import {ToastService} from "../../shared/services/toast.service";
 
 @Component({
   selector: 'app-liturgical-year',
@@ -74,7 +74,7 @@ export class LiturgicalYearComponent implements OnInit {
     dl.afterClosed().subscribe((response: any) => {
       if (response) {
         this.loadData(this.page, this.size, this.queryString);
-        this.toast.show('Financial Year created successfully!');
+        this.toast.success('Success!','Financial Year created successfully!');
       }
     });
   }
@@ -92,7 +92,7 @@ export class LiturgicalYearComponent implements OnInit {
         this.liturgicalYearService.delete(row.id)
           .subscribe((response) => {
             this.loadData(this.page, this.size, this.queryString);
-            this.toast.show('Financial Year deleted successfully!');
+            this.toast.success('Success!','Financial Year deleted successfully!');
           });
       }
     });
@@ -131,7 +131,7 @@ export class LiturgicalYearComponent implements OnInit {
       if (result.value) {
         this.liturgicalYearService.activate(financialYear).subscribe((response) => {
           this.loadData(this.page, this.size, this.queryString);
-          this.toast.show('Financial Year activated successfully!');
+          this.toast.success('Success!','Financial Year activated successfully!');
         });
       }
     });
@@ -149,7 +149,7 @@ export class LiturgicalYearComponent implements OnInit {
       if (result.value) {
         this.liturgicalYearService.setPlanningLiturgicalYear(id).subscribe((response) => {
           this.loadData(this.page, this.size, this.queryString);
-          this.toast.show('Planning Year Set successfully!');
+          this.toast.success('Success!','Planning Year Set successfully!');
         });
       }
     });

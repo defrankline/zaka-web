@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CustomResponse} from '../../utils/custom-response';
+import {CustomResponse} from "../../shared/custom-response";
 import {Observable} from 'rxjs';
 import {LiturgicalYear} from './liturgical-year';
 import {environment} from '../../../environments/environment.prod';

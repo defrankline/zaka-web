@@ -9,7 +9,7 @@ import {AccountSubType} from '../../account-sub-type/account-sub-type';
 import {AccountTypeService} from '../../account-type/account-type.service';
 import {AccountType} from '../../account-type/account-type';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ToastService} from '../../../utils/toast/toast.service';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-account-group-form',
@@ -56,7 +56,7 @@ export class AccountGroupFormComponent implements OnInit {
     this.accountTypeService.getAll().subscribe((response) => {
       this.accountTypes = response.data;
     }, error => {
-      this.toast.show('LedgerAccount Type could not be loaded!');
+      this.toast.success('Success!','LedgerAccount Type could not be loaded!');
     });
   }
 
@@ -64,7 +64,7 @@ export class AccountGroupFormComponent implements OnInit {
     this.accountSubTypeService.getAll('_', accountType.id).subscribe((response) => {
       this.accountSubTypes = response.data;
     }, error => {
-      this.toast.show('LedgerAccount Sub-Type could not be loaded!');
+      this.toast.success('Success!','LedgerAccount Sub-Type could not be loaded!');
     });
   }
 
@@ -100,7 +100,7 @@ export class AccountGroupFormComponent implements OnInit {
         .subscribe(response => {
           this.dialogRef.close(response);
         }, error => {
-          this.toast.show(error.error.message);
+          this.toast.success('Success!',error.error.message);
         });
     } else {
       this.loading = true;
@@ -109,7 +109,7 @@ export class AccountGroupFormComponent implements OnInit {
         .subscribe(response => {
           this.dialogRef.close(response);
         }, error => {
-          this.toast.show('Account Group could not be updated!');
+          this.toast.success('Success!','Account Group could not be updated!');
         });
     }
   }

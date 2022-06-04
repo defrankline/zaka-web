@@ -1,4 +1,4 @@
-import {User} from '../../user-management/user';
+import {User} from "../../user-management/user/user";
 
 export interface Notification {
   id: number;

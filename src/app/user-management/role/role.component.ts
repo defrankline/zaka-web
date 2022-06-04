@@ -4,8 +4,8 @@ import {environment} from '../../../environments/environment.prod';
 import {Role} from './role';
 import {BehaviorSubject, Observable} from 'rxjs';
 import Swal from 'sweetalert2';
-import {ToastService} from '../../utils/toast/toast.service';
 import {Router} from '@angular/router';
+import {ToastService} from "../../shared/services/toast.service";
 
 @Component({
   selector: 'app-role',
@@ -59,7 +59,7 @@ export class RoleComponent implements OnInit {
         this.roleService.delete(role.id)
           .subscribe((response) => {
             this.loadData(this.page, this.size);
-            this.toast.show(response.message);
+            this.toast.success('Success!',response.message);
           });
       }
     });

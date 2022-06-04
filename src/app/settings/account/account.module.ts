@@ -4,7 +4,7 @@ import {AccountService} from './account.service';
 import {AccountFormComponent} from './account-form/account-form.component';
 import {AccountRoutingModule} from './account-routing.module';
 import {AccountListComponent} from './account-list/account-list.component';
-import {SharedModule} from '../../utils/shared.module';
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   declarations: [AccountFormComponent, AccountListComponent],

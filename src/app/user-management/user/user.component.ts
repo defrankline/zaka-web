@@ -96,7 +96,7 @@ export class UserComponent implements OnInit {
         this.userService.delete(user.id)
           .subscribe((response) => {
             this.loadData(this.activatedHierarchy.id, this.queryString, this.page, this.size);
-            this.toast.show(response.message);
+            this.toast.success('Success!', response.message);
           });
       }
     });
@@ -115,7 +115,7 @@ export class UserComponent implements OnInit {
     dl.afterClosed().subscribe((response: CustomResponse) => {
       if (response) {
         this.loadData(this.activatedHierarchy.id, this.queryString, this.page, this.size);
-        this.toast.show(response);
+        this.toast.success('Success!', response.message);
       }
     });
   }
@@ -155,7 +155,7 @@ export class UserComponent implements OnInit {
     dl.afterClosed().subscribe((response: CustomResponse) => {
       if (response) {
         this.loadData(this.activatedHierarchy.id, this.queryString, this.page, this.size);
-        this.toast.show(response);
+        this.toast.success('Success', response.message);
       }
     });
   }

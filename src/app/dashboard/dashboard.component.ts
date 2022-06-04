@@ -1,84 +1,54 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../auth/auth.service';
-import {User, UserBelongingDto, UserBelongingWrapperDto, UserService} from '../user-management/user';
-import {DashboardService} from './dashboard.service';
-import {NgxPermissionsService} from 'ngx-permissions';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {MyLoanComponent} from './my-loan/my-loan.component';
 import {BehaviorSubject, Observable} from 'rxjs';
+import {DashboardStatDto} from './dashboard-stat';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {Router} from '@angular/router';
+import {ToastService} from "../shared/services/toast.service";
+import {CustomResponse} from "../shared/custom-response";
+import {DivisionService} from "../settings/division/division.service";
+import {FormComponent} from "../income-and-expenditure/contribution-payment/form/form.component";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  templateUrl: 'dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
+  statSubject: BehaviorSubject<DashboardStatDto[]> = new BehaviorSubject([]);
 
-  userSubject: BehaviorSubject<User> = new BehaviorSubject(null);
+  constructor(private divisionService: DivisionService,
+              private toast: ToastService,
+              private router: Router,
+              private dialog: MatDialog) {
 
-  constructor(private storageService: AuthService,
-              private dashboardService: DashboardService,
-              private userService: UserService,
-              private dialog: MatDialog,
-              private ngxPermissionService: NgxPermissionsService) {
   }
 
   ngOnInit(): void {
-    this.loadData();
+    this.loadStats();
   }
 
-  loadData(): void {
-    this.ngxPermissionService.hasPermission(['ROLE_USER']).then(hasPermission => {
-      if (hasPermission) {
-        this.loadMemberDashboard();
-      }
+  loadStats(): void {
+    this.divisionService.dashboardStat().subscribe(response => {
+      this.statSubject.next(response.data);
     });
   }
 
-  loadMemberDashboard(): void {
-    this.userService.currentUser().subscribe(response => {
-      this.userSubject.next(response.data);
-    });
+  getStats(): Observable<DashboardStatDto[]> {
+    return this.statSubject.asObservable();
   }
 
-  getUserData(): Observable<User> {
-    return this.userSubject.asObservable();
-  }
-
-  links(items: UserBelongingWrapperDto[], data: string): UserBelongingDto[] {
-    const shares = items.filter((book: UserBelongingWrapperDto) => book.label === data) as UserBelongingWrapperDto[];
-    return shares[0].items as UserBelongingDto[];
-  }
-
-  viewLoansByProductId(loanProductId: number): void {
-    const data = {
-      id: loanProductId,
-    };
+  contributionForm(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '99%';
-    dialogConfig.data = data;
-    this.dialog.open(MyLoanComponent, dialogConfig);
+    dialogConfig.width = '60%';
+    const dl = this.dialog.open(FormComponent, dialogConfig);
+    dl.afterClosed().subscribe((response: CustomResponse) => {
+      if (response) {
+        this.toast.success('Success', response.message);
+      }
+    }, error => this.toast.error('Error', error.error.message));
   }
 
-  viewSharesByTypeId(shareTypeId: number): void {
-
-  }
-
-  viewSavingsByTypeId(savingTypeId: number): void {
-
-  }
-
-  viewDepositsByTypeId(depositTypeId: number): void {
-
-  }
-
-  viewOtherContributionsByTypeId(contributionTypeId: number): void {
-
-  }
-
-  total(items: UserBelongingDto[]): number {
-    return items.map(t => t.amount).reduce((acc, value) => acc + value, 0);
+  parishioners(): void {
+    this.router.navigate(['/parishioner-management/parishioners']);
   }
 }

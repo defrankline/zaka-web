@@ -4,8 +4,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {LiturgicalYearService} from '../liturgical-year.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ToastService} from '../../../utils/toast/toast.service';
 import {finalize} from 'rxjs/operators';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-form',
@@ -47,7 +47,7 @@ export class FormComponent implements OnInit {
     this.liturgicalYearService.getAll().subscribe((response) => {
       this.liturgicalYears = response.data;
     }, error => {
-      this.toast.show('Liturgical Years could not be loaded!');
+      this.toast.success('Success!','Liturgical Years could not be loaded!');
     });
   }
 
@@ -85,7 +85,7 @@ export class FormComponent implements OnInit {
         .subscribe(response => {
           this.dialogRef.close(response);
         }, error => {
-          this.toast.show(error.error.message);
+          this.toast.success('Success!',error.error.message);
         });
     } else {
       this.loading = true;
@@ -95,7 +95,7 @@ export class FormComponent implements OnInit {
           this.dialogRef.close(response);
         }, error => {
 
-          this.toast.show('Liturgical Year could not be updated!',);
+          this.toast.success('Success!','Liturgical Year could not be updated!',);
         });
     }
   }

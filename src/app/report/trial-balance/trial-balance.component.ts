@@ -8,7 +8,7 @@ import {AccountService} from '../../settings/account/account.service';
 import {LiturgicalYear} from '../../settings/liturgical-year/liturgical-year';
 import {LiturgicalYearService} from '../../settings/liturgical-year/liturgical-year.service';
 import {UserService} from '../../user-management/user/user.service';
-import {ToastService} from '../../utils/toast';
+import {ToastService} from "../../shared/services/toast.service";
 
 @Component({
   selector: 'app-trial-balance',
@@ -39,7 +39,7 @@ export class TrialBalanceComponent implements OnInit {
     this.accountService.getAccountsWithBalance().subscribe((response) => {
       this.accountListSubject.next(response.data);
     }, error => {
-      this.toast.show('Oops! Data Could Not be loaded!');
+      this.toast.success('Success!','Oops! Data Could Not be loaded!');
     });
   }
 
@@ -101,7 +101,7 @@ export class TrialBalanceComponent implements OnInit {
     this.userService.currentUser().subscribe((response) => {
       this.user = response.data;
     }, error => {
-      this.toast.show('Oops! Company Details could not be loaded!');
+      this.toast.success('Success!','Oops! Company Details could not be loaded!');
     });
   }
 
@@ -109,7 +109,7 @@ export class TrialBalanceComponent implements OnInit {
     this.financialYearService.currentLiturgicalYear().subscribe((response) => {
       this.financialYear = response.data;
     }, error => {
-      this.toast.show('Oops! Current Year not be loaded!');
+      this.toast.success('Success!','Oops! Current Year not be loaded!');
     });
   }
 

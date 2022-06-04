@@ -4,7 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ReminderCategory} from '../reminder-category';
 import {ReminderCategoryService} from '../reminder-category.service';
 import {LedgerAccount} from '../../account/ledger-account';
-import {ToastService} from '../../../utils/toast';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-form',
@@ -64,7 +64,7 @@ export class FormComponent implements OnInit {
       .subscribe(response => {
         this.dialogRef.close(response);
       }, error => {
-        this.toast.show('Reminder Category could not be updated!');
+        this.toast.success('Success!','Reminder Category could not be updated!');
       });
   }
 
@@ -73,7 +73,7 @@ export class FormComponent implements OnInit {
       .subscribe(response => {
         this.dialogRef.close(response);
       }, error => {
-        this.toast.show(error.error.message);
+        this.toast.success('Success!',error.error.message);
       });
   }
 

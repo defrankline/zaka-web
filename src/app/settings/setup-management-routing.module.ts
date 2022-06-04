@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AuthGuard} from '../interceptors/auth.guard';
 import {SetupManagementComponent} from './setup-management.component';
+import {AuthGuard} from "../auth/auth.guard";
 
 const routes: Routes = [
   {
@@ -39,12 +39,6 @@ const routes: Routes = [
     data: {
       title: 'Fund Sources & Expense Codes', breadcrumb: 'Fund Sources & Expense Codes',
     },
-  },
-  {
-    path: 'default-ledger-accounts',
-    loadChildren: () => import('./default-account/default-account.module').then(m => m.DefaultAccountModule),
-    data: {title: 'Default Ledger Accounts'},
-    canActivate: [AuthGuard]
   },
   {
     path: 'payment-methods',

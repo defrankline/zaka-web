@@ -18,16 +18,6 @@ const routes: Routes = [
         loadChildren: () => import(`./login/login.module`).then(m => m.LoginModule),
         data: {title: 'Login', breadcrumb: 'Login', preload: false},
       },
-      {
-        path: 'register',
-        loadChildren: () => import(`./register/register.module`).then(m => m.RegisterModule),
-        data: {title: 'Register', breadcrumb: 'Register', preload: false},
-      },
-      {
-        path: 'change-password',
-        loadChildren: () => import(`./change-password/change-password.module`).then(m => m.ChangePasswordModule),
-        data: {title: 'Change Password', breadcrumb: 'Change Password', preload: false},
-      },
     ],
     canActivate: [],
   },

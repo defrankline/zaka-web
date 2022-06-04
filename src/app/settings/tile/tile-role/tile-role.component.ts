@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ToastService} from '../../../utils/toast/toast.service';
 import {RoleService} from '../../../user-management/role/role.service';
 import {TileRoleService} from './tile-role.service';
 import {environment} from '../../../../environments/environment.prod';
@@ -11,6 +10,7 @@ import Swal from 'sweetalert2';
 import {TileService} from '../tile.service';
 import {Tile} from '../tile';
 import {FormControl, Validators} from '@angular/forms';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-tile-role',
@@ -90,7 +90,7 @@ export class TileRoleComponent implements OnInit {
         this.tileRoleService.delete(tileRole.id)
           .subscribe((response) => {
             this.loadData(this.tileId, this.page, this.size);
-            this.toast.show(response.message);
+            this.toast.success('Success!',response.message);
           });
       }
     });
@@ -104,7 +104,7 @@ export class TileRoleComponent implements OnInit {
     this.tileRoleService.store(payload).subscribe(response => {
       this.showForm = false;
       this.loadData(this.tileId, this.page, this.size);
-      this.toast.show(response.message);
+      this.toast.success('Success!',response.message);
     });
   }
 

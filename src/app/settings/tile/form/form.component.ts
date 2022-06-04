@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ToastService} from '../../../utils/toast/toast.service';
 import {TileService} from '../tile.service';
 import {Tile} from '../tile';
 import {RoleService} from '../../../user-management/role/role.service';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-form',
@@ -75,13 +75,13 @@ export class FormComponent implements OnInit {
     tile.parent = parent;
     if (this.id === 0) {
       this.tileService.store(tile).subscribe(response => {
-        this.toast.show(response.message);
+        this.toast.success('Success!',response.message);
         this.close();
       });
     } else {
       tile.id = this.id;
       this.tileService.update(tile).subscribe(response => {
-        this.toast.show(response.message);
+        this.toast.success('Success!',response.message);
         this.close();
       });
     }

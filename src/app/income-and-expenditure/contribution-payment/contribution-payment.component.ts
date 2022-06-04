@@ -7,10 +7,9 @@ import Swal from 'sweetalert2';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
 import {ITreeOptions} from '@circlon/angular-tree-component';
 import {Division, DivisionTree} from '../../settings/division/division';
-import {ToastService} from '../../utils/toast';
 import {DivisionService} from '../../settings/division/division.service';
 import {Router} from '@angular/router';
-import {CustomResponse} from '../../utils/custom-response';
+import {CustomResponse} from "../../shared/custom-response";
 import {UploadComponent} from './upload/upload.component';
 import {ContributionPayment} from './contribution-payment';
 import {ContributionPaymentService} from './contribution-payment.service';
@@ -19,6 +18,7 @@ import {saveAs} from 'file-saver';
 import {DatePipe} from '@angular/common';
 import {Contribution} from '../../settings/contribution-setup/contribution';
 import {ContributionService} from '../../settings/contribution-setup/contribution.service';
+import {ToastService} from "../../shared/services/toast.service";
 
 
 @Component({
@@ -113,7 +113,7 @@ export class ContributionPaymentComponent implements OnInit {
         this.contributionPaymentService.delete(user.id)
           .subscribe((response) => {
             this.loadData(this.activatedHierarchy.id, this.queryString, this.page, this.size, this.start, this.end, this.products);
-            this.toast.show(response.message);
+            this.toast.success('Success!',response.message);
           });
       }
     });
@@ -128,7 +128,7 @@ export class ContributionPaymentComponent implements OnInit {
     dl.afterClosed().subscribe((response: CustomResponse) => {
       if (response) {
         this.loadData(this.activatedHierarchy.id, this.queryString, this.page, this.size, this.start, this.end, this.products);
-        this.toast.show(response.message);
+        this.toast.success('Success!',response.message);
       }
     });
   }
@@ -159,7 +159,7 @@ export class ContributionPaymentComponent implements OnInit {
     dl.afterClosed().subscribe((response: CustomResponse) => {
       if (response) {
         this.loadData(this.activatedHierarchy.id, this.queryString, this.page, this.size, this.start, this.end, this.products);
-        this.toast.show(response.message);
+        this.toast.success('Success!',response.message);
       }
     });
   }
@@ -167,7 +167,7 @@ export class ContributionPaymentComponent implements OnInit {
   print(item: ContributionPayment): void {
     this.contributionPaymentService.printReceipt(item.id).subscribe(response => {
       saveAs(new Blob([response], {type: 'application/pdf'}), Date.now() + '-payment-receipt.pdf');
-    }, error => this.toast.show('Error', error.error.message));
+    }, error => this.toast.success('Success!','Error', error.error.message));
   }
 
   filterByDateRange(): void {

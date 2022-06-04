@@ -1,5 +1,4 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {MemberRegistrationRequest} from './member-registration-request';
 import {ApiConfig} from "../shared";
 
 export abstract class CrudService<T = any> {
@@ -73,16 +72,6 @@ export abstract class CrudService<T = any> {
     let response = null;
     try {
       response = await this.http.post(`${ApiConfig.url}/auth/validateCurrentUserOtp`, {password, otpnum}).toPromise();
-    } catch (error) {
-      response = this.errorHandler('POST', error);
-    }
-    return response;
-  }
-
-  public async signUp(data: MemberRegistrationRequest): Promise<any> {
-    let response = null;
-    try {
-      response = await this.http.post(`${ApiConfig.url}/auth/memberRegistration`, data).toPromise();
     } catch (error) {
       response = this.errorHandler('POST', error);
     }

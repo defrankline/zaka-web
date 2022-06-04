@@ -13,7 +13,7 @@ import {User} from '../user';
 import {UserRole} from '../user-role';
 import {UserRoleService} from '../user-role.service';
 import {environment} from '../../../../environments/environment.prod';
-import {ToastService} from '../../../utils/toast/toast.service';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-user-role-list',
@@ -103,9 +103,9 @@ export class UserRoleListComponent implements OnInit, OnDestroy {
       .subscribe(response => {
         const items = this.userRoleListSubject.getValue();
         items.push(response.data);
-        this.toast.show('Role Granted Successfully!');
+        this.toast.success('Success!','Role Granted Successfully!');
       }, error => {
-        this.toast.show(error.error.message);
+        this.toast.success('Success!',error.error.message);
       });
   }
 
@@ -123,7 +123,7 @@ export class UserRoleListComponent implements OnInit, OnDestroy {
           .subscribe((response) => {
             const items = this.userRoleListSubject.getValue();
             items.splice(index, 1);
-            this.toast.show('UserRole deleted successfully!');
+            this.toast.success('Success!','UserRole deleted successfully!');
           });
       }
     });

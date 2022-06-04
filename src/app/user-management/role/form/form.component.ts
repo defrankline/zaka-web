@@ -3,7 +3,7 @@ import {Role} from '../role';
 import {FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RoleService} from '../role.service';
-import {ToastService} from '../../../utils/toast/toast.service';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-form',
@@ -44,7 +44,7 @@ export class FormComponent implements OnInit {
         name: this.nameControl.value
       } as Role;
       this.roleService.store(payload).subscribe(response => {
-        this.toast.show(response.message);
+        this.toast.success('Success!',response.message);
         this.close();
       });
     } else {
@@ -53,7 +53,7 @@ export class FormComponent implements OnInit {
         name: this.nameControl.value
       } as Role;
       this.roleService.update(payload).subscribe(response => {
-        this.toast.show(response.message);
+        this.toast.success('Success!',response.message);
         this.close();
       });
     }

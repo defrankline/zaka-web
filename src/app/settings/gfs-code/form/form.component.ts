@@ -7,7 +7,7 @@ import {GfsCode} from '../gfs-code';
 import {GfsCodeService} from '../gfs-code.service';
 import {AccountService} from '../../account/account.service';
 import {LedgerAccount} from '../../account/ledger-account';
-import {ToastService} from '../../../utils/toast/toast.service';
+import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
   selector: 'app-form',
@@ -133,7 +133,7 @@ export class FormComponent implements OnInit {
         .subscribe(response => {
           this.dialogRef.close(response);
         }, error => {
-          this.toast.show(error.error.message);
+          this.toast.success('Success!',error.error.message);
         });
     } else {
       this.loading = true;
@@ -143,7 +143,7 @@ export class FormComponent implements OnInit {
         .subscribe(response => {
           this.dialogRef.close(response);
         }, error => {
-          this.toast.show(error.error.message);
+          this.toast.success('Success!',error.error.message);
         });
     }
   }

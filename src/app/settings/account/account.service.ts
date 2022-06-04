@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {LedgerAccount} from './ledger-account';
 import {environment} from '../../../environments/environment.prod';
-import {CustomResponse} from '../../utils/custom-response';
+import {CustomResponse} from "../../shared/custom-response";
 
 @Injectable({
   providedIn: 'root'
