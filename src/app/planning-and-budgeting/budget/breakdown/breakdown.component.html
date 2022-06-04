@@ -1,0 +1,100 @@
+<mat-card class="mat-elevation-z0" *ngIf="budget">
+  <mat-card-title>
+    <mat-toolbar>
+      <span>
+      {{budget.company?.name}} | {{budget.type}} | {{budget.financialYear?.name}}
+    </span>
+      <span class="custom-spacer"></span>
+      <button mat-icon-button color="primary" (click)="print()">
+        <mat-icon>picture_as_pdf</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" type="button" (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+  </mat-card-title>
+  <mat-card-content>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>{{'item'|translate}}</th>
+          <th>{{'code'|translate}}</th>
+          <th><span class="pull-right">{{'last-year-projection'|translate}}</span></th>
+          <th><span class="pull-right">{{'last-year-actual'|translate}}</span></th>
+          <th><span class="pull-right">{{'current-year-projection'|translate}}</span></th>
+          <th><span class="pull-right">{{'current-year-actual'|translate}}</span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th colspan="7"><h6><strong>{{'revenue-projection'|translate}}</strong></h6></th>
+        </tr>
+        <tr *ngFor="let revenueProjection of revenueProjections;let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{revenueProjection.name}}</td>
+          <td>{{revenueProjection.code}}</td>
+          <td><span class="pull-right">{{revenueProjection.lastYearBudget|number:'.2'}}</span></td>
+          <td><span class="pull-right">{{revenueProjection.lastYearActual|number:'.2'}}</span></td>
+          <td><span class="pull-right">{{revenueProjection.currentYearBudget|number:'.2'}}</span></td>
+          <td><span class="pull-right">{{revenueProjection.currentYearActual|number:'.2'}}</span></td>
+        </tr>
+        <tr>
+          <th colspan="3"><h6><strong>{{'total-revenue-projection'|translate}}</strong></h6></th>
+          <th><span class="pull-right">{{totalLastYearRevenueProjection()|number:'.2'}}</span></th>
+          <th><span class="pull-right">{{totalLastYearActualRevenue()|number:'.2'}}</span></th>
+          <th><span class="pull-right">{{totalCurrentYearRevenueProjection()|number:'.2'}}</span></th>
+          <th><span class="pull-right">{{totalCurrentYearActualRevenue()|number:'.2'}}</span></th>
+        </tr>
+        <tr>
+          <th colspan="7"><h6><strong>{{'expenditure-estimates'|translate}}</strong></h6></th>
+        </tr>
+        <tr *ngFor="let expenditureEstimate of expenditureEstimates;let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{expenditureEstimate.name}}</td>
+          <td>{{expenditureEstimate.code}}</td>
+          <td><span class="pull-right">{{expenditureEstimate.lastYearBudget|number:'.2'}}</span></td>
+          <td>
+            <span class="pull-right text-info" (click)="expenditureDetail(expenditureEstimate,'LAST_YEAR')">
+            {{expenditureEstimate.lastYearActual|number:'.2'}}
+            </span>
+          </td>
+          <td><span class="pull-right">{{expenditureEstimate.currentYearBudget|number:'.2'}}</span></td>
+          <td><span class="pull-right text-info"
+                    (click)="expenditureDetail(expenditureEstimate,'CURRENT_YEAR')">{{expenditureEstimate.currentYearActual|number:'.2'}}</span>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="3"><h6><strong>{{'total-expenditure-estimates'|translate}}</strong></h6></th>
+          <th><span class="pull-right">{{totalLastYearExpenditureEstimates()|number:'.2'}}</span></th>
+          <th><span class="pull-right">{{totalLastYearActualExpenditure()|number:'.2'}}</span></th>
+          <th><span class="pull-right">{{totalCurrentYearExpenditureEstimates()|number:'.2'}}</span></th>
+          <th><span class="pull-right">{{totalCurrentYearActualExpenditure()|number:'.2'}}</span></th>
+        </tr>
+        <tr>
+          <th colspan="7"><h6><strong>{{'extra-ordinary-revenue-sources'|translate}}</strong></h6></th>
+        </tr>
+        <tr *ngFor="let extraOrdinaryRevenue of extraOrdinaryRevenueProjections;let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{extraOrdinaryRevenue.name}}</td>
+          <td>{{extraOrdinaryRevenue.code}}</td>
+          <td><span class="pull-right">{{extraOrdinaryRevenue.lastYearBudget|number:'.2'}}</span></td>
+          <td><span class="pull-right">{{extraOrdinaryRevenue.lastYearActual|number:'.2'}}</span></td>
+          <td><span class="pull-right">{{extraOrdinaryRevenue.currentYearBudget|number:'.2'}}</span></td>
+          <td><span class="pull-right">{{extraOrdinaryRevenue.currentYearActual|number:'.2'}}</span></td>
+        </tr>
+        <tr>
+          <th colspan="3"><h6>{{'total-extra-ordinary-revenue-sources'|translate}}</h6></th>
+          <th><span class="pull-right">{{totalLastYearExtraOrdinaryRevenueProjection()|number:'.2'}}</span></th>
+          <th><span class="pull-right">{{totalLastYearActualExtraOrdinaryRevenue()|number:'.2'}}</span></th>
+          <th><span class="pull-right">{{totalCurrentYearExtraOrdinaryRevenueProjection()|number:'.2'}}</span></th>
+          <th><span class="pull-right">{{totalCurrentYearActualExtraOrdinaryRevenue()|number:'.2'}}</span></th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+

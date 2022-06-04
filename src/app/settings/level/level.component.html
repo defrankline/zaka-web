@@ -1,0 +1,47 @@
+<div class="card" *ngIf="getItems()|async as data">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-9">
+        <strong>Hierarchy</strong> Levels
+      </div>
+      <div class="col-md-3">
+        <div class="float-right">
+          <button class="btn text-primary" (click)="create()"><i class="fa fa-plus"></i> Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered table-striped table-sm">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Manage</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of data">
+        <td>{{item.name}}</td>
+        <td>{{item.position}}</td>
+        <td>
+          <button type="button" class="btn btn-info" (click)="edit(item)">
+            <i class="fa fa-edit"></i>&nbsp;Edit
+          </button>
+          <button type="button" class="btn btn-warning" (click)="delete(item)"><i
+            class="fa fa-remove"></i>&nbsp;Delete
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <nav>
+      <pagination [boundaryLinks]="true"
+                  [directionLinks]="true"
+                  [totalItems]="totalItems"
+                  [itemsPerPage]="size"
+                  [maxSize]="maxSize"
+                  (pageChanged)="pageChanged($event)"></pagination>
+    </nav>
+  </div>
+</div>

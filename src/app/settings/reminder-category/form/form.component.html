@@ -1,0 +1,39 @@
+<form (ngSubmit)="store(formGroup.value)" [formGroup]="formGroup" novalidate>
+  <h6 mat-dialog-title>
+    <mat-toolbar role="toolbar" class="dialog-header">
+      <span>{{title|translate}}</span>
+      <span class="fx-spacer"></span>
+      <button mat-icon-button color="warn" type="button" (click)="close()">
+        <mat-icon mat-list-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+  </h6>
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'name'|translate}}</mat-label>
+          <input matInput placeholder="{{'name'|translate}}" name="name" formControlName="name" required>
+          <mat-error *ngIf="!formGroup.get('name').valid && formGroup.get('name').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'code'|translate}}</mat-label>
+          <input matInput placeholder="{{'code'|translate}}" name="code" formControlName="code" required>
+          <mat-error *ngIf="!formGroup.get('code').valid && formGroup.get('code').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="my-3 justify-content-end">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid">
+      <mat-icon>save</mat-icon>
+      {{'save'|translate}}
+    </button>
+  </div>
+</form>

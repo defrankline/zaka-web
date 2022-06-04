@@ -1,0 +1,181 @@
+<div [class.dark-theme]="isDark"> <!-- ? we're wrapping whole content in a div, to handle dark/light theme -->
+  <mat-toolbar [color]="themeColor">
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <span class="app-title">
+        <img class="logo-title img-thumbnail" *ngIf="logo" [src]="logo" alt="{{'logo'|translate}}">
+        <span *ngxPermissionsExcept="roles">{{user?.data?.currentUserDto?.user?.company?.name}}</span>
+        <span *ngxPermissionsOnly="roles">{{user?.data?.currentUserDto?.user?.adminHierarchy?.name}} </span>
+    </span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button (click)="toggleTheme()" matTooltip="Toggle dark theme">
+      <mat-icon>
+        brightness_6
+      </mat-icon>
+    </button>
+
+    <!-- ? below menu will help us change the color at run-time. -->
+
+   <!-- <button mat-button [matMenuTriggerFor]="menu" class="menu-button" matTooltip="Select a theme color">
+      {{ themeColor }}
+    </button>
+
+    <ng-template #noRadio>
+      radio_button_unchecked
+    </ng-template>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="themeColor = 'primary'">
+        <mat-icon [color]="themeColor === 'primary' ? 'primary' : 'no-color'">
+          <ng-container *ngIf="themeColor === 'primary'; else noRadio">radio_button_checked</ng-container>
+        </mat-icon>
+        Primary
+      </button>
+      <button mat-menu-item (click)="themeColor = 'warn'">
+        <mat-icon [color]="themeColor === 'warn' ? 'warn' : 'no-color'">
+          <ng-container *ngIf="themeColor === 'warn'; else noRadio">radio_button_checked</ng-container>
+        </mat-icon>
+        Warn
+      </button>
+      <button mat-menu-item (click)="themeColor = 'accent'">
+        <mat-icon [color]="themeColor === 'accent' ? 'accent' : 'no-color'">
+          <ng-container *ngIf="themeColor === 'accent'; else noRadio">radio_button_checked</ng-container>
+        </mat-icon>
+        Accent
+      </button>
+    </mat-menu>-->
+
+    <!--language-->
+    <button mat-icon-button [matMenuTriggerFor]="language" matTooltip="Language" aria-label="Language">
+      <mat-icon svgIcon="translate"></mat-icon>
+    </button>
+    <span class="item-spacer-right"></span>
+    <app-notification></app-notification>
+    <span class="item-spacer-right"></span>
+    <mat-menu #language="matMenu">
+      <button mat-menu-item (click)="translate('en')">
+        <mat-icon svgIcon="uk"></mat-icon>
+        <span>English</span>
+      </button>
+      <button mat-menu-item (click)="translate('sw')">
+        <mat-icon svgIcon="tanzania"></mat-icon>
+        <span>Swahili</span>
+      </button>
+    </mat-menu>
+    <!--end language-->
+
+    <!-- profile menu button and menu section -->
+    <button mat-icon-button [matMenuTriggerFor]="profile" matTooltip="Logged In User Profile"
+            aria-label="Profile Dropdown">
+      <img *ngIf="profilePhoto" [src]="profilePhoto" alt="{{'photo'|translate}}" class="rounded-circle" width="30px"/>
+    </button>
+    <span class="item-spacer-right"></span>
+    <mat-menu #profile="matMenu">
+      <div class="current-user text-muted">
+        Signed in as <br/> {{ user?.data?.currentUserDto?.user?.email }}
+      </div>
+      <mat-divider></mat-divider>
+      <div class="mx-3 my-3">
+        <span class="text-muted">Assigned Roles</span>
+        <mat-chip-list aria-label="Role selection">
+          <mat-chip *ngFor="let chip of user?.data?.currentUserDto?.user?.roles">{{chip.name}}</mat-chip>
+        </mat-chip-list>
+      </div>
+      <mat-divider></mat-divider>
+      <!-- messages -->
+      <button mat-menu-item>
+        <mat-icon>mail</mat-icon>
+        <span>Messages</span>
+      </button>
+
+      <!-- profile button -->
+      <button mat-menu-item *ngxPermissionsExcept="['ROLE_MOBILE_SERVICE_PROVIDER']" routerLink="/app/self-service/my-profile">
+        <mat-icon>account_circle</mat-icon>
+        <span>Profile</span>
+      </button>
+
+      <!-- logout button -->
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>lock</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+    <!-- end of profile menu section -->
+
+  </mat-toolbar>
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side">
+      <div class="sidenav-content">
+        <div class="sidenav-item">
+          <div class="my-2 mx-2 justify-content-end">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()">
+              <mat-icon aria-label="Side nav toggle icon">close</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="sidenav-item item-logo">
+          <div *ngxPermissionsExcept="roles">
+            <img  *ngIf="profilePhoto" [src]="logo" alt="{{user?.data?.currentUserDto?.user?.company?.name}}" class="rounded-circle"
+                  width="100px"/>
+          </div>
+          <div *ngxPermissionsOnly="roles">
+            <img  *ngIf="profilePhoto" src="assets/imgs/coat_arms.png" alt="{{user?.data?.currentUserDto?.user?.adminHierarchy?.name}}" class="rounded-circle"
+                  width="100px"/>
+          </div>
+        </div>
+        <div class="sidenav-item item-logo">
+          <h6 class="text-muted">
+            <strong>
+            <span
+              *ngxPermissionsExcept="roles">{{user?.data?.currentUserDto?.user?.company?.name}}
+              <br />(Speedy Finances Reg. No.: {{user?.data?.currentUserDto?.user?.company?.number}})
+            </span>
+              <span
+                *ngxPermissionsOnly="roles">{{user?.data?.currentUserDto?.user?.adminHierarchy?.name}} </span>
+            </strong>
+          </h6>
+        </div>
+        <div class="route-loader" *ngIf="{ loading: loading$ | async } as route">
+          <mat-progress-bar *ngIf="route.loading" color="accent" mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div class="sidenav-item my-4">
+          <button mat-button *ngxPermissionsOnly="['ROLE_USER']" color="primary" (click)="downloadLedgerNew()" matTooltip="Download My Ledger">
+            <mat-icon>picture_as_pdf</mat-icon> My Ledger
+          </button>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="sidenav-item my-4">
+          <mat-accordion *ngIf="getMenu()|async as menu" class="mat-elevation-z0">
+            <mat-expansion-panel class="mat-elevation-z0" *ngFor="let tile of menu" (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false" [hideToggle]="tile.children.length === 0">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span style="font-size: 18px;">{{tile.title|translate}}</span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-nav-list>
+                <ng-container *ngIf="tile.children.length > 0">
+                  <a *ngFor="let item of tile.children"
+                     mat-list-item
+                     [routerLink]="'/app/'+tile.link+'/'+item.link"
+                     routerLinkActive="list-item-active">
+                    {{item.title|translate}}
+                  </a>
+                </ng-container>
+              </mat-nav-list>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <div class="sidenav-item push-item">
+          <mat-divider></mat-divider>
+          <app-footer></app-footer>
+        </div>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <app-breadcrumb [loading]="loading$"></app-breadcrumb>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

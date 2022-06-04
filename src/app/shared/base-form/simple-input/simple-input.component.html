@@ -1,0 +1,7 @@
+<mat-form-field appearance="outline" class="material-form">
+  <mat-label>{{label}}</mat-label>
+  <input [type]="type" matInput [formControl]="formControl" [placeholder]="placeholder" [required]="isRequired"/>
+  <mat-error *ngIf="formControl.invalid && formControl.touched">
+    {{errorMsg}}
+  </mat-error>
+</mat-form-field>

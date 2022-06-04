@@ -1,0 +1,59 @@
+<div class="card border-primary mb-3">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-9">
+        <strong>Tile</strong> Form
+      </div>
+      <div class="col-md-3">
+        <div class="float-right">
+          <button class="btn text-danger" (click)="close()"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <form action="" method="post" class="form-horizontal"  (ngSubmit)="save(formGroup.value)" [formGroup]="formGroup">
+      <div class="form-group row">
+        <div class="col-md-4">
+          <label for="nf-name">Name</label>
+          <input type="email" id="nf-name" name="nf-name" class="form-control" placeholder="Name" formControlName="name" autocomplete="off">
+          <span class="help-block text-danger" *ngIf="formGroup.get('name').invalid && formGroup.get('name').touched">Please enter tile name</span>
+        </div>
+        <div class="col-md-4">
+          <label for="nf-name">Url</label>
+          <input type="email" id="nf-url" name="nf-url" class="form-control" placeholder="Url" formControlName="url" autocomplete="off">
+          <span class="help-block text-danger" *ngIf="formGroup.get('url').invalid && formGroup.get('url').touched">Please enter tile url</span>
+        </div>
+        <div class="col-md-2">
+          <label for="nf-name">Icon</label>
+          <input type="email" id="nf-icon" name="nf-icon" class="form-control" placeholder="Icon" formControlName="icon" autocomplete="off">
+          <span class="help-block text-danger" *ngIf="formGroup.get('icon').invalid && formGroup.get('icon').touched">Please enter tile icon</span>
+        </div>
+        <div class="col-md-2">
+          <label for="nf-name">Sort Order</label>
+          <input type="email" id="nf-sort-order" name="nf-sort-order" class="form-control" placeholder="Sort Order" formControlName="sortOrder" autocomplete="off">
+          <span class="help-block text-danger" *ngIf="formGroup.get('sortOrder').invalid && formGroup.get('sortOrder').touched">Please enter tile icon</span>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-4">
+          <label for="parent">Parent</label>
+          <select class="form-control" id="parent" formControlName="parent">
+            <option [ngValue]="null" *ngIf="!formGroup.get('parent').value" selected>-Select-</option>
+            <option
+              [ngValue]="parent.id === formGroup.get('parent').value?.id? formGroup.get('parent').value:parent"
+              *ngFor="let parent of parents" ngValue="parent">{{parent.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-12">
+         <div class="float-right">
+           <button type="submit" [disabled]="formGroup.invalid" (keyup.enter)="save(formGroup.value)" class="btn btn-sm btn-primary">
+             <i class="fa fa-dot-circle-o"></i> Save</button>
+         </div>
+       </div>
+      </div>
+    </form>
+  </div>
+</div>

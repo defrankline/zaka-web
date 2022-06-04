@@ -1,0 +1,57 @@
+<form (ngSubmit)="store(formGroup.value)" [formGroup]="formGroup" novalidate>
+  <h6 mat-dialog-title>
+    <mat-toolbar role="toolbar" class="dialog-header">
+      <span>{{'payment-method-setup-form'|translate}}</span>
+      <span class="fx-spacer"></span>
+      <button mat-icon-button color="warn" type="button" (click)="close()">
+        <mat-icon mat-list-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+  </h6>
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Name" name="name" formControlName="name" required>
+      <mat-error *ngIf="!formGroup.get('name').valid && formGroup.get('name').touched">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Code" formControlName="code" required>
+      <mat-error *ngIf="!formGroup.get('code').valid && formGroup.get('code').touched">
+        Code is required
+      </mat-error>
+    </mat-form-field>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-icon matPrefix>search</mat-icon>
+          <mat-label>{{'account'|translate}}</mat-label>
+          <input matInput autocomplete="off" placeholder="Search ..." [matAutocomplete]="auto" required
+                 [formControl]="accountControl"/>
+          <mat-error *ngIf="accountControl.invalid && accountControl.touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayAccount">
+          <mat-option *ngIf="isLoading" class="is-loading">
+            <mat-spinner diameter="50"></mat-spinner>
+          </mat-option>
+          <ng-container *ngIf="!isLoading">
+            <mat-option *ngFor="let account of accounts" [value]="account">
+              <span>{{account.number}} - {{account.name}}</span>
+            </mat-option>
+          </ng-container>
+        </mat-autocomplete>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="my-3 justify-content-end">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
+  </div>
+  <div mat-dialog-actions *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</form>

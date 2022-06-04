@@ -1,0 +1,71 @@
+<h6 mat-dialog-title>{{user.cardNumber}} - {{user.firstName}} {{user.surname}}</h6>
+<div mat-dialog-content *ngIf="getUserRoles()|async">
+  <form (ngSubmit)="grant(formGroup.value)" [formGroup]="formGroup" novalidate>
+    <div class="row">
+      <div class="col-8">
+        <mat-form-field appearance="outline">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role">
+            <mat-option *ngIf="!formGroup.get('role').value" [value]="null" aria-selected="true"></mat-option>
+            <mat-option
+              [value]="role.id === formGroup.get('role').value?.role?.id ? formGroup.get('role').value:role"
+              *ngFor="let role of roles" value="role">
+              {{ role.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="!formGroup.get('role').valid && formGroup.get('role').touched">
+            Role is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <button mat-raised-button color="primary" type="submit"
+                [disabled]="!formGroup.valid">
+          <mat-icon>save</mat-icon>
+          Add Role
+        </button>
+      </div>
+    </div>
+  </form>
+  <table mat-table [dataSource]="getUserRoles()">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let row;let i = index">{{i + 1}}</td>
+    </ng-container>
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef>Role</th>
+      <td mat-cell *matCellDef="let row">{{row.role.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="revoke">
+      <th mat-header-cell *matHeaderCellDef>Revoke</th>
+      <td mat-cell *matCellDef="let row;let i = index">
+       <span class="d-none d-lg-block d-xl-block">
+              <button type="button" (click)="revoke(i,row)" class="btn btn-outline-danger m-1">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </span>
+        <span class="d-lg-none d-xl-none">
+                <button mat-icon-button color="warn" (click)="revoke(i,row)" title="Delete">
+                  <mat-icon>delete_outline</mat-icon>
+                </button>
+            </span>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [length]="totalItems" (page)="pageChanged($event)" [pageSizeOptions]="perPageOptions"
+                 [pageIndex]="page"
+                 [pageSize]="size"></mat-paginator>
+</div>
+<div mat-dialog-actions class="my-3 justify-content-end">
+  <button mat-raised-button mat-dialog-close>
+    <mat-icon>close</mat-icon>
+    Close
+  </button>
+</div>
+<div mat-dialog-actions *ngIf="loading">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>

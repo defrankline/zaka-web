@@ -1,0 +1,11 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{label}}</mat-label>
+  <mat-select [formControl]="formControl" [required]="isRequired">
+    <mat-option *ngFor="let item of items" [value]="item">
+      {{item}}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="formControl.hasError('required') && formControl.touched">
+    {{errorMsg}}
+  </mat-error>
+</mat-form-field>

@@ -1,0 +1,113 @@
+<form (ngSubmit)="store(formGroup.value)" [formGroup]="formGroup" novalidate>
+  <h6 mat-dialog-title>
+    <mat-toolbar role="toolbar" class="dialog-header">
+      <span>{{title|translate}}</span>
+      <span class="fx-spacer"></span>
+      <button mat-icon-button color="warn" type="button" (click)="close()">
+        <mat-icon mat-list-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+  </h6>
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'account-type'|translate}}</mat-label>
+          <mat-select formControlName="accountType" (selectionChange)="loadAccountSubTypes($event.value)" required>
+            <mat-option *ngIf="!formGroup.get('accountType').value" [value]="null" aria-selected="true"></mat-option>
+            <mat-option
+              [value]="accountType.id === formGroup.get('accountGroup').value?.accountSubType?.accountType?.id ? formGroup.get('accountType').value:accountType"
+              *ngFor="let accountType of accountTypes; trackBy: trackAccountTypeId" value="accountType">
+              {{ accountType.code }} - {{ accountType.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="!formGroup.get('accountType').valid && formGroup.get('accountType').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'account-sub-type'|translate}}</mat-label>
+          <mat-select formControlName="accountSubType" (selectionChange)="loadAccountGroups($event.value)">
+            <mat-option *ngIf="!formGroup.get('accountSubType').value" [value]="null" aria-selected="true"></mat-option>
+            <mat-option
+              [value]="accountSubType.id === formGroup.get('accountGroup').value.accountSubType?.id? formGroup.get('accountSubType').value:accountSubType"
+              *ngFor="let accountSubType of accountSubTypes; trackBy: trackAccountSubTypeId" value="accountSubType">
+              {{ accountSubType.code }} - {{ accountSubType.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="!formGroup.get('accountSubType').valid && formGroup.get('accountSubType').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'account-group'|translate}}</mat-label>
+          <mat-select formControlName="accountGroup">
+            <mat-option *ngIf="!formGroup.get('accountGroup').value" [value]="null" aria-selected="true"></mat-option>
+            <mat-option
+              [value]="accountGroup.id === formGroup.get('accountGroup').value?.id? formGroup.get('accountGroup').value:accountGroup"
+              *ngFor="let accountGroup of accountGroups; trackBy: trackAccountGroupId" value="accountGroup">
+              {{ accountGroup.newCode }} - {{ accountGroup.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="!formGroup.get('accountGroup').valid && formGroup.get('accountGroup').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'account-name'|translate}}</mat-label>
+          <input matInput placeholder="{{'account-name'|translate}}" name="name" formControlName="name" required>
+          <mat-error *ngIf="!formGroup.get('name').valid && formGroup.get('name').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'account-number'|translate}}</mat-label>
+          <input matInput placeholder="{{'account-number'|translate}}" name="number" formControlName="number" required>
+          <mat-error *ngIf="!formGroup.get('number').valid && formGroup.get('number').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+   <!-- <div class="row">
+      <div class="col-6">
+        <mat-checkbox color="primary" [checked]="formGroup.get('overdraft').value===true"
+                      formControlName="overdraft">{{'overdraft'|translate}}</mat-checkbox>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'current-balance'|translate}}</mat-label>
+          <input matInput placeholder="{{'current-balance'|translate}}" name="balance" formControlName="balance" required>
+          <mat-error *ngIf="!formGroup.get('balance').valid && formGroup.get('balance').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>-->
+  </div>
+  <div mat-dialog-actions class="my-3 justify-content-end">
+    <button mat-raised-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+      {{'close'|translate}}
+    </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid">
+      <mat-icon>save</mat-icon>
+      {{'save'|translate}}
+    </button>
+  </div>
+  <div mat-dialog-actions *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</form>

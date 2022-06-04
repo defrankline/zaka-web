@@ -1,0 +1,195 @@
+<div class="row" *ngxPermissionsOnly="['ROLE_MOBILE_SERVICE_PROVIDER']">
+  <div class="col">
+    <app-portal></app-portal>
+  </div>
+</div>
+<div class="row" *ngxPermissionsOnly="['ROLE_LOAN_OFFICER','ROLE_LOAN_ACCOUNTANT','ROLE_MANAGER','ROLE_ADMIN','ROLE_SACCOS_ADMIN']">
+  <div class="col">
+    <div class="container-fluid">
+      <mat-card class="mat-elevation-z0">
+        <mat-card-content>
+          <div class="row">
+            <div class="col" *ngxPermissionsOnly="['ROLE_MANAGER','ROLE_ADMIN','ROLE_SACCOS_ADMIN']">
+              <div class="alert alert-primary">
+                <button mat-flat-button [routerLink]="'/app/share-management/shares'">{{'shares'|translate}}</button>
+              </div>
+            </div>
+            <div class="col"
+                 *ngxPermissionsOnly="['ROLE_LOAN_ACCOUNTANT', 'ROLE_MANAGER','ROLE_ADMIN','ROLE_SACCOS_ADMIN']">
+              <div class="alert alert-primary">
+                <button mat-flat-button [routerLink]="'/app/savings-and-deposits/savings'">{{'savings'|translate}}</button>
+              </div>
+            </div>
+            <div class="col" *ngxPermissionsOnly="['ROLE_LOAN_ACCOUNTANT','ROLE_MANAGER','ROLE_ADMIN','ROLE_SACCOS_ADMIN']">
+              <div class="alert alert-success">
+                <button mat-flat-button
+                        [routerLink]="'/app/savings-and-deposits/deposits'">{{'deposits'|translate}}</button>
+              </div>
+            </div>
+            <div class="col" *ngxPermissionsOnly="['ROLE_MANAGER','ROLE_ADMIN','ROLE_SACCOS_ADMIN']">
+              <div class="alert alert-danger">
+                <button mat-flat-button
+                        [routerLink]="'/app/income-and-expenditure/expenses'">{{'expenses'|translate}}</button>
+              </div>
+            </div>
+            <div class="col" *ngxPermissionsOnly="['ROLE_LOAN_OFFICER','ROLE_MANAGER','ROLE_ADMIN','ROLE_SACCOS_ADMIN']">
+              <div class="alert alert-info">
+                <button mat-flat-button
+                        [routerLink]="'/app/loan-management/loan-registry'">{{'loan-registry'|translate}}</button>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div class="row" *ngxPermissionsOnly="['ROLE_USER']">
+  <div class="col">
+    <div class="container-fluid" *ngIf="getUserData()|async as user">
+      <div class="content justify-content-center" fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="33%">
+          <mat-card class="mat-elevation-z0">
+            <mat-card-title>
+              <mat-toolbar color="primary"><span>{{'my-shares'|translate}}</span></mat-toolbar>
+            </mat-card-title>
+            <mat-card-content>
+              <table class="table table-striped table-bordered table-sm">
+                <thead>
+                <th>{{'share'|translate}}</th>
+                <th>{{'amount'|translate}}</th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let link of links(user.belongings,'Hisa')" (click)="viewSharesByTypeId(link.id)">
+                  <td>{{link.label}}</td>
+                  <td>{{link.amount|number:'.2'}}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>{{'total'|translate}}</th>
+                  <th>{{total(links(user.belongings, 'Hisa'))|number:'.2'}}</th>
+                </tr>
+                </tfoot>
+              </table>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="33%">
+          <mat-card class="mat-elevation-z0">
+            <mat-card-title>
+              <mat-toolbar color="primary"><span>{{'my-savings'|translate}}</span></mat-toolbar>
+            </mat-card-title>
+            <mat-card-content>
+              <table class="table table-striped table-bordered table-sm">
+                <thead>
+                <th>{{'saving'|translate}}</th>
+                <th>{{'amount'|translate}}</th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let link of links(user.belongings,'Akiba')" (click)="viewSavingsByTypeId(link.id)">
+                  <td>{{link.label}}</td>
+                  <td>{{link.amount|number:'.2'}}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>{{'total'|translate}}</th>
+                  <th>{{total(links(user.belongings, 'Akiba'))|number:'.2'}}</th>
+                </tr>
+                </tfoot>
+              </table>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="33%">
+          <mat-card class="mat-elevation-z0">
+            <mat-card-title>
+              <mat-toolbar color="accent"><span>{{'my-deposits'|translate}}</span></mat-toolbar>
+            </mat-card-title>
+            <mat-card-content>
+              <div class="table-responsive-sm">
+                <table class="table table-striped table-bordered table-sm">
+                  <thead>
+                  <th>{{'deposit'|translate}}</th>
+                  <th>{{'amount'|translate}}</th>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let link of links(user.belongings,'Amana')" (click)="viewDepositsByTypeId(link.id)">
+                    <td>{{link.label}}</td>
+                    <td>{{link.amount|number:'.2'}}</td>
+                  </tr>
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>{{'total'|translate}}</th>
+                    <th>{{total(links(user.belongings, 'Amana'))|number:'.2'}}</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="33%">
+          <mat-card class="mat-elevation-z0">
+            <mat-card-title>
+              <mat-toolbar color="accent"><span>{{'my-other-contributions'|translate}}</span></mat-toolbar>
+            </mat-card-title>
+            <mat-card-content>
+              <div class="table-responsive-sm">
+                <table class="table table-striped table-bordered table-sm">
+                  <thead>
+                  <th>{{'contribution'|translate}}</th>
+                  <th>{{'amount'|translate}}</th>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let link of links(user.belongings,'Michango')" (click)="viewOtherContributionsByTypeId(link.id)">
+                    <td>{{link.label}}</td>
+                    <td>{{link.amount|number:'.2'}}</td>
+                  </tr>
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>{{'total'|translate}}</th>
+                    <th>{{'total'|translate}}: {{total(links(user.belongings, 'Michango'))|number:'.2'}}</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="33%">
+          <mat-card class="mat-elevation-z0">
+            <mat-card-title>
+              <mat-toolbar color="warn"><span>{{'my-loans'|translate}}</span></mat-toolbar>
+            </mat-card-title>
+            <mat-card-content>
+              <div class="table-responsive-sm">
+                <table class="table table-striped table-bordered table-sm">
+                  <thead>
+                  <th>{{'loan'|translate}}</th>
+                  <th>{{'amount'|translate}}</th>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let link of links(user.belongings,'Mkopo')" (click)="viewLoansByProductId(link.id)">
+                    <td>{{link.label}}</td>
+                    <td>{{link.amount|number:'.2'}}</td>
+                  </tr>
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>{{'total'|translate}}</th>
+                    <th>{{total(links(user.belongings, 'Mkopo'))|number:'.2'}}</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="subtoolbar-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-10">
+        <ol class="breadcrumb">
+          <li *ngFor="let breadcrumb of breadcrumbs">
+            <span [routerLink]="breadcrumb.url" routerLinkActive="router-link-active">
+              {{ breadcrumb.label }}
+            </span>
+          </li>
+        </ol>
+      </div>
+      <div class="col-md-2">
+        <app-clock></app-clock>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="route-loader" *ngIf="{ loading: loading | async } as route">
+  <mat-progress-bar *ngIf="route.loading" color="accent" mode="indeterminate"></mat-progress-bar>
+</div>

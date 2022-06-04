@@ -1,0 +1,65 @@
+<mat-card class="mat-elevation-z0">
+  <mat-card-title>
+    <mat-toolbar>
+      <span>{{plan?.name}} {{plan?.financialYear?.name}}</span>
+      <span class="custom-spacer"></span>
+      <button mat-button color="primary" (click)="create()" matTooltip="Projection">
+        <mat-icon>list</mat-icon> Projection
+      </button>
+      <button mat-button color="primary" (click)="print()" matTooltip="Print">
+        <mat-icon>picture_as_pdf</mat-icon> Print
+      </button>
+      <button mat-button color="accent" (click)="close()" matTooltip="Close">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+  </mat-card-title>
+  <mat-card-content>
+    <div class="mat-elevation-z0" *ngIf="getItems()|async as objectives">
+      <mat-card class="mat-elevation-z0" *ngFor="let objective of objectives">
+        <mat-card-title>
+          <mat-toolbar>
+            <span>Msingi: {{objective.code}} - {{objective.name}}</span>
+          </mat-toolbar>
+        </mat-card-title>
+        <mat-card-content>
+          <mat-card class="mat-elevation-z0" *ngFor="let target of objective.targets">
+            <mat-card-title>Lengo: {{target.code}} - {{target.description}}</mat-card-title>
+            <mat-card-content>
+              <div class="table-responsive">
+                <table class="table table-sm table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Mkakati</th>
+                    <th>Kazi</th>
+                    <th>Viashiria vya utekelezaji</th>
+                    <th>Chanzo cha fedha</th>
+                    <th>Nambari ya kasima</th>
+                    <th>Kasima</th>
+                    <th>Makadirio ya mwaka uliopita</th>
+                    <th>Hali halisi ya mwaka uliopita</th>
+                    <th>Makadirio ya mwaka huu</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of target.items">
+                    <td>{{item.strategy}}</td>
+                    <td>{{item.activity}}</td>
+                    <td>{{item.implementationIndicator}}</td>
+                    <td>{{item.fundSource}}</td>
+                    <td>{{item.inputCode}}</td>
+                    <td>{{item.inputName}}</td>
+                    <td>{{0}}</td>
+                    <td>{{0}}</td>
+                    <td>{{item.amount}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,21 @@
+<h6 mat-dialog-title>
+  <mat-toolbar role="toolbar" class="dialog-header">
+    <span>{{title}}</span>
+    <span class="fx-spacer"></span>
+    <button mat-icon-button color="warn" *ngIf="headerActions.length===1" type="button"
+            (click)="emit({action:headerActions[0].action, data:null})" matTooltip="{{headerActions[0].label}}">
+      <mat-icon color="{{headerActions[0].color}}">{{headerActions[0].icon}}</mat-icon>
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="headerActions.length > 1"
+            aria-label="Menu icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" *ngIf="headerActions.length > 1">
+      <button mat-menu-item *ngFor="let headerAction of headerActions" type="button"
+              (click)="emit({action:headerAction.action, data:null})">
+        <mat-icon color="{{headerAction.color}}">{{headerAction.icon}}</mat-icon>
+        {{ headerAction.label }}
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+</h6>

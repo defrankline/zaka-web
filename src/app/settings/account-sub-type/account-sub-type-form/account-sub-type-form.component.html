@@ -1,0 +1,45 @@
+<form (ngSubmit)="store(formGroup.value)" [formGroup]="formGroup" novalidate>
+  <h6 mat-dialog-title>{{'create'|translate}}</h6>
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'account-type'|translate}}</mat-label>
+      <mat-select formControlName="accountType" required>
+        <mat-option *ngIf="!formGroup.get('accountType').value" [value]="null" aria-selected="true"></mat-option>
+        <mat-option
+          [value]="accountType.id === formGroup.get('accountType').value?.id? formGroup.get('accountType').value:accountType"
+          *ngFor="let accountType of accountTypes; trackBy: trackAccountTypeId" value="accountType">
+          {{ accountType.code }} - {{ accountType.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!formGroup.get('accountType').valid && formGroup.get('accountType').touched">
+        {{'required'|translate}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'name'|translate}}</mat-label>
+      <input matInput placeholder="{{'name'|translate}}" name="name" formControlName="name" required>
+      <mat-error *ngIf="!formGroup.get('name').valid && formGroup.get('name').touched">
+        {{'required'|translate}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="{{'code'|translate}}" formControlName="code" required>
+      <mat-error *ngIf="!formGroup.get('code').valid && formGroup.get('code').touched">
+        {{'code'|translate}}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions class="my-3 justify-content-end">
+    <button mat-raised-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+      {{'close'|translate}}
+    </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid">
+      <mat-icon>save</mat-icon>
+      {{'save'|translate}}
+    </button>
+  </div>
+  <div mat-dialog-actions *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</form>

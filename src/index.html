@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Speedy Finances</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="assets/js/jquery-3.4.1.slim.min.js"></script>
+  <script src="assets/js/sockjs.min.js"></script>
+  <script src="assets/js/stomp.min.js"></script>
+  <script src="assets/js/notification.js"></script>
+  <script>
+    if (global === undefined) {
+      var global = window;
+    }
+  </script>
+  <style>
+    .loader {
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #27ae60;
+      width: 120px;
+      height: 120px;
+      position: absolute;
+      left: 45%;
+      top: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+  <!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LJ148X6E9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-4LJ148X6E9');
+  </script>-->
+</head>
+
+<body class="mat-typography">
+<app-root>
+  <div class="loader"></div>
+</app-root>
+</body>
+</html>
+

@@ -1,0 +1,118 @@
+<form (ngSubmit)="store(formGroup.value)" [formGroup]="formGroup" novalidate>
+  <h6 mat-dialog-title>
+    <mat-toolbar role="toolbar" class="dialog-header">
+      <span>{{'contribution-setup-form'|translate}}</span>
+      <span class="fx-spacer"></span>
+      <button mat-icon-button color="warn" type="button" (click)="close()">
+        <mat-icon mat-list-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+  </h6>
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-icon matPrefix>search</mat-icon>
+          <mat-label>{{'gfs-code'|translate}}</mat-label>
+          <input matInput autocomplete="off" placeholder="Search ..." [matAutocomplete]="auto" required
+                 [formControl]="gfsCodeControl"/>
+          <mat-error *ngIf="gfsCodeControl.invalid && gfsCodeControl.touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayGfsCode">
+          <mat-option *ngIf="isLoading" class="is-loading">
+            <mat-spinner diameter="50"></mat-spinner>
+          </mat-option>
+          <ng-container *ngIf="!isLoading">
+            <mat-option *ngFor="let gfsCode of gfsCodes" [value]="gfsCode">
+              <span>{{gfsCode.code}} - {{gfsCode.name}}</span>
+            </mat-option>
+          </ng-container>
+        </mat-autocomplete>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'name'|translate}}</mat-label>
+          <input matInput placeholder="{{'name'|translate}}" name="name" formControlName="name" required>
+          <mat-error *ngIf="!formGroup.get('name').valid && formGroup.get('name').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'number'|translate}}</mat-label>
+          <input matInput placeholder="{{'number'|translate}}" name="number" formControlName="number" required>
+          <mat-error *ngIf="!formGroup.get('number').valid && formGroup.get('number').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'start-date'|translate}}</mat-label>
+          <input matInput [matDatepicker]="startDatePicker" placeholder="{{'start-date'|translate}}" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #startDatePicker></mat-datepicker>
+          <mat-error *ngIf="!formGroup.get('startDate').valid && formGroup.get('startDate').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'end-date'|translate}}</mat-label>
+          <input matInput [matDatepicker]="endDatePicker" [min]="formGroup.get('startDate').value" placeholder="{{'end-date'|translate}}"
+                 formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #endDatePicker></mat-datepicker>
+          <mat-error *ngIf="!formGroup.get('endDate').valid && formGroup.get('endDate').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'minimum-amount'|translate}}</mat-label>
+      <input matInput  type="number" placeholder="{{'minimum-amount'|translate}}" name="number" formControlName="minAmount" [min]="0" required>
+      <mat-error *ngIf="!formGroup.get('minAmount').valid && formGroup.get('minAmount').touched">
+        {{'required'|translate}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'year'|translate}}</mat-label>
+      <mat-select formControlName="year" required>
+        <mat-option *ngIf="!formGroup.get('year').value" [value]="null" aria-selected="true"></mat-option>
+        <mat-option
+          [value]="year.id === formGroup.get('year').value?.id? formGroup.get('year').value:year"
+          *ngFor="let year of years; trackBy: trackLiturgicalYearId" value="year">
+          {{ year.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!formGroup.get('year').valid && formGroup.get('year').touched">
+        {{'required'|translate}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'message'|translate}}</mat-label>
+      <input matInput  type="text" placeholder="{{'message'|translate}}" name="message" formControlName="message" required>
+      <mat-error *ngIf="!formGroup.get('message').valid && formGroup.get('message').touched">
+        {{'required'|translate}}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions class="my-3 justify-content-end">
+    <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid || gfsCodeControl.invalid">
+      <mat-icon>save</mat-icon>
+      {{'save'|translate}}
+    </button>
+  </div>
+  <div mat-dialog-actions *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</form>

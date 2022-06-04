@@ -1,0 +1,112 @@
+<mat-card class="mat-elevation-z0" *ngIf="getItems()|async as data">
+  <mat-card-title>
+    <mat-toolbar>
+      <span>{{'parishioners'|translate}}</span>
+      <span class="custom-spacer"></span>
+      <button mat-button color="primary" (click)="createOrUpdate()"
+              matTooltip="Create">
+        <mat-icon svgIcon="add"></mat-icon>
+      </button>
+      <button mat-button color="primary" (click)="upload()"
+              matTooltip="Upload">
+        <mat-icon svgIcon="upload"></mat-icon>
+      </button>
+    </mat-toolbar>
+  </mat-card-title>
+  <mat-card-content>
+    <div class="row">
+      <div class="col-3">
+        <div class="row">`
+          <div class="col">
+            <input id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" class="form-control"
+                   placeholder="Search Hierarchy"/>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-md-12">
+            <tree-root #tree [options]="options" (activate)="select($event)" [nodes]="nodes"></tree-root>
+          </div>
+        </div>
+      </div>
+      <div class="col-9" *ngIf="activatedHierarchy">
+        <div class="mat-elevation-z0">
+          <h3 class="card-header">{{activatedHierarchy.name}}</h3>
+          <mat-form-field appearance="outline">
+            <input matInput [formControl]="searchControl" placeholder="Filter">
+          </mat-form-field>
+          <table mat-table [dataSource]="data">
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td mat-cell *matCellDef="let row;let i = index">{{i + 1}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="firstName">
+              <th mat-header-cell *matHeaderCellDef>{{'first-name'|translate}}</th>
+              <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="middleName">
+              <th mat-header-cell *matHeaderCellDef>{{'middle-name'|translate}}</th>
+              <td mat-cell *matCellDef="let row">{{row.middleName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="surname">
+              <th mat-header-cell *matHeaderCellDef>{{'surname'|translate}}</th>
+              <td mat-cell *matCellDef="let row">{{row.surname}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="number">
+              <th mat-header-cell *matHeaderCellDef>{{'card-number'|translate}}</th>
+              <td mat-cell *matCellDef="let row">{{row.cardNumber}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="division">
+              <th mat-header-cell *matHeaderCellDef>{{'location'|translate}}</th>
+              <td mat-cell *matCellDef="let row">{{row.division?.name}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="mobile">
+              <th mat-header-cell *matHeaderCellDef>{{'mobile'|translate}}</th>
+              <td mat-cell *matCellDef="let row">{{row.mobile}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef>{{'username'|translate}}</th>
+              <td mat-cell *matCellDef="let row">{{row.username}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="manage">
+              <th mat-header-cell *matHeaderCellDef>{{'action-and-status'|translate}}</th>
+              <td mat-cell *matCellDef="let row;let i = index">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="More Options">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="roles(row)">
+                    <mat-icon color="primary" svgIcon="list"></mat-icon>
+                    <span>{{'roles'|translate}}</span>
+                  </button>
+                  <button mat-menu-item (click)="createOrUpdate(row)">
+                    <mat-icon color="primary" svgIcon="edit"></mat-icon>
+                    <span>{{'edit'|translate}}</span>
+                  </button>
+                  <button mat-menu-item (click)="delete(row)">
+                    <mat-icon color="warn" svgIcon="delete"></mat-icon>
+                    <span>{{'delete'|translate}}</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [length]="totalItems" (page)="pageChanged($event)" [pageSizeOptions]="perPageOptions"
+                         [pageIndex]="page" showFirstLastButtons
+                         [pageSize]="size"></mat-paginator>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+

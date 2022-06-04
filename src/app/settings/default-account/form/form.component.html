@@ -1,0 +1,46 @@
+<form (ngSubmit)="store(formGroup.value)" [formGroup]="formGroup" novalidate>
+  <h6 mat-dialog-title>
+    <mat-toolbar role="toolbar" class="dialog-header">
+      <span>{{title|translate}}</span>
+      <span class="fx-spacer"></span>
+      <button mat-icon-button color="warn" type="button" (click)="close()">
+        <mat-icon mat-list-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+  </h6>
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <mat-label>Key</mat-label>
+      <input matInput placeholder="Key" name="key" formControlName="key" required>
+      <mat-error *ngIf="!formGroup.get('key').valid && formGroup.get('key').touched">
+        Key is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>search</mat-icon>
+      <mat-label>{{'account'|translate}}</mat-label>
+      <input matInput placeholder="{{'account'|translate}}" (keyup)="filter($event.target.value)" [matAutocomplete]="auto"
+             formControlName='account'>
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <ng-container *ngIf="!isLoading">
+        <mat-option *ngFor="let account of filteredAccounts" [value]="account">
+          {{ account.number }} - {{ account.name }}
+        </mat-option>
+      </ng-container>
+    </mat-autocomplete>
+  </div>
+  <div mat-dialog-actions class="my-3 justify-content-end">
+    <button mat-raised-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+      Cancel
+    </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
+  </div>
+  <div mat-dialog-actions *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</form>

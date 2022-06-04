@@ -1,0 +1,34 @@
+<div class="card border-primary mb-3">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-9">
+        <strong>Hierarchy Level</strong> Form
+      </div>
+      <div class="col-md-3">
+        <div class="float-right">
+          <button class="btn text-danger" (click)="close()"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="form-group">
+      <label class="form-col-form-label" for="name">Name</label>
+      <input type="text" class="form-control" (keyup.enter)="save()" [formControl]="nameControl" id="name">
+      <div class="invalid-feedback">Name is required</div>
+    </div>
+    <div class="form-group">
+      <label class="form-col-form-label" for="name">Position</label>
+      <input type="text" class="form-control" (keyup.enter)="save()" [formControl]="positionControl" id="position">
+      <div class="invalid-feedback">Position is required</div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="float-right">
+      <button type="button" (click)="save()" (keyup.enter)="save()"
+              [disabled]="positionControl.invalid || nameControl.invalid" class="btn btn-sm btn-primary"><i
+        class="fa fa-dot-circle-o"></i> Save
+      </button>
+    </div>
+  </div>
+</div>

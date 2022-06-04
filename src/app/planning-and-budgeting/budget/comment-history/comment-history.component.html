@@ -1,0 +1,21 @@
+<h6 mat-dialog-title>
+  <mat-toolbar role="toolbar" class="dialog-header">
+    <span>
+      {{budget.company?.name}} | {{budget.type}} | {{budget.financialYear?.name}}
+    </span>
+    <span class="fx-spacer"></span>
+    <button mat-icon-button color="warn" type="button" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>
+</h6>
+<div mat-dialog-content>
+  <mat-list>
+    <div mat-subheader>{{'comments'|translate}}</div>
+    <mat-list-item *ngFor="let item of getItems()|async">
+      <mat-icon>folder</mat-icon>
+      <div mat-line>{{item.comment}}</div>
+      <div mat-line> {{item.commentTime}} </div>
+    </mat-list-item>
+  </mat-list>
+</div>

@@ -1,0 +1,64 @@
+<mat-card class="mat-elevation-z0">
+  <mat-card-title>
+    <mat-toolbar>
+      <span>{{title}}</span>
+      <span class="custom-spacer"></span>
+      <button mat-button *ngIf="headerActions.length===1"
+              (click)="emit({action:headerActions[0].action, data:null})"
+              matTooltip="{{headerActions[0].label}}">
+        <mat-icon color="{{headerActions[0].color}}">{{headerActions[0].icon}}</mat-icon>
+        {{headerActions[0].label}}
+      </button>
+      <button mat-icon-button [matMenuTriggerFor]="menu"
+              *ngIf="headerActions.length > 1" aria-label="Menu icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" *ngIf="headerActions.length > 1">
+          <button mat-menu-item *ngFor="let headerAction of headerActions"
+                  (click)="emit({action:headerAction.action, data:null})">
+            <mat-icon color="{{headerAction.color}}">{{headerAction.icon}}</mat-icon>
+            {{ headerAction.label }}
+          </button>
+      </mat-menu>
+    </mat-toolbar>
+  </mat-card-title>
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+      <ng-container *ngFor="let col of tableCols; let i = index" [matColumnDef]="col.key">
+        <th mat-header-cell *matHeaderCellDef>{{ tableCols[i]["display"] }}</th>
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngIf="!col.config; else hasConfig">
+            {{ element[col.key] }}
+          </ng-container>
+          <ng-template #hasConfig>
+            <ng-container *ngIf="col.config.boolean">
+              {{ showBooleanValue(element, col) }}
+            </ng-container>
+
+            <ng-container *ngIf="col.config.isDate">
+              {{ element[col.key] | date: col.config.format }}
+            </ng-container>
+            <ng-container *ngIf="col.config.isAction">
+              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="More Options">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngFor="let action of col.config.actions"
+                        (click)="emit({action:action.action, data:element})">
+                  <mat-icon color="{{action.color}}">{{action.icon}}</mat-icon>
+                  {{ action.label }}
+                </button>
+              </mat-menu>
+
+            </ng-container>
+          </ng-template>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="keys"></tr>
+      <tr mat-row *matRowDef="let row; columns: keys"></tr>
+    </table>
+    <mat-paginator [length]="totalItems" (page)="pageChanged($event)"
+                   [pageSizeOptions]="perPageOptions" showFirstLastButtons [pageIndex]="page"
+                   [pageSize]="size"></mat-paginator>
+  </mat-card-content>
+</mat-card>

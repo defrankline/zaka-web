@@ -1,0 +1,20 @@
+<div class="content justify-content-center" fxLayout="row wrap" fxLayoutGap="16px grid">
+  <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="25%" *ngFor="let tile of tiles">
+    <mat-card class="mat-elevation-z4 matcard clickable" [routerLink]="'/app/'+parent+'/'+tile.link">
+      <mat-card-content>
+        <mat-icon svgIcon="{{tile.icon}}"></mat-icon>
+        <h6>{{ tile.title|translate }}</h6>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+<h6 mat-dialog-title>Attachment</h6>
+<mat-dialog-content>
+  <div *ngIf="attachment" class="full-height">
+    <img [src]="attachment" height="100%"/>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="my-3 justify-content-end">
+  <button mat-raised-button class="float-right mt-3" (click)="closeDialog()">
+    Close
+  </button>
+  <button mat-raised-button color="primary" class="float-right mt-3" (click)="print()">
+    Print
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,109 @@
+<form (ngSubmit)="store(formGroup.value)" [formGroup]="formGroup" novalidate>
+  <h6 mat-dialog-title>
+    <mat-toolbar role="toolbar" class="dialog-header">
+      <span>Hierarchy Form</span>
+      <span class="fx-spacer"></span>
+      <button mat-icon-button color="warn" type="button" (click)="close()">
+        <mat-icon mat-list-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+  </h6>
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <mat-label>Level</mat-label>
+      <mat-select (selectionChange)="loadParents($event.value)" formControlName="level" required>
+        <mat-option *ngIf="!formGroup.get('level').value" [value]="null" aria-selected="true"></mat-option>
+        <mat-option
+          [value]="level.id === formGroup.get('level').value?.id? formGroup.get('level').value:level"
+          *ngFor="let level of hierarchyLevels; trackBy: trackLevelId" value="level">
+          {{ level.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!formGroup.get('level').valid && formGroup.get('level').touched">
+        Level is required
+      </mat-error>
+    </mat-form-field>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Name" autocomplete="off" name="name" formControlName="name" required>
+          <mat-error *ngIf="!formGroup.get('name').valid && formGroup.get('name').touched">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col">
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Parent</mat-label>
+          <mat-select formControlName="parent">
+            <mat-option *ngIf="!formGroup.get('parent').value" [value]="null" aria-selected="true"></mat-option>
+            <mat-option
+              [value]="parent.id === formGroup.get('parent').value?.id? formGroup.get('parent').value:parent"
+              *ngFor="let parent of parents; trackBy: trackParentId" value="parent">
+              {{ parent.number }} - {{ parent.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>SMS</mat-label>
+          <input matInput placeholder="smsCount" autocomplete="off" name="smsCount" type="number" [min]="0" formControlName="smsCount">
+          <mat-error *ngIf="formGroup.get('smsCount').hasError('min')">
+            Minimum SMS Count should be zero
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Mobile</mat-label>
+          <input matInput placeholder="mobile" autocomplete="off" name="mobile" formControlName="mobile">
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Telephone</mat-label>
+          <input matInput placeholder="telephone" autocomplete="off" name="telephone" formControlName="telephone">
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="email" autocomplete="off" name="email" formControlName="email">
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Postal Address</mat-label>
+          <input matInput placeholder="Post Address" autocomplete="off" name="postalAddress" formControlName="postalAddress">
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Street</mat-label>
+      <input matInput placeholder="Street" autocomplete="off" name="location" formControlName="location">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Payment Instruction</mat-label>
+      <input matInput placeholder="Payment Instruction" autocomplete="off" name="location" formControlName="paymentInstruction">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Letter Head</mat-label>
+      <input matInput placeholder="Letter Head" autocomplete="off" name="letterHead" formControlName="letterHead">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions class="my-3 justify-content-end">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
+  </div>
+</form>

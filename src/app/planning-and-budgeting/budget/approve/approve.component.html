@@ -1,0 +1,22 @@
+<h6 mat-dialog-title>
+  <mat-toolbar role="toolbar" class="dialog-header">
+    <span>{{'budget-approval-form'|translate}}</span>
+    <span class="fx-spacer"></span>
+    <button mat-icon-button color="warn" type="button" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>
+</h6>
+<div mat-dialog-content>
+  <div class="custom-file mb-3">
+    <input type="file" placeholder="Receipt" aria-label="Document" aria-describedby="path" [formControl]="registrarApprovalDocumentControl"
+           accept=".pdf"
+           (change)="onFileChange($event)" id="registrarApprovalDocumentControl" name="registrarApprovalDocumentControl">
+  </div>
+</div>
+<div mat-dialog-actions class="my-3 justify-content-end">
+  <button mat-raised-button color="primary" type="button" (click)="store()" [disabled]="!registrarApprovalDocumentControl.valid">
+    <mat-icon>check</mat-icon>
+    {{'approve'|translate}}
+  </button>
+</div>

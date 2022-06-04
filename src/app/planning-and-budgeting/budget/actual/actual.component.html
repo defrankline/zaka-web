@@ -1,0 +1,127 @@
+<mat-card class="mat-elevation-z0" *ngIf="budget">
+  <mat-card-title>
+    <mat-toolbar>
+      <span>{{'revenue-and-expenditure'|translate}} | Budget: {{budget?.name}}</span>
+      <span class="custom-spacer"></span>
+      <button mat-icon-button color="primary" (click)="print()">
+        <mat-icon>picture_as_pdf</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" type="button" (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+  </mat-card-title>
+  <mat-card-content *ngIf="getItems()|async as data">
+    <mat-card class="holder">
+      <mat-card-title>
+        <mat-toolbar>
+          <span>{{'revenue'|translate}}</span>
+          <span class="custom-spacer"></span>
+          <strong>{{'total-actual-revenue'|translate}}: {{totalRevenueActual()|number:'.2'}}</strong>
+        </mat-toolbar>
+      </mat-card-title>
+      <mat-card-content>
+        <table class="table table-sm table-bordered">
+          <thead>
+          <tr>
+            <th>{{'item'|translate}}</th>
+            <th><span class="pull-right">{{'budget'|translate}}</span></th>
+            <th><span class="pull-right">{{'actual'|translate}}</span></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of data.revenue">
+            <td class="col-10">{{item.name}}</td>
+            <td class="col-1"><span class="pull-right">{{item.currentYearBudget|number:'.2'}}</span></td>
+            <td class="col-1"><span class="pull-right">{{item.currentYearActual|number:'.2'}}</span></td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <th class="col-10">{{'total'|translate}}</th>
+            <td class="col-1"><span class="pull-right">{{totalRevenueBudget()|number:'.2'}}</span></td>
+            <td class="col-1"><span class="pull-right">{{totalRevenueActual()|number:'.2'}}</span></td>
+          </tr>
+          </tfoot>
+        </table>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="holder">
+      <mat-card-title>
+        <mat-toolbar>
+          <span class="custom-spacer"></span>
+          <strong>{{'total-actual-expenses'|translate}}: {{totalExpense()|number:'.2'}}</strong>
+        </mat-toolbar>
+      </mat-card-title>
+      <mat-card-content>
+        <mat-card *ngFor="let expense of data.expenditure" class="mat-elevation-z0">
+          <mat-card-title>
+            <mat-toolbar>
+              <span>{{expense.item.code}} - {{expense.item.name}}</span>
+              <span class="custom-spacer"></span>
+              <span>{{'budget'|translate}}: {{expense.estimate?.amount|number:'.2'}}</span>
+            </mat-toolbar>
+          </mat-card-title>
+          <mat-card-content>
+            <table class="table table-sm table-bordered">
+              <thead>
+              <tr>
+                <th>{{'items'|translate}}</th>
+                <th><span class="pull-right">{{'amount'|translate}}</span></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of expense.expenses">
+                <td class="col-11">{{item.narration}}</td>
+                <td class="col-1"><span class="pull-right">{{item.amount|number:'.2'}}</span></td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                <th class="col-11">{{'total'|translate}}[{{expense.item?.name}}]</th>
+                <th class="col-1"><span class="pull-right">{{itemTotal(expense.expenses)|number:'.2'}}</span></th>
+              </tr>
+              </tfoot>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="holder">
+      <mat-card-title>
+        <mat-toolbar>
+          <span>{{'extra-ordinary-income'|translate}}</span>
+          <span class="custom-spacer"></span>
+          <strong>{{'total-extra-ordinary-income'|translate}}: {{totalRevenueActual()|number:'.2'}}</strong>
+        </mat-toolbar>
+      </mat-card-title>
+      <mat-card-content>
+        <table class="table table-sm table-bordered">
+          <thead>
+          <tr>
+            <th>{{'item'|translate}}</th>
+            <th><span class="pull-right">{{'budget'|translate}}</span></th>
+            <th><span class="pull-right">{{'actual'|translate}}</span></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of data.extraOrdinary">
+            <td class="col-10">{{item.name}}</td>
+            <td class="col-1"><span class="pull-right">{{item.currentYearBudget|number:'.2'}}</span></td>
+            <td class="col-1"><span class="pull-right">{{item.currentYearActual|number:'.2'}}</span></td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <th class="col-10">{{'total'|translate}}</th>
+            <td class="col-1"><span class="pull-right">{{totalExtraOrdinaryRevenueBudget()|number:'.2'}}</span></td>
+            <td class="col-1"><span class="pull-right">{{totalExtraOrdinaryRevenueActual()|number:'.2'}}</span></td>
+          </tr>
+          </tfoot>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </mat-card-content>
+</mat-card>
+
+

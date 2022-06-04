@@ -1,0 +1,204 @@
+<mat-card class="mat-elevation-z0" *ngIf="getBudgets()|async">
+  <mat-card-title>
+    <mat-toolbar>
+      <span>{{'budgets'|translate}}</span>
+      <span class="custom-spacer"></span>
+      <button mat-button color="primary" *ngxPermissionsOnly="['ROLE_MANAGER','ROLE_ADMIN','ROLE_SACCOS_ADMIN']" (click)="create()" matTooltip="Create New">
+        <mat-icon svgIcon="add"></mat-icon>
+      </button>
+      <button mat-button color="primary" *ngxPermissionsOnly="['ROLE_MANAGER','ROLE_ADMIN','ROLE_SACCOS_ADMIN']" (click)="upload()" matTooltip="Upload">
+        <mat-icon svgIcon="upload"></mat-icon>
+      </button>
+    </mat-toolbar>
+  </mat-card-title>
+  <mat-card-content>
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'financial-year'|translate}}</mat-label>
+          <mat-select [formControl]="financialYearControl" required (ngModelChange)="filter($event)">
+            <mat-option *ngFor="let financialYear of financialYears" [value]="financialYear">
+              {{ financialYear.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-6" *ngIf="financialYearControl.value">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'type'|translate}}</mat-label>
+          <mat-select [formControl]="budgetStatusControl" required (ngModelChange)="filterByStatus($event)">
+            <mat-option *ngFor="let budgetType of budgetTypes" [value]="budgetType">
+              {{ budgetType }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <table mat-table [dataSource]="getBudgets()">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let row;let i = index">{{i + 1}}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>{{'name'|translate}}</th>
+        <td mat-cell *matCellDef="let row">{{row.name}}</td>
+        <td mat-footer-cell *matFooterCellDef>
+          <strong>Page Total:</strong>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>{{'budget'|translate}}</th>
+        <td mat-cell *matCellDef="let row;let i = index">{{row.type}}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="financialYear">
+        <th mat-header-cell *matHeaderCellDef>{{'financial-year'|translate}}</th>
+        <td mat-cell *matCellDef="let row;let i = index">{{row.financialYear?.name}}
+          <span *ngIf="row.financialYear?.planning">(Planning)</span>
+          <span *ngIf="row.current">(Current)</span>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="stage">
+        <th mat-header-cell *matHeaderCellDef>{{'stage'|translate}}</th>
+        <td mat-cell *matCellDef="let row;let i = index">
+          <span *ngIf="!row.approved">{{row.approvalStage?.name}}</span>
+          <span *ngIf="row.approved" class="text-success">Approved</span>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="response">
+        <th mat-header-cell *matHeaderCellDef>{{'comments'|translate}}</th>
+        <td mat-cell *matCellDef="let element">
+          <a class="dropdown-item" (click)="comments(element)">
+            <i class="fa fa-bell-o"></i> <span>{{'comments'|translate}}</span><span class="badge badge-info">{{element.comments?.length}}</span>
+          </a>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="approvalStatus">
+        <th mat-header-cell *matHeaderCellDef>{{'status'|translate}}</th>
+        <td mat-cell *matCellDef="let element">
+          <button *ngIf="!element.approved" type="button" class="btn btn-outline-info m-1"
+                  ngbPopover="{{'pending-for-approval'|translate}}"
+                  triggers="mouseenter:mouseleave"
+                  popoverTitle="{{'pending'|translate}}">
+            {{'pending'|translate}}
+          </button>
+          <button *ngIf="element.closed" type="button" class="btn btn-outline-dark m-1"
+                  ngbPopover="{{'closed'|translate}}"
+                  triggers="mouseenter:mouseleave"
+                  popoverTitle="{{'closed'|translate}}">
+            {{'closed'|translate}}
+          </button>
+          <button *ngIf="element.approved && !element.closed" type="button" class="btn btn-outline-success m-1"
+                  ngbPopover="{{element.message}}"
+                  triggers="mouseenter:mouseleave"
+                  popoverTitle="{{'approved'|translate}}">
+            {{'approved'|translate}}
+          </button>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="document">
+        <th mat-header-cell *matHeaderCellDef>{{'supporting-documents'|translate}}</th>
+        <td mat-cell *matCellDef="let row;let i = index">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="More Options">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [disabled]="!row.boardApprovalDocument" (click)="committeeDocument(row)">
+              <mat-icon color="primary">list</mat-icon>
+              <span>{{'committee-approval-document'|translate}}</span>
+            </button>
+            <button mat-menu-item [disabled]="!row.registrarApprovalDocument" (click)="registrarDocument(row)">
+              <mat-icon color="primary">list</mat-icon>
+              <span>{{'registrar-approval-document'|translate}}</span>
+            </button>
+          </mat-menu>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="manage">
+        <th mat-header-cell *matHeaderCellDef>{{'action-and-status'|translate}}</th>
+        <td mat-cell *matCellDef="let row;let i = index">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="More Options">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="actual(row)">
+              <mat-icon color="primary">list</mat-icon>
+              <span>Actual</span>
+            </button>
+            <button mat-menu-item (click)="itemList(row)">
+              <mat-icon color="primary">list</mat-icon>
+              <span>Items</span>
+            </button>
+            <button mat-menu-item (click)="print(row)">
+              <mat-icon color="primary">picture_as_pdf</mat-icon>
+              <span>{{'print'|translate}}</span>
+            </button>
+            <div *ngxPermissionsOnly="['ROLE_MANAGER','ROLE_ADMIN','ROLE_SACCOS_ADMIN']">
+              <button mat-menu-item *ngIf="row.approvalStage?.code==='10' && !row.approved" (click)="sendToDco(row)">
+                <mat-icon color="primary">arrow_forward</mat-icon>
+                <span>Send to DCO</span>
+              </button>
+              <div *ngxPermissionsOnly="['ROLE_ADMIN','ROLE_SACCOS_ADMIN']">
+                <button mat-menu-item (click)="edit(row)">
+                  <mat-icon color="primary" svgIcon="edit"></mat-icon>
+                  <span>Edit</span>
+                </button>
+              </div>
+              <button mat-menu-item *ngIf="row.approvalStage?.code==='10' && !row.approved" (click)="delete(i,row)">
+                <mat-icon color="warn" svgIcon="delete"></mat-icon>
+                <span>Delete</span>
+              </button>
+            </div>
+            <div *ngxPermissionsOnly="['ROLE_DCO']">
+              <button mat-menu-item *ngIf="row.approvalStage?.code==='20' && !row.approved" (click)="sendBackToCommittee(row)">
+                <mat-icon color="primary">arrow_back</mat-icon>
+                <span>Send Back</span>
+              </button>
+              <button mat-menu-item *ngIf="row.approvalStage?.code==='20' && !row.approved" (click)="sendToRegistrar(row)">
+                <mat-icon color="primary">arrow_forward</mat-icon>
+                <span>Send to Registrar</span>
+              </button>
+            </div>
+            <div *ngxPermissionsOnly="['ROLE_ASS_REGISTRAR']">
+              <button mat-menu-item *ngIf="row.approvalStage?.code==='30' && !row.approved" (click)="sendBackToDco(row)">
+                <mat-icon color="primary">arrow_back</mat-icon>
+                <span>Send Back</span>
+              </button>
+              <button mat-menu-item *ngIf="!row.approved" (click)="approve(row)">
+                <mat-icon color="primary">check</mat-icon>
+                <span>{{'approve'|translate}}</span>
+              </button>
+            </div>
+            <button mat-menu-item *ngIf="row.approvalStage?.code==='10' && !row.approved" (click)="approve(row)">
+              <mat-icon color="primary">check</mat-icon>
+              <span>{{'approve'|translate}}</span>
+            </button>
+          </mat-menu>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+    <mat-paginator [length]="totalItems" (page)="pageChanged($event)" [pageSizeOptions]="perPageOptions"
+                   [pageIndex]="page" showFirstLastButtons
+                   [pageSize]="size"></mat-paginator>
+  </mat-card-content>
+</mat-card>

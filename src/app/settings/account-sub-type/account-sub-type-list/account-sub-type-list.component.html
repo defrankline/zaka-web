@@ -1,0 +1,77 @@
+<mat-card class="mat-elevation-z0" *ngIf="getAccountSubTypes()|async">
+  <mat-card-title>
+    <mat-toolbar>
+      <span>{{'account-sub-types'|translate}}</span>
+      <span class="custom-spacer"></span>
+      <button mat-button color="primary" (click)="create()" matTooltip="Create">
+        <mat-icon svgIcon="add"></mat-icon>
+      </button>
+    </mat-toolbar>
+  </mat-card-title>
+  <mat-card-content>
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'account-type'|translate}}</mat-label>
+          <mat-select [formControl]="accountTypeControl" required (ngModelChange)="loadAccountSubTypes($event)">
+            <mat-option *ngFor="let accountType of accountTypes" [value]="accountType">
+              {{ accountType.code }} - {{ accountType.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="accountTypeControl.hasError('required')">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="outline">
+          <input matInput [formControl]="searchControl" placeholder="Search ...">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table mat-table [dataSource]="getAccountSubTypes()">
+          <!-- Number Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>#</th>
+            <td mat-cell *matCellDef="let row;let i = index">{{i + 1}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="code">
+            <th mat-header-cell *matHeaderCellDef>{{'code'|translate}}</th>
+            <td mat-cell *matCellDef="let row">{{row.code}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>{{'name'|translate}}</th>
+            <td mat-cell *matCellDef="let row">{{row.name}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>{{'account-type'|translate}}</th>
+            <td mat-cell *matCellDef="let row">{{row.accountType?.name}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="manage">
+            <th mat-header-cell *matHeaderCellDef>{{'action-and-status'|translate}}</th>
+            <td mat-cell *matCellDef="let row;let i = index">
+              <button type="button" (click)="edit(i, row)" class="btn btn-outline-primary m-1">
+                {{'edit'|translate}}
+              </button>
+              <button type="button" (click)="delete(i,row)" class="btn btn-outline-danger m-1">
+                {{'delete'|translate}}
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [length]="totalItems" (page)="pageChanged($event)"
+                       [pageSizeOptions]="perPageOptions" [pageIndex]="page"
+                       [pageSize]="size"></mat-paginator>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

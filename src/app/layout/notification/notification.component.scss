@@ -1,0 +1,10 @@
+.menu-content {
+  padding: 0.6rem 0px;
+  max-height: 320px;
+}
+
+mat-list:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.035);
+  transition: all ease-in-out 0.3s;
+}

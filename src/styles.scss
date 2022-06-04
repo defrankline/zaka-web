@@ -1,0 +1,233 @@
+// src\styles.scss
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+
+@include mat-core();
+
+// import our custom theme                // ? changed
+@import "./theme.scss";                   // ? changed
+// ? changed
+// import custom component themes         // ? changed
+@import "./custom-component-themes.scss"; // ? changed
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+
+@include angular-material-theme($theming-material-components-theme);  // ? changed
+@include custom-components-theme($theming-material-components-theme); // ? changed
+
+// ? added
+
+// Include the dark color styles inside of a block with a CSS class. You can make this
+// CSS class whatever you want. In this example, any component inside of an element with
+// `.dark-theme` will be affected by this alternate dark theme instead of the default theme.
+
+.dark-theme {
+  @include angular-material-color($dark-theme);
+}
+
+// Override typography for all Angular Material, including mat-base-typography and all components.
+@include angular-material-typography($typography);
+
+// ? added
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+table {
+  width: 100%;
+}
+
+
+th.mat-header-cell {
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  padding-left: 14px !important;
+}
+
+.mat-cell,
+.mat-footer-cell {
+  font-size: 14px;
+  /*font-weight: 700;*/
+}
+
+.mat-table {
+  overflow: auto;
+  //max-height: 500px;
+}
+
+.mat-header-cell {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.mat-table {
+  background-color: rgba(255, 255, 255, 0.959);
+  //height: 100vh;
+  overflow: auto;
+  // width: 1123px;
+}
+
+.mat-header-cell,
+.mat-cell {
+  // min-width: 150px;
+}
+
+.mat-row,
+.mat-header-row {
+  min-width: 1200px;
+  width: 100%;
+}
+
+.mat-cell {
+  //  font-size: 11px;
+  //font-weight: 700;
+}
+
+.mat-row.mat-cell {
+  border: 1px solid #ccc;
+}
+
+.mat-footer-row,
+.mat-row {
+  min-height: 45px;
+}
+
+.mat-cell,
+.mat-footer-cell {
+  font-size: 14px;
+}
+
+mat-footer-row,
+mat-header-row,
+mat-row {
+  display: flex;
+  border-width: 1px;
+  border-style: solid;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+mat-row,
+mat-header-row {
+  min-width: 2000px !important;
+}
+
+.mat-row .mat-cell {
+  border: 1px solid #ccc;
+  padding-left: 14px !important;
+}
+
+.mat-header-row .mat-header-cell {
+  border: 1px solid #ccc;
+}
+
+td.mat-cell,
+td.mat-footer-cell,
+th.mat-header-cell {
+  padding: 14px !important;
+  border-bottom-width: 1px;
+  border-bottom-style: hidden;
+}
+
+th.mat-header-cell {
+  text-align: center;
+}
+
+
+mat-form-field {
+  width: 100%;
+}
+
+.dialog-header {
+  background-color: transparent;
+  padding: 0 5px;
+  height: 20px;
+}
+
+.custom-spacer {
+  flex: 1 1 auto;
+}
+
+.fx-spacer {
+  flex: 1 1 auto;
+}
+
+.cursor-loader {
+  cursor: wait;
+
+  * {
+    cursor: wait !important;
+  }
+}
+
+.mat-elevation-z8 {
+  overflow-x: auto;
+}
+
+.mat-elevation-z7 {
+  overflow-x: auto;
+}
+
+.mat-elevation-z6 {
+  overflow-x: auto;
+}
+
+.mat-elevation-z5 {
+  overflow-x: auto;
+}
+
+.mat-elevation-z4 {
+  overflow-x: auto;
+}
+
+.mat-elevation-z3 {
+  overflow-x: auto;
+}
+
+.mat-elevation-z2 {
+  overflow-x: auto;
+}
+
+.mat-elevation-z1 {
+  overflow-x: auto;
+}
+
+.mat-elevation-z0 {
+  overflow-x: auto;
+}
+h5{
+  font-size: 1.2rem !important;
+}
+h6{
+  font-size: 1rem !important;
+}
+.text-muted{
+  font-size: 1rem !important;
+}
+
+tr.mat-row, tr.mat-footer-row {
+  height: 30px;
+}
+
+.mat-footer-row, .mat-row {
+  min-height: 30px;
+}

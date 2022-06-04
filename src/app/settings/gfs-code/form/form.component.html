@@ -1,0 +1,116 @@
+<form (ngSubmit)="store(formGroup.value)" [formGroup]="formGroup" novalidate>
+  <h6 mat-dialog-title>
+    <mat-toolbar role="toolbar" class="dialog-header">
+      <span>{{title|translate}}</span>
+      <span class="fx-spacer"></span>
+      <button mat-icon-button color="warn" type="button" (click)="close()">
+        <mat-icon mat-list-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+  </h6>
+  <mat-dialog-content>
+    <div class="row">
+      <div class="col-8">
+        <h6>GFS Code Type</h6>
+        <mat-radio-group aria-label="Select an option" class="my-4" formControlName="gfsCodeType">
+          <mat-radio-button value="REVENUE">Revenue</mat-radio-button>
+          <mat-radio-button value="EXPENSE">Expense</mat-radio-button>
+          <mat-radio-button value="ASSET">Asset</mat-radio-button>
+          <mat-radio-button value="LIABILITY">Liability</mat-radio-button>
+          <mat-radio-button value="EQUITY">Equity</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="col-4">
+        <h6>Expenditure Type</h6>
+        <mat-radio-group aria-label="Select an option" class="my-4" formControlName="expenditureType">
+          <mat-radio-button value="REVENUE">Normal</mat-radio-button>
+          <mat-radio-button value="CAPITAL">Capital</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class="col-4">
+        <mat-form-field appearance="outline">
+          <mat-icon matPrefix>search</mat-icon>
+          <mat-label>{{'account'|translate}}</mat-label>
+          <input matInput placeholder="{{'account'|translate}}" (focusout)="checkAccount()"
+                 (keyup)="filterAccounts($event.target.value)" [matAutocomplete]="autoRevenue"
+                 formControlName='account' required>
+          <mat-autocomplete #autoRevenue="matAutocomplete" (optionSelected)="setCode()" [displayWith]="displayAccount">
+            <mat-option *ngFor="let account of accounts" [value]="account">
+              {{ account.number }} - {{ account.name }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="formGroup.get('account').invalid && formGroup.get('account').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'name'|translate}}</mat-label>
+          <input matInput placeholder="{{'name'|translate}}" name="name" formControlName="name" required>
+          <mat-error *ngIf="!formGroup.get('name').valid && formGroup.get('name').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'code'|translate}}</mat-label>
+          <input matInput placeholder="{{'code'|translate}}" name="code" formControlName="code" required>
+          <mat-error *ngIf="!formGroup.get('code').valid && formGroup.get('code').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'minimum-amount'|translate}}</mat-label>
+          <input matInput placeholder="{{'minimum-amount'|translate}}" type="number" [min]="0" name="minAmount" formControlName="minAmount">
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+
+      </div>
+      <div class="col-8">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'description'|translate}}</mat-label>
+          <input matInput placeholder="{{'description'|translate}}" name="description" formControlName="description" required>
+          <mat-error *ngIf="!formGroup.get('description').valid && formGroup.get('description').touched">
+            {{'required'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>search</mat-icon>
+      <mat-label>{{'paying-account'|translate}}</mat-label>
+      <input matInput placeholder="{{'paying-account'|translate}}" (focusout)="checkPayingAccount()"
+             (keyup)="filterPayingAccounts($event.target.value)" [matAutocomplete]="autoPayingAccount"
+             formControlName='payingAccount'>
+      <mat-autocomplete #autoPayingAccount="matAutocomplete" [displayWith]="displayPayingAccount">
+        <mat-option *ngFor="let payingAccount of payingAccounts" [value]="payingAccount">
+          {{ payingAccount.number }} - {{ payingAccount.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div class="row">
+      <div class="col-4">
+        <mat-checkbox color="primary" [checked]="formGroup.get('mandatory').value"
+                      formControlName="mandatory">{{'mandatory'|translate}}</mat-checkbox>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="my-3 justify-content-end">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
+  </mat-dialog-actions>
+  <div mat-dialog-actions *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</form>

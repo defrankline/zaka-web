@@ -1,0 +1,51 @@
+.bg {
+  width: 100%;
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.wrapper {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 430px;
+  padding: 15px;
+  margin: auto;
+}
+
+.logo {
+  margin-bottom: 2rem;
+}
+
+.logo img {
+  width: 30%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  padding: 0.6rem 1rem;
+}
+
+h5 {
+  font-weight: bold;
+  color: #16a085;
+  margin-top: 2rem;
+}
+
+h5 span {
+  font-weight: 200;
+  color: #333333;
+}

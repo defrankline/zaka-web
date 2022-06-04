@@ -1,0 +1,46 @@
+<form (ngSubmit)="store(formGroup.value)" [formGroup]="formGroup" novalidate>
+  <h6 mat-dialog-title>{{'create'|translate}}</h6>
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'name'|translate}}</mat-label>
+      <input matInput placeholder="{{'name'|translate}}" name="name" formControlName="name" required>
+      <mat-error *ngIf="!formGroup.get('name').valid && formGroup.get('name').touched">
+        {{'required'|translate}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'code'|translate}}</mat-label>
+      <input matInput placeholder="{{'code'|translate}}" formControlName="code" required>
+      <mat-error *ngIf="!formGroup.get('code').valid && formGroup.get('code').touched">
+        {{'required'|translate}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="material-form">
+      <mat-label>{{'balance-nature'|translate}}</mat-label>
+      <mat-select formControlName="balanceNature" required>
+        <mat-option *ngIf="!formGroup.get('balanceNature').value" [value]="null" aria-selected="true"></mat-option>
+        <mat-option
+          [value]="balanceNature.id === formGroup.get('balanceNature').value.id ? formGroup.get('balanceNature').value.id : balanceNature.id"
+          *ngFor="let balanceNature of balanceNatureList" value="balanceNature.id">
+          {{ balanceNature.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!formGroup.get('balanceNature').valid && formGroup.get('balanceNature').touched">
+        {{'required'|translate}}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions class="my-3 justify-content-end">
+    <button mat-raised-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+      {{'close'|translate}}
+    </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid">
+      <mat-icon>save</mat-icon>
+      {{'save'|translate}}
+    </button>
+  </div>
+  <div mat-dialog-actions *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</form>
