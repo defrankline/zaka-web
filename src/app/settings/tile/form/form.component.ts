@@ -88,7 +88,7 @@ export class FormComponent implements OnInit {
   }
 
   public close(): void {
-    this.router.navigate(['settings/tiles']);
+    this.router.navigate(['app/settings/tiles']);
   }
 
   trackParentId(index: number, item: Tile): number {

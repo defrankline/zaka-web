@@ -1,48 +1,50 @@
-<div class="bg">
-  <div class="wrapper">
-    <div class="form-signin">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <div class="logo">
-              <h5>ZAKA Management System</h5>
-              <span class="text-muted">St. Maximillian Kolbe Mwenge</span>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <mat-card>
-              <mat-card-title>Login</mat-card-title>
-              <mat-card-content>
-                <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Username</mat-label>
-                    <input matInput placeholder="Username" formControlName="username" type="text"
-                           autocomplete="off">
-                    <mat-icon matSuffix>account_circle</mat-icon>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
-                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" name="password" placeholder="Password"
-                           autocomplete="off"/>
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </button>
-                  </mat-form-field>
-                  <div class="row">
-                    <div class="col">
-                      <mat-toolbar>
-                        <button (click)="login()" type="submit" class="btn-block" mat-flat-button color="primary">
-                          <mat-icon>arrow_forward</mat-icon> Login
-                        </button>
-                      </mat-toolbar>
-                    </div>
-                  </div>
-                </form>
-              </mat-card-content>
-            </mat-card>
+<div class="container">
+  <div class="row my-5">
+    <div class="col-4"></div>
+    <div class="col-4">
+      <div class="row text-center">
+        <div class="col">
+          <div class="logo justify-content-center">
+            <img src="assets/images/logo.png" class="img-responsive" width="200" alt="Zaka Management Information System">
+            <h2 class="page-item my-2 fw-bold">Zaka Management Information System</h2>
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <mat-card>
+            <mat-card-title>Login</mat-card-title>
+            <mat-card-content>
+              <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
+                <mat-form-field appearance="outline">
+                  <mat-label>Username</mat-label>
+                  <input matInput placeholder="Username" formControlName="username" type="text"
+                         autocomplete="off">
+                  <mat-icon matSuffix>account_circle</mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" name="password" placeholder="Password"
+                         autocomplete="off"/>
+                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                </mat-form-field>
+                <div class="row">
+                  <div class="col">
+                    <mat-toolbar>
+                      <button (click)="login()" type="submit" class="btn-block" mat-flat-button color="primary">
+                        <mat-icon>arrow_forward</mat-icon> Login
+                      </button>
+                    </mat-toolbar>
+                  </div>
+                </div>
+              </form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
     </div>
+    <div class="col-4"></div>
   </div>
 </div>

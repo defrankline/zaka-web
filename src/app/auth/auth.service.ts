@@ -10,6 +10,8 @@ import {Role} from '../user-management/role/role';
 import {Router} from '@angular/router';
 import {CustomResponse} from "../shared/custom-response";
 import {Login, LoginResponse} from "./login/login";
+import {UserService} from "../user-management/user/user.service";
+import {User} from "../user-management/user/user";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -20,6 +22,7 @@ export class AuthService {
     private $localStorage: LocalStorageService,
     private $sessionStorage: SessionStorageService,
     private stateService: StateStorageService,
+    private userService: UserService,
     private permissionsService: NgxPermissionsService,
     private router: Router,
   ) {
@@ -69,6 +72,7 @@ export class AuthService {
   }
 
   logout(): Observable<void> {
+    this.clearAuth();
     return this.http
       .post<any>(this.api + '/auth/logout', {})
       .pipe(map((response) => this.clearAuth()));
@@ -77,11 +81,13 @@ export class AuthService {
   clearAuth(): void {
     this.$localStorage.clear('accessToken');
     this.$localStorage.clear('tokeExpire');
-    /*this.$localStorage.clear('user');*/
+    this.$localStorage.clear('user');
+    this.$localStorage.clear('CURRENT_USER');
     this.$localStorage.clear('previousUrl');
     this.$sessionStorage.clear('accessToken');
     this.$sessionStorage.clear('tokeExpire');
-    /*this.$sessionStorage.clear('user');*/
+    this.$sessionStorage.clear('user');
+    this.$sessionStorage.clear('CURRENT_USER');
     this.$sessionStorage.clear('previousUrl');
     this.permissionsService.flushPermissions();
     this.stateService.clearUrl();
@@ -101,6 +107,18 @@ export class AuthService {
     this.$localStorage.clear('accessToken');
     this.$localStorage.clear('refreshToken');
     this.$localStorage.clear('tokeExpire');
+    this.loadCurrentUser();
+  }
+
+  private loadCurrentUser(): void {
+    this.userService.currentUser().subscribe((response) => {
+      const user = response.data as User;
+      this.$localStorage.store('user', user);
+      this.$localStorage.store('CURRENT_USER', user);
+      this.$sessionStorage.store('CURRENT_USER', user);
+      this.$sessionStorage.store('user', user);
+      this.permissionsService.loadPermissions(this.processRoles(user.roles));
+    });
   }
 
   public setLanguage(language: string): void {

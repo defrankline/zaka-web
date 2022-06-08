@@ -5,7 +5,6 @@ import {AuthService} from './auth/auth.service';
 import {NgxPermissionsService} from 'ngx-permissions';
 import {StorageService} from './auth/storage.service';
 import {StorageKey} from './auth/storage.model';
-import {Role} from './user-management/role/role';
 import {Title} from '@angular/platform-browser';
 import {filter} from 'rxjs/operators';
 import {AppService} from './app.service';
@@ -25,7 +24,7 @@ const {CURRENT_USER} = StorageKey;
   providers:[BsModalService]
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  title = 'Speedy Finances';
+  title = 'Zaka Management Information System';
   loading: boolean;
   currentUser: any;
   idleState = 'Not started.';
@@ -100,8 +99,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/auth/login']);
     } else {
       this.currentUser = this.storage.read(CURRENT_USER) || '';
-      const roles = this.currentUser.data.currentUserDto.roles as Role[];
-      const userId = this.currentUser.data.currentUserDto.user.id as number;
       this.loadCurrenUser();
     }
 

@@ -71,15 +71,15 @@ export class TileComponent implements OnInit {
   }
 
   create(): void {
-    this.router.navigate(['settings/tiles/create']);
+    this.router.navigate(['app/settings/tiles/create']);
   }
 
   edit(row: Tile): void {
-    this.router.navigate(['settings/tiles/edit', btoa(String(row.id))]);
+    this.router.navigate(['app/settings/tiles/edit', btoa(String(row.id))]);
   }
 
   roles(row: Tile): void {
-    this.router.navigate(['settings/tiles/roles', btoa(String(row.id))]);
+    this.router.navigate(['app/settings/tiles/roles', btoa(String(row.id))]);
   }
 
   search(): void {

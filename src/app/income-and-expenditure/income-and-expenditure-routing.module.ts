@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'contribution-payments',
     loadChildren: () => import('./contribution-payment/contribution-payment.module').then(m => m.ContributionPaymentModule),
-    data: {title: 'Contribution Payments'},
+    data: {title: 'Contribution Payments', breadcrumb: 'Contribution Payments'},
     canActivate: [AuthGuard]
   },
 ];

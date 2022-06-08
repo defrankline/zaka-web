@@ -32,9 +32,10 @@ export class ContributionPaymentComponent implements OnInit {
   totalItems = 0;
   dateFormat = 'yyyy-MM-dd';
   maxSize = environment.maxSize;
+  perPageOptions = environment.perPageOptions;
   queryString = '_';
-  startDateControl = new FormControl(this.datePipe.transform(Date.now(), this.dateFormat), [Validators.required]);
-  endDateControl = new FormControl(this.datePipe.transform(Date.now(), this.dateFormat), [Validators.required]);
+  startDateControl = new FormControl('', [Validators.required]);
+  endDateControl = new FormControl('', [Validators.required]);
   itemListSubject: BehaviorSubject<ContributionPayment[]> = new BehaviorSubject([]);
   isLoading = false;
   searchControl = new FormControl('');
@@ -95,8 +96,8 @@ export class ContributionPaymentComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
-    this.page = event.page - 1;
-    this.size = event.itemsPerPage;
+    this.page = event.pageIndex;
+    this.size = event.pageSize;
     this.loadData(this.activatedHierarchy.id, this.queryString, this.page, this.size, this.start, this.end, this.products);
   }
 

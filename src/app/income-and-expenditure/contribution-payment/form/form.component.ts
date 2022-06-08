@@ -140,6 +140,6 @@ export class FormComponent implements OnInit {
   setLocation(): void {
     const user = this.userControl.value;
     this.level2Control.setValue(user.division?.name);
-    this.level3Control.setValue(user.division?.parent?.name);
+    this.level3Control.setValue(user.division?.parent?.number+' - '+user.division?.parent?.name);
   }
 }

@@ -15,6 +15,12 @@ const routes: Routes = [
     data: {title: 'Trial Balance'},
     canActivate: [AuthGuard]
   },
+  {
+    path: 'contributions',
+    loadChildren: () => import('./contribution/contribution.module').then(m => m.ContributionModule),
+    data: {title: 'Contributions'},
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

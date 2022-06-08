@@ -86,8 +86,8 @@
       <div class="col">
         <mat-form-field appearance="outline">
           <mat-icon matPrefix>search</mat-icon>
-          <mat-label>{{'division'|translate}}</mat-label>
-          <input matInput autocomplete="off" placeholder="Search ..." [matAutocomplete]="autoDivision" required
+          <mat-label>{{'Jumuiya'|translate}}</mat-label>
+          <input matInput autocomplete="off" placeholder="Jumuiya" [matAutocomplete]="autoDivision" required
                  formControlName="division"/>
           <mat-error *ngIf="formGroup.get('division').invalid && formGroup.get('division').touched">
             {{'required'|translate}}
@@ -99,7 +99,7 @@
           </mat-option>
           <ng-container *ngIf="!isLoading">
             <mat-option *ngFor="let division of divisions" [value]="division">
-              <span>{{division.number}} - {{division.name}}</span>
+              <span>{{division.number}} - {{division.name}} ({{division.parent?.number}} - {{division.parent?.name}})</span>
             </mat-option>
           </ng-container>
         </mat-autocomplete>

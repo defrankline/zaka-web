@@ -13,32 +13,23 @@ export class ModuleCarouselComponent implements OnInit {
     {
       icon: 'dashboard',
       text: `Lorem ipsum dolor sit amet conse ctetur adipi sicing elit. Doloribus numquam quis.`,
-      title: 'Member Management'
-    }, {
-      icon: 'perm_data_setting',
-      text: `Lorem ipsum dolor sit amet conse ctetur adipi sicing elit. Doloribus numquam quis.`,
-      title: 'Share Management'
-    },
-    {
-      icon: 'dashboard',
-      text: `Lorem ipsum dolor sit amet conse ctetur adipi sicing elit. Doloribus numquam quis.`,
-      title: 'Savings & Deposits Management'
+      title: 'Ratiba'
     }, {
       icon: 'dashboard',
       text: `Lorem ipsum dolor sit amet conse ctetur adipi sicing elit. Doloribus numquam quis.`,
-      title: 'Loan Management'
+      title: 'Miradi'
     }, {
       icon: 'dashboard',
       text: `Lorem ipsum dolor sit amet conse ctetur adipi sicing elit. Doloribus numquam quis.`,
-      title: 'Planning & Budgeting'
+      title: 'Matukio'
     }, {
       icon: 'dashboard',
       text: `Lorem ipsum dolor sit amet conse ctetur adipi sicing elit. Doloribus numquam quis.`,
-      title: 'Expenditure Management'
+      title: 'Jumuiya'
     }, {
       icon: 'dashboard',
       text: `Lorem ipsum dolor sit amet conse ctetur adipi sicing elit. Doloribus numquam quis.`,
-      title: 'Bulk SMS'
+      title: 'Matangazo'
     }
   ];
 

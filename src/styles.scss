@@ -38,6 +38,8 @@
 // Override typography for all Angular Material, including mat-base-typography and all components.
 @include angular-material-typography($typography);
 
+@import '~@circlon/angular-tree-component/css/angular-tree-component.css';
+
 // ? added
 
 /* You can add global styles to this file, and also import other style files */

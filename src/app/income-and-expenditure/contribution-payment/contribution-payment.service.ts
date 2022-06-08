@@ -64,4 +64,17 @@ export class ContributionPaymentService {
     });
   }
 
+  public download(format = 'PDF', divisionId: number, queryString = '_', startDate = '', endDate = '', contributions = '')
+    : any {
+    return this.http.get(this.URL + '/printReport/' + format, {
+      params: {
+        divisionId: `${divisionId}`,
+        query: `${queryString}`,
+        startDate: `${startDate}`,
+        endDate: `${endDate}`,
+        contributions: `${contributions}`,
+      },
+      responseType: 'arraybuffer'
+    });
+  }
 }

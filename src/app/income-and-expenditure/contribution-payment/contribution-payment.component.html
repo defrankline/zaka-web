@@ -15,16 +15,11 @@
   <div class="card-body">
     <div class="row">
       <div class="col-md-3">
-        <div class="row">`
-          <div class="col-md-12">
-            <input id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" class="form-control" placeholder="Search Hierarchy"/>
-          </div>
-        </div>
-        <div class="row my-2">
-          <div class="col-md-12">
-            <tree-root #tree [options]="options" (activate)="select($event)" [nodes]="nodes"></tree-root>
-          </div>
-        </div>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'location'|translate}}</mat-label>
+          <input matInput placeholder="{{'location'|translate}}" #filter (keyup)="tree.treeModel.filterNodes(filter.value)">
+        </mat-form-field>
+        <tree-root #tree [options]="options" (activate)="select($event)" [nodes]="nodes"></tree-root>
       </div>
       <div class="col-md-9" *ngIf="activatedHierarchy">
         <div class="row">
@@ -62,7 +57,7 @@
           </div>
         </div>
         <div class="row my-2">
-          <div class="col-md-12">
+          <div class="col">
             <div class="table table-responsive" *ngIf="getItems()|async as data">
               <h3 class="card-header">{{activatedHierarchy.name}}</h3>
               <table class="table table-bordered table-striped table-sm">
@@ -91,7 +86,7 @@
                     <button type="button" class="btn btn-sm btn-success" [disabled]="!item.verified" (click)="print(item)">
                       <i class="fa fa-file-pdf-o"></i>&nbsp;{{'receipt'|translate}}
                     </button>
-                    <button type="button" class="btn btn-sm btn-warning" (click)="delete(item)"><i
+                    <button type="button" class="btn btn-sm btn-warning mx-2" (click)="delete(item)"><i
                       class="fa fa-remove"></i>&nbsp;{{'reverse'|translate}}
                     </button>
                   </td>
@@ -99,14 +94,13 @@
                 </tbody>
               </table>
             </div>
-            <nav>
-              <pagination [boundaryLinks]="true"
-                          [directionLinks]="true"
-                          [totalItems]="totalItems"
-                          [itemsPerPage]="size"
-                          [maxSize]="maxSize"
-                          (pageChanged)="pageChanged($event)"></pagination>
-            </nav>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-paginator [length]="totalItems" (page)="pageChanged($event)" [pageSizeOptions]="perPageOptions"
+                           [pageIndex]="page" showFirstLastButtons
+                           [pageSize]="size"></mat-paginator>
           </div>
         </div>
       </div>

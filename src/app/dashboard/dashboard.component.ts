@@ -49,6 +49,6 @@ export class DashboardComponent implements OnInit {
   }
 
   parishioners(): void {
-    this.router.navigate(['/parishioner-management/parishioners']);
+    this.router.navigate(['/app/parishioner-management/parishioners']);
   }
 }

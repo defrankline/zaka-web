@@ -1,10 +1,9 @@
-<div [class.dark-theme]="isDark"> <!-- ? we're wrapping whole content in a div, to handle dark/light theme -->
+<div [class.dark-theme]="isDark" *ngIf="getCurrentUser()|async as currentUser">
   <mat-toolbar [color]="themeColor">
     <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()">
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
-    <span class="app-title">
-        <span *ngIf="getCurrentUser()|async as currentUser">{{currentUser.administrationDivision.name}}</span>
+    <span class="app-title"><span>{{currentUser.administrationDivision.name}}</span>
     </span>
     <span class="example-spacer"></span>
     <button mat-icon-button (click)="toggleTheme()" matTooltip="Toggle dark theme">
@@ -16,8 +15,6 @@
       <mat-icon svgIcon="translate"></mat-icon>
     </button>
     <span class="item-spacer-right"></span>
-    <app-notification></app-notification>
-    <span class="item-spacer-right"></span>
     <mat-menu #language="matMenu">
       <button mat-menu-item (click)="translate('en')">
         <mat-icon svgIcon="uk"></mat-icon>
@@ -28,27 +25,23 @@
         <span>Swahili</span>
       </button>
     </mat-menu>
-    <!--end language-->
-
-    <!-- profile menu button and menu section -->
     <button mat-icon-button [matMenuTriggerFor]="profile" matTooltip="Logged In User Profile"
             aria-label="Profile Dropdown">
-      <img *ngIf="profilePhoto" [src]="profilePhoto" alt="{{'photo'|translate}}" class="rounded-circle" width="30px"/>
+      <img src="assets/images/user.png" alt="{{'photo'|translate}}" class="rounded-circle img-thumbnail" width="30px"/>
     </button>
     <span class="item-spacer-right"></span>
     <mat-menu #profile="matMenu">
       <div class="current-user text-muted">
-        Signed in as <br/> {{ user?.data?.currentUserDto?.user?.email }}
+        Signed in as <br/> {{ currentUser?.mobile }}
       </div>
       <mat-divider></mat-divider>
       <div class="mx-3 my-3">
         <span class="text-muted">Assigned Roles</span>
         <mat-chip-list aria-label="Role selection">
-          <mat-chip *ngFor="let chip of user?.data?.currentUserDto?.user?.roles">{{chip.name}}</mat-chip>
+          <mat-chip *ngFor="let chip of currentUser?.roles">{{chip.name}}</mat-chip>
         </mat-chip-list>
       </div>
       <mat-divider></mat-divider>
-      <!-- messages -->
       <button mat-menu-item>
         <mat-icon>mail</mat-icon>
         <span>Messages</span>
@@ -80,24 +73,10 @@
           </div>
         </div>
         <div class="sidenav-item item-logo">
-          <div *ngxPermissionsExcept="roles">
-            <img  *ngIf="profilePhoto" [src]="logo" alt="{{user?.data?.currentUserDto?.user?.company?.name}}" class="rounded-circle"
-                  width="100px"/>
-          </div>
-          <div *ngxPermissionsOnly="roles">
-            <img  *ngIf="profilePhoto" src="assets/imgs/coat_arms.png" alt="{{user?.data?.currentUserDto?.user?.adminHierarchy?.name}}" class="rounded-circle"
-                  width="100px"/>
-          </div>
-        </div>
-        <div class="sidenav-item item-logo">
-          <h6 class="text-muted">
+          <img class="logo-side-nav" src="assets/images/logo.png" alt="{{'logo'|translate}}">
+          <h6 class="text-muted my-2">
             <strong>
-            <span
-              *ngxPermissionsExcept="roles">{{user?.data?.currentUserDto?.user?.company?.name}}
-              <br />(Speedy Finances Reg. No.: {{user?.data?.currentUserDto?.user?.company?.number}})
-            </span>
-              <span
-                *ngxPermissionsOnly="roles">{{user?.data?.currentUserDto?.user?.adminHierarchy?.name}} </span>
+              <span>{{currentUser?.administrationDivision.name}} </span>
             </strong>
           </h6>
         </div>
@@ -118,7 +97,7 @@
                 <ng-container *ngIf="tile.children.length > 0">
                   <a *ngFor="let item of tile.children"
                      mat-list-item
-                     [routerLink]="'/app/'+tile.url+'/'+item.url"
+                     [routerLink]="'/app/'+item.url"
                      routerLinkActive="list-item-active">
                     {{item.name|translate}}
                   </a>

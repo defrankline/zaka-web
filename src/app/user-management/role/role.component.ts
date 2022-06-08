@@ -66,14 +66,14 @@ export class RoleComponent implements OnInit {
   }
 
   create(): void {
-    this.router.navigate(['user-management/roles/create']);
+    this.router.navigate(['app/parishioner-management/roles/create']);
   }
 
   edit(row: Role): void {
-    this.router.navigate(['user-management/roles/edit', btoa(String(row.id))]);
+    this.router.navigate(['app/parishioner-management/roles/edit', btoa(String(row.id))]);
   }
 
   tiles(row: Role): void {
-    this.router.navigate(['user-management/roles/tiles', btoa(String(row.id))]);
+    this.router.navigate(['app/parishioner-management/roles/tiles', btoa(String(row.id))]);
   }
 }

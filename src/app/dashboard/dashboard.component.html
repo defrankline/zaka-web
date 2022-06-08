@@ -1,20 +1,31 @@
-<div class="animated fadeIn" *ngIf="getStats()|async as items">
-  <div class="row">
-    <div class="col" *ngFor="let item of items">
-      <div class="card text-white {{item.theme}}">
-        <div class="card-body pb-0">
-          <div class="text-value">{{item.number|number}}</div>
-          <div>{{item.description}}</div>
-        </div>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-9">
+        <strong>Welcome!</strong>
       </div>
     </div>
   </div>
-  <div class="row my-5">
-    <div class="col">
-      <button mat-raised-button color="primary" (click)="parishioners()">Waumini</button>
-    </div>
-    <div class="col">
-      <button mat-raised-button color="primary" (click)="contributionForm()">Lipa Zaka</button>
+  <div class="card-body">
+    <div class="animated fadeIn" *ngIf="getStats()|async as items">
+      <div class="row">
+        <div class="col" *ngFor="let item of items">
+          <div class="card text-white {{item.theme}}">
+            <div class="card-body pb-0">
+              <div class="text-value">{{item.number|number}}</div>
+              <div>{{item.description}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row my-5">
+        <div class="col">
+          <button mat-raised-button color="primary" (click)="parishioners()">Waumini</button>
+        </div>
+        <div class="col">
+          <button mat-raised-button color="primary" (click)="contributionForm()">Lipa Zaka</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

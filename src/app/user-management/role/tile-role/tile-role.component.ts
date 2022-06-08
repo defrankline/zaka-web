@@ -114,6 +114,6 @@ export class TileRoleComponent implements OnInit {
   }
 
   back(): void {
-    this.router.navigate(['user-management/roles']);
+    this.router.navigate(['app/parishioner-management/roles']);
   }
 }

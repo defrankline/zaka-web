@@ -26,9 +26,8 @@ const {DARK_MODE} = StorageKey;
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
-  roles = ['ROLE_COURT', 'ROLE_DCO', 'ROLE_ASS_REGISTRAR', 'ROLE_REGISTRAR', 'ROLE_BOT', 'ROLE_TCDC', 'ROLE_COASCO', 'ROLE_PORALG'];
   currentTime: any;
-  user: any;
+  user: User;
   logo: any;
   profilePhoto: any;
   panelOpenState = false;
@@ -59,18 +58,16 @@ export class NavigationComponent implements OnInit {
               private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.user = this.storeSvc.read(StorageKey.CURRENT_USER);
-    const companyId = this.user.data.currentUserDto.user.company.id;
+    this.user = this.storeSvc.read(StorageKey.CURRENT_USER) as User;
     const lang = this.storeSvc.read(LANGUAGE) || 'en';
     this.translateService.use(lang);
     if (this.user) {
-      this.toast.success('Hello', 'Welcome back ' + this.user.data.currentUserDto.user.username, 2000);
+      this.toast.success('Hello', 'Welcome back ' + this.user.username, 2000);
     }
     this.loadTiles();
     this.loadCurrentUser();
   }
 
-  // logout function
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/auth/login']);

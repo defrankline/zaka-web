@@ -23,10 +23,9 @@ import {SimpleInputModule} from './base-form/simple-input/simple-input.module';
 import {SimpleSelectModule} from './base-form/simple-select/simple-select.module';
 import {NgxPrintModule} from 'ngx-print';
 import {TreeModule} from "@circlon/angular-tree-component";
+import {ModalModule} from "ngx-bootstrap/modal";
 
-const items = [
-
-];
+const items = [];
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'right',
@@ -42,13 +41,13 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   declarations: [FooterComponent, AboutComponent, items, GroupByPipe],
   imports: [
     CommonModule, RouterModule, TreeModule, MaterialModule, NguCarouselModule, CurrencyMaskModule,
-    NgbPopoverModule, FlexLayoutModule,
+    NgbPopoverModule, FlexLayoutModule, ModalModule,
     TranslateModule
   ],
   exports: [
     NgxPermissionsModule, RouterModule, TreeModule, MaterialModule, NguCarouselModule, CurrencyMaskModule,
     NgbPopoverModule,
-    FlexLayoutModule, TranslateModule, GroupByPipe,
+    FlexLayoutModule, ModalModule, TranslateModule, GroupByPipe,
     items, FooterComponent,
     BaseTableModule,
     DialogHeaderModule,

@@ -114,6 +114,6 @@ export class TileRoleComponent implements OnInit {
   }
 
   back(): void {
-    this.router.navigate(['settings/tiles']);
+    this.router.navigate(['app/settings/tiles']);
   }
 }

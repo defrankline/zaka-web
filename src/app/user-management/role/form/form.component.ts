@@ -60,6 +60,6 @@ export class FormComponent implements OnInit {
   }
 
   public close(): void {
-    this.router.navigate(['user-management/roles']);
+    this.router.navigate(['app/parishioner-management/roles']);
   }
 }
