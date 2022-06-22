@@ -607,11 +607,19 @@
   "contributions": "Michango",
   "settings": "Mpangilio",
   "hierarchies": "Hierarkia",
+  "contribution": "Mchango",
+  "parishioners-form": "Fomu ya kuandikisha waumini",
+  "from": "Kuanzia",
+  "to": "Mpaka",
+  "division3": "Kanda",
+  "division2": "Jumuiya",
   "ledger-accounts": "Leja za akaunti",
   "ledger-account-groups": "Makundi ya Leja za akaunti",
   "ledger-account-sub-types": "Aina ndogo ya Leja za akaunti",
   "ledger-account-types": "Aina kubwa ya Leja za akaunti",
   "default-ledger-accounts": "Leja tengwa za akaunti",
   "contribution-setup": "Aina za Michango",
-  "fund-sources-and-expense-codes": "Vifungu vya mapato & matumizi"
+  "fund-sources-and-expense-codes": "Vifungu vya mapato & matumizi",
+  "card-number": "Nambari ya Kadi",
+  "parishioners-upload-form": "Fomu ya kuandikisha waumini kwa wingi"
 }

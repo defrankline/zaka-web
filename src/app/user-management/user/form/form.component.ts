@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {User} from '../user';
 import {UserService} from '../user.service';
@@ -22,6 +22,7 @@ export class FormComponent implements OnInit {
   isLoading = false;
   divisions: Division[] | null = [];
   administrationDivisions: Division[] | null = [];
+  level2Control = new FormControl(null)
 
   constructor(private formBuilder: FormBuilder,
               private dialogRef: MatDialogRef<FormComponent>,
@@ -32,6 +33,8 @@ export class FormComponent implements OnInit {
               private toast: ToastService) {
     if (this.data.user !== undefined) {
       this.user = this.data.user as User;
+      const level1 = this.user.division as Division;
+      this.level2Control.setValue(level1.parent?.number + '- ' + level1.parent?.name);
     }
   }
 
@@ -126,7 +129,7 @@ export class FormComponent implements OnInit {
     this.userService.update(user).subscribe(response => {
       this.dialogRef.close(response);
     }, error => {
-      this.toast.success('Success!',error.error.message);
+      this.toast.success('Success!', error.error.message);
     });
   }
 
@@ -135,7 +138,7 @@ export class FormComponent implements OnInit {
       .subscribe(response => {
         this.dialogRef.close(response);
       }, error => {
-        this.toast.success('Success!',error.error.message);
+        this.toast.success('Success!', error.error.message);
       });
   }
 
@@ -185,5 +188,10 @@ export class FormComponent implements OnInit {
     } else {
       return '';
     }
+  }
+
+  setLevel2() {
+    const level1 = this.formGroup.get('division').value as Division;
+    this.level2Control.setValue(level1.parent?.number + '- ' + level1.parent?.name);
   }
 }

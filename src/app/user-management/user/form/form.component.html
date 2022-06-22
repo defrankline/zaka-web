@@ -93,7 +93,7 @@
             {{'required'|translate}}
           </mat-error>
         </mat-form-field>
-        <mat-autocomplete #autoDivision="matAutocomplete" [displayWith]="displayDivision">
+        <mat-autocomplete #autoDivision="matAutocomplete" (optionSelected)="setLevel2()" [displayWith]="displayDivision">
           <mat-option *ngIf="isLoading" class="is-loading">
             <mat-spinner diameter="50"></mat-spinner>
           </mat-option>
@@ -104,6 +104,14 @@
           </ng-container>
         </mat-autocomplete>
       </div>
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'division3'|translate}}</mat-label>
+          <input matInput type="text" [readonly]="true" placeholder="{{'division3'|translate}}" [formControl]="level2Control">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
       <div class="col">
         <mat-form-field appearance="outline">
           <mat-icon matPrefix>search</mat-icon>
