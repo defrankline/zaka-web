@@ -46,11 +46,22 @@
   <div class="row">
     <div class="col">
       <mat-form-field appearance="outline">
-        <mat-label>{{'date'|translate}}</mat-label>
-        <input matInput [matDatepicker]="datePicker" placeholder="{{'date'|translate}}" [formControl]="dateControl">
+        <mat-label>{{'date-paid'|translate}}</mat-label>
+        <input matInput [matDatepicker]="datePicker" placeholder="{{'date-paid'|translate}}" [formControl]="dateControl">
         <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
         <mat-error *ngIf="!dateControl.valid && dateControl.touched">
+          {{'required'|translate}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field appearance="outline">
+        <mat-label>{{'intended-date'|translate}}</mat-label>
+        <input matInput [matDatepicker]="dateIntendedPicker" placeholder="{{'intended-date'|translate}}" [formControl]="intendedDateControl">
+        <mat-datepicker-toggle matSuffix [for]="dateIntendedPicker"></mat-datepicker-toggle>
+        <mat-datepicker #dateIntendedPicker></mat-datepicker>
+        <mat-error *ngIf="!intendedDateControl.valid && intendedDateControl.touched">
           {{'required'|translate}}
         </mat-error>
       </mat-form-field>
@@ -104,7 +115,7 @@
 </div>
 <div mat-dialog-actions class="my-3 justify-content-end">
   <button mat-raised-button color="primary" type="button" (click)="save()" [disabled]="amountControl.invalid
-   || dateControl.invalid || userControl.invalid || contributionControl.invalid || paymentVoucherNumberControl.invalid">
+   || dateControl.invalid || userControl.invalid || contributionControl.invalid || paymentVoucherNumberControl.invalid || intendedDateControl.invalid">
     <mat-icon>save</mat-icon>
     {{'save'|translate}}
   </button>

@@ -28,6 +28,7 @@ export class FormComponent implements OnInit {
   level2Control = new FormControl(null);
   level3Control = new FormControl(null);
   dateControl = new FormControl(this.datePipe.transform(Date.now(), this.dateFormat), [Validators.required]);
+  intendedDateControl = new FormControl(this.datePipe.transform(Date.now(), this.dateFormat), [Validators.required]);
   isLoading = false;
   members: User[] | null = [];
   contributions: Contribution[] | null = [];
@@ -82,6 +83,7 @@ export class FormComponent implements OnInit {
       paymentVoucherNumber: this.paymentVoucherNumberControl.value as string,
       amount: this.amountControl.value as number,
       date: this.datePipe.transform(this.dateControl.value, this.dateFormat).toString(),
+      intendedDate: this.datePipe.transform(this.intendedDateControl.value, this.dateFormat).toString(),
       itemCode: contribution.number,
       paymentMethodCode: paymentMethod.code,
       cardNumber: user.cardNumber

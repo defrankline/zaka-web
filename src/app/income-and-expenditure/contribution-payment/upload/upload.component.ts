@@ -24,7 +24,7 @@ export class UploadComponent implements OnInit {
   worksheet: any;
   isLoading = false;
   totalItems: number;
-  displayedColumns: string[] = ['id', 'cardNumber', 'amount', 'itemCode', 'date', 'pvn', 'paymentMethodCode'];
+  displayedColumns: string[] = ['id', 'cardNumber', 'amount', 'itemCode', 'date', 'intendedDate', 'pvn', 'paymentMethodCode'];
   dataSource = new MatTableDataSource<ContributionPaymentUploadItemDto>();
 
 
@@ -75,6 +75,7 @@ export class UploadComponent implements OnInit {
           paymentVoucherNumber: row.paymentVoucherNumber ? row.paymentVoucherNumber : null,
           amount: Number(row.amount),
           date: this.datePipe.transform(row.date ? row.date : Date.now(), 'yyyy-MM-dd').toString(),
+          intendedDate: this.datePipe.transform(row.intendedDate ? row.intendedDate : Date.now(), 'yyyy-MM-dd').toString(),
           itemCode: row.itemCode,
           paymentMethodCode: row.paymentMethodCode,
           cardNumber: row.cardNumber
@@ -98,13 +99,13 @@ export class UploadComponent implements OnInit {
       if (result.value) {
         const errors = [];
         this.products.forEach(row => {
-          if (!row.cardNumber || !row.amount || !row.itemCode || !row.date || !row.paymentMethodCode) {
+          if (!row.cardNumber || !row.amount || !row.itemCode || !row.date || !row.paymentMethodCode || !row.intendedDate) {
             errors.push(row);
           }
         });
         if (errors.length > 0) {
           console.log(errors);
-          this.toast.success('Success!','File has some blank fields: cardNumber, amount, date, itemCode, paymentMethodCode cannot be blank');
+          this.toast.success('Success!', 'File has some blank fields: cardNumber, amount, date, intendedDate, itemCode, paymentMethodCode cannot be blank');
         } else {
           const payload = {
             items: this.products,
@@ -119,7 +120,7 @@ export class UploadComponent implements OnInit {
     this.contributionPaymentService.upload(contributionPaymentUploadDto).subscribe(response => {
       this.dialogRef.close(response);
     }, error => {
-      this.toast.success('Success!','Payment Could Not be Uploaded!');
+      this.toast.success('Success!', 'Payment Could Not be Uploaded!');
     });
   }
 

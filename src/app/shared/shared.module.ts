@@ -24,6 +24,7 @@ import {SimpleSelectModule} from './base-form/simple-select/simple-select.module
 import {NgxPrintModule} from 'ngx-print';
 import {TreeModule} from "@circlon/angular-tree-component";
 import {ModalModule} from "ngx-bootstrap/modal";
+import {PaginationModule} from "ngx-bootstrap/pagination";
 
 const items = [];
 
@@ -53,7 +54,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     DialogHeaderModule,
     SimpleInputModule,
     SimpleSelectModule,
-    NgxPrintModule
+    NgxPrintModule,
+    PaginationModule
   ],
   providers: [
     Title,

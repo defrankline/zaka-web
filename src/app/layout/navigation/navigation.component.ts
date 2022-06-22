@@ -59,7 +59,7 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.storeSvc.read(StorageKey.CURRENT_USER) as User;
-    const lang = this.storeSvc.read(LANGUAGE) || 'en';
+    const lang = this.storeSvc.read(LANGUAGE) || 'sw';
     this.translateService.use(lang);
     if (this.user) {
       this.toast.success('Hello', 'Welcome back ' + this.user.username, 2000);

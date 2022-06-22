@@ -8,6 +8,7 @@ export interface ContributionPayment {
   amount: number;
   paymentVoucherNumber: string;
   datePaid: string;
+  intendedDate: string;
   dateVerified: string;
   verified: boolean;
 }
@@ -22,6 +23,7 @@ export interface ContributionPaymentUploadItemDto {
   number: string;
   amount: number;
   date: string;
+  intendedDate: string;
   itemCode: string;
   paymentVoucherNumber: string;
   paymentMethodCode: string;
