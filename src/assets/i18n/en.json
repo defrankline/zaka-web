@@ -1000,6 +1000,8 @@
   "contribution-setup": "Contribution Setup",
   "minimum-amount": "Minimum Amount",
   "gfs-code": "Revenue Account",
+  "tiles": "Tiles",
+  "hierarchy-levels": "Hierarchy Levels",
   "payment-voucher-number": "Payment Voucher Number",
   "payment-method-setup-form": "Payment Method Setup Form",
   "card-return-payment-form": "Card Return Payment Form",
@@ -1011,5 +1013,7 @@
   "receipt-number": "Receipt Number",
   "division2": "Jumuiya",
   "division3": "Kanda",
-  "contributions": "Contributions"
+  "contributions": "Contributions",
+  "notifications": "Notifications",
+  "contribution-payments": "Contribution Payments"
 }
