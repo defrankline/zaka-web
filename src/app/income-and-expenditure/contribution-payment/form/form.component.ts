@@ -12,6 +12,8 @@ import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
 import {UserService} from '../../../user-management/user/user.service';
 import {PaymentMethod, PaymentMethodService} from '../../../settings/payment-method';
 import Swal from 'sweetalert2';
+import {CustomResponse} from "../../../shared/custom-response";
+import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-form',
@@ -49,6 +51,22 @@ export class FormComponent implements OnInit {
     this.searchMembers();
     this.loadContributions();
     this.loadPaymentMethods();
+    this.loadLastReceiptNumber();
+  }
+
+  loadLastReceiptNumber():void{
+    this.paymentService.newReceiptNumber().subscribe({
+      next: this.lastNumberSuccess.bind(this),
+      error: this.lastNumberError.bind(this),
+    })
+  }
+
+  lastNumberSuccess(response: CustomResponse):void{
+    this.paymentVoucherNumberControl.setValue(response.data);
+  }
+
+  lastNumberError(response: HttpErrorResponse):void{
+
   }
 
   close(): void {

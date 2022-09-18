@@ -39,6 +39,10 @@ export class ContributionPaymentService {
     }) as Observable<CustomResponse>;
   }
 
+  public newReceiptNumber(): Observable<CustomResponse> {
+    return this.http.get(this.URL + '/newReceiptNumber') as Observable<CustomResponse>;
+  }
+
   public store(item: ContributionPayment): Observable<CustomResponse> {
     return this.http.post(this.URL, item) as Observable<CustomResponse>;
   }
