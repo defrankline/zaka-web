@@ -73,6 +73,7 @@
                       <th>{{'zone'|translate}}</th>
                       <th>{{'item'|translate}}</th>
                       <th>{{'amount'|translate}}</th>
+                      <th>{{'payment-method'|translate}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -84,6 +85,7 @@
                       <td>{{item.user?.division?.parent?.name}}</td>
                       <td>{{item.contribution?.name}}</td>
                       <td>{{item.amount|number:'.2'}}</td>
+                      <td>{{item.paymentMethod?.name}}</td>
                     </tr>
                     </tbody>
                   </table>
