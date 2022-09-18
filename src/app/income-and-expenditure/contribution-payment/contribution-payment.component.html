@@ -67,9 +67,11 @@
                   <th>{{'date'|translate}}</th>
                   <th>{{'number'|translate}}</th>
                   <th>{{'location'|translate}}</th>
+                  <th>{{'zone'|translate}}</th>
                   <th>{{'item'|translate}}</th>
                   <th>{{'amount'|translate}}</th>
                   <th>{{'receipt-number'|translate}}</th>
+                  <th>{{'payment-method'|translate}}</th>
                   <th>{{'action-and-status'|translate}}</th>
                 </tr>
                 </thead>
@@ -78,10 +80,12 @@
                   <td>{{i + 1}}</td>
                   <td>{{item.datePaid|date:'mediumDate'}}</td>
                   <td>{{item.user.cardNumber}}</td>
-                  <td>{{item.user?.division?.name}} - {{item.user?.division?.parent?.name}}</td>
+                  <td>{{item.user?.division?.name}}</td>
+                  <td>{{item.user?.division?.parent?.name}}</td>
                   <td>{{item.contribution?.name}}</td>
                   <td>{{item.amount|number:'.2'}}</td>
                   <td>{{item.paymentVoucherNumber}}</td>
+                  <td>{{item.paymentMethod?.name}}</td>
                   <td>
                     <button type="button" class="btn btn-sm btn-success" [disabled]="!item.verified" (click)="print(item)">
                       <i class="fa fa-file-pdf-o"></i>&nbsp;{{'receipt'|translate}}

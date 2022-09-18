@@ -70,6 +70,7 @@
                       <th>{{'date'|translate}}</th>
                       <th>{{'number'|translate}}</th>
                       <th>{{'location'|translate}}</th>
+                      <th>{{'zone'|translate}}</th>
                       <th>{{'item'|translate}}</th>
                       <th>{{'amount'|translate}}</th>
                     </tr>
@@ -79,7 +80,8 @@
                       <td>{{i + 1}}</td>
                       <td>{{item.datePaid|date:'mediumDate'}}</td>
                       <td>{{item.user.cardNumber}}</td>
-                      <td>{{item.user?.division?.name}} - {{item.user?.division?.parent?.name}}</td>
+                      <td>{{item.user?.division?.name}}</td>
+                      <td>{{item.user?.division?.parent?.name}}</td>
                       <td>{{item.contribution?.name}}</td>
                       <td>{{item.amount|number:'.2'}}</td>
                     </tr>

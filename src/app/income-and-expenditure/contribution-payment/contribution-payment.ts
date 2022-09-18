@@ -1,5 +1,6 @@
 import {Contribution} from '../../settings/contribution-setup/contribution';
 import {User} from '../../user-management/user/user';
+import {PaymentMethod} from "../../settings/payment-method";
 
 export interface ContributionPayment {
   id?: number;
@@ -11,6 +12,7 @@ export interface ContributionPayment {
   intendedDate: string;
   dateVerified: string;
   verified: boolean;
+  paymentMethod: PaymentMethod;
 }
 
 export interface ContributionPaymentUploadDto {
