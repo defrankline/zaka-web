@@ -36,6 +36,16 @@ export class UserService {
     });
   }
 
+  public download(format = 'PDF', divisionId: number)
+    : any {
+    return this.http.get(this.URL + '/contacts/' + format, {
+      params: {
+        divisionId: `${divisionId}`,
+      },
+      responseType: 'arraybuffer'
+    });
+  }
+
   public passwordReset(passwordReset: PasswordReset): Observable<CustomResponse> {
     return this.http.post(this.URL + '/passwordReset', passwordReset) as Observable<CustomResponse>;
   }

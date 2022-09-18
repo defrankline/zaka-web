@@ -16,6 +16,7 @@ import {UploadComponent} from './upload/upload.component';
 import {UserRoleListComponent} from './user-role-list';
 import {ToastService} from "../../shared/services/toast.service";
 import {CustomResponse} from "../../shared/custom-response";
+import {saveAs} from "file-saver";
 
 @Component({
   selector: 'app-user',
@@ -81,6 +82,21 @@ export class UserComponent implements OnInit {
     this.size = event.pageSize;
     this.queryString = this.searchControl.value;
     this.loadData(this.activatedHierarchy.id, this.queryString, this.page, this.size);
+  }
+
+  download(format: string): void {
+    if (format === 'PDF') {
+      this.userService.download(format,this.activatedHierarchy.id).subscribe(response => {
+        saveAs(new Blob([response], {type: 'application/pdf'}), Date.now() + '-contacts.pdf');
+      });
+    } else {
+      this.userService.download(format,this.activatedHierarchy.id).subscribe(response => {
+        saveAs(new Blob([response], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+          }
+        ), 'contacts.xlsx');
+      });
+    }
   }
 
   delete(user: User): void {
