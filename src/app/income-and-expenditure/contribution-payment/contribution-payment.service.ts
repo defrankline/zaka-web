@@ -63,8 +63,7 @@ export class ContributionPaymentService {
     return this.http.get(this.URL + '/paymentReceipt', {
       params: {
         id: `${id}`
-      },
-      responseType: 'arraybuffer'
+      }
     });
   }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ITreeOptions} from '@circlon/angular-tree-component';
 import {DivisionService} from './division.service';
 import {Division, DivisionTree} from './division';

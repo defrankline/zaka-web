@@ -114,7 +114,7 @@ export class ContributionPaymentComponent implements OnInit {
         this.contributionPaymentService.delete(user.id)
           .subscribe((response) => {
             this.loadData(this.activatedHierarchy.id, this.queryString, this.page, this.size, this.start, this.end, this.products);
-            this.toast.success('Success!',response.message);
+            this.toast.success('Success!', response.message);
           });
       }
     });
@@ -129,7 +129,7 @@ export class ContributionPaymentComponent implements OnInit {
     dl.afterClosed().subscribe((response: CustomResponse) => {
       if (response) {
         this.loadData(this.activatedHierarchy.id, this.queryString, this.page, this.size, this.start, this.end, this.products);
-        this.toast.success('Success!',response.message);
+        this.toast.success('Success!', response.message);
       }
     });
   }
@@ -160,15 +160,29 @@ export class ContributionPaymentComponent implements OnInit {
     dl.afterClosed().subscribe((response: CustomResponse) => {
       if (response) {
         this.loadData(this.activatedHierarchy.id, this.queryString, this.page, this.size, this.start, this.end, this.products);
-        this.toast.success('Success!',response.message);
+        this.toast.success('Success!', response.message);
       }
     });
   }
 
   print(item: ContributionPayment): void {
-    this.contributionPaymentService.printReceipt(item.id).subscribe(response => {
+    /*this.contributionPaymentService.printReceipt(item.id).subscribe(response => {
       saveAs(new Blob([response], {type: 'application/pdf'}), Date.now() + '-payment-receipt.pdf');
-    }, error => this.toast.success('Success!','Error', error.error.message));
+    }, error => this.toast.success('Success!','Error', error.error.message));*/
+
+    this.contributionPaymentService.printReceipt(item.id).subscribe({
+      next: this.printSuccess.bind(this),
+      error: this.printError.bind(this),
+    })
+  }
+
+  printSuccess(response: CustomResponse): void {
+    let pdfWindow = window.open("");
+    pdfWindow.document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64, " + encodeURI(response.data) + "'></iframe>");
+  }
+
+  printError(): void {
+    this.toast.error('Error', 'Error')
   }
 
   filterByDateRange(): void {
