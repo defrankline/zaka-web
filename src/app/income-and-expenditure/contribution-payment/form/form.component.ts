@@ -122,7 +122,8 @@ export class FormComponent implements OnInit {
   loadPaymentMethods(): void {
     this.paymentMethodService.getAll().subscribe((response) => {
       this.paymentMethods = response.data;
-      this.paymentMethodControl.setValue(this.paymentMethods[0]);
+      const paymentMethod = this.paymentMethods.find(row => row.code === '1060') as PaymentMethod;
+      this.paymentMethodControl.setValue(paymentMethod);
     }, error => {
       this.toast.error('Error!', 'Oops! Payment Methods could not be loaded!');
     });

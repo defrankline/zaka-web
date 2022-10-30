@@ -166,10 +166,6 @@ export class ContributionPaymentComponent implements OnInit {
   }
 
   print(item: ContributionPayment): void {
-    /*this.contributionPaymentService.printReceipt(item.id).subscribe(response => {
-      saveAs(new Blob([response], {type: 'application/pdf'}), Date.now() + '-payment-receipt.pdf');
-    }, error => this.toast.success('Success!','Error', error.error.message));*/
-
     this.contributionPaymentService.printReceipt(item.id).subscribe({
       next: this.printSuccess.bind(this),
       error: this.printError.bind(this),
