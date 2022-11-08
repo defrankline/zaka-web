@@ -24,8 +24,26 @@ export interface User {
   roles: Role[];
 }
 
-export interface UserUpload {
-  division: Division;
-  administrationDivision: Division;
-  users: User[];
+export interface GenderEntity {
+  id?: string;
+  name?: string;
 }
+
+export interface UserUploadItem {
+  firstName: string;
+  middleName: string;
+  surname: string;
+  email: string;
+  mobile: string;
+  gender: string;
+  number: string;
+  dob: string;
+  dateBaptized: string;
+  eucharistDate: string;
+  confirmationDate: string;
+  marriageDate: string;
+  ordinationDate: string;
+  cardNumber: string;
+  locationCode:string;
+}
+

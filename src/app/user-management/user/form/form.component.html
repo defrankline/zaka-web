@@ -41,6 +41,32 @@
     <div class="row">
       <div class="col">
         <mat-form-field appearance="outline">
+          <mat-label>Sex</mat-label>
+          <mat-select formControlName="gender" required>
+            <mat-option *ngIf="!formGroup.get('gender').value" [value]="null" aria-selected="true"></mat-option>
+            <mat-option
+              [value]="gender.id === formGroup.get('gender').value ? formGroup.get('gender').value:gender.id"
+              *ngFor="let gender of genderList; trackBy: trackGenderId" value="gender.id">
+              {{ gender.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="!formGroup.get('gender').valid && formGroup.get('gender').touched">
+            Sex is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Date of Birth</mat-label>
+          <input matInput [matDatepicker]="dobPicker" placeholder="Date of Birth" formControlName="dob">
+          <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+          <mat-datepicker #dobPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline">
           <mat-label>Mobile</mat-label>
           <input matInput placeholder="mobile" formControlName="mobile" required>
           <mat-error *ngIf="!formGroup.get('mobile').valid && formGroup.get('mobile').touched">
@@ -68,7 +94,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12">
+      <div class="col">
         <mat-form-field appearance="outline">
           <mat-label>Roles</mat-label>
           <mat-select formControlName="roles" [compareWith]="bindRole" multiple required>
@@ -109,29 +135,6 @@
           <mat-label>{{'division3'|translate}}</mat-label>
           <input matInput type="text" [readonly]="true" placeholder="{{'division3'|translate}}" [formControl]="level2Control">
         </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <mat-form-field appearance="outline">
-          <mat-icon matPrefix>search</mat-icon>
-          <mat-label>{{'administrative-division'|translate}}</mat-label>
-          <input matInput autocomplete="off" placeholder="{{'administrative-division'|translate}}" [matAutocomplete]="autoAdministrativeDivision" required
-                 formControlName="administrationDivision"/>
-          <mat-error *ngIf="formGroup.get('administrationDivision').invalid && formGroup.get('administrationDivision').touched">
-            {{'required'|translate}}
-          </mat-error>
-        </mat-form-field>
-        <mat-autocomplete #autoAdministrativeDivision="matAutocomplete" [displayWith]="displayAdministrativeDivision">
-          <mat-option *ngIf="isLoading" class="is-loading">
-            <mat-spinner diameter="50"></mat-spinner>
-          </mat-option>
-          <ng-container *ngIf="!isLoading">
-            <mat-option *ngFor="let administrative of administrationDivisions" [value]="administrative">
-              <span>{{administrative.number}} - {{administrative.name}}</span>
-            </mat-option>
-          </ng-container>
-        </mat-autocomplete>
       </div>
     </div>
   </div>

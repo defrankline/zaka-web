@@ -4,14 +4,12 @@ import {Division} from '../../../settings/division/division';
 import * as excel from 'xlsx';
 import {UserService} from '../user.service';
 import Swal from 'sweetalert2';
-import {User, UserUpload} from '../user';
+import {UserUploadItem} from '../user';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {environment} from '../../../../environments/environment.prod';
 import {saveAs} from 'file-saver';
-import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
 import {DivisionService} from '../../../settings/division/division.service';
-import {FormControl, Validators} from '@angular/forms';
 import {ToastService} from "../../../shared/services/toast.service";
 import {TemplateService} from "../../../shared/services/template.service";
 
@@ -25,18 +23,14 @@ export class UploadComponent implements OnInit {
   jsonData: any;
   fileUploaded: File;
   isLoading = false;
-  divisions: Division[] | null = [];
-  administrationDivisions: Division[] | null = [];
-  members: User[] = [];
+  members: UserUploadItem[] = [];
   worksheet: any;
   totalItems: number;
   page = environment.page;
   size = environment.size;
-  divisionControl = new FormControl(null, [Validators.required]);
-  administrativeDivisionControl = new FormControl(null, [Validators.required]);
   perPageOptions = environment.perPageOptions;
-  displayedColumns: string[] = ['id', 'cardNumber', 'firstName', 'middleName', 'surname', 'gender', 'mobile'];
-  dataSource = new MatTableDataSource<User>();
+  displayedColumns: string[] = ['id', 'cardNumber', 'firstName', 'middleName', 'surname', 'gender', 'mobile', 'location'];
+  dataSource = new MatTableDataSource<UserUploadItem>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private userService: UserService,
@@ -48,52 +42,11 @@ export class UploadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.searchAdministrativeDivisions();
-    this.searchDivisions();
+
   }
 
   close(): void {
     this.dialogRef.close();
-  }
-
-  searchDivisions(): void {
-    this.divisionControl.valueChanges
-      .pipe(
-        debounceTime(300),
-        tap(() => (this.isLoading = true)),
-        switchMap(value => this.divisionService.getAll(value, 0, 10).pipe(finalize(() => (this.isLoading = false))))
-      )
-      .subscribe(response => {
-        this.divisions = response.data.content;
-      });
-  }
-
-  searchAdministrativeDivisions(): void {
-    this.administrativeDivisionControl.valueChanges
-      .pipe(
-        debounceTime(300),
-        tap(() => (this.isLoading = true)),
-        switchMap(value => this.divisionService.getAll(value, 0, 10).pipe(finalize(() => (this.isLoading = false))))
-      )
-      .subscribe(response => {
-        this.administrationDivisions = response.data.content;
-      });
-  }
-
-  displayDivision(user: Division): string {
-    if (user) {
-      return user.number + ' - ' + user.name;
-    } else {
-      return '';
-    }
-  }
-
-  displayAdministrativeDivision(user: Division): string {
-    if (user) {
-      return user.number + ' - ' + user.name;
-    } else {
-      return '';
-    }
   }
 
   uploadedFile(event): void {
@@ -128,14 +81,15 @@ export class UploadComponent implements OnInit {
         surname: row.surname.toString(),
         gender: row.gender.toString(),
         cardNumber: row.cardNumber.toString(),
+        locationCode: row.locationCode.toString(),
         mobile: row.mobile ? row.mobile.toLocaleString('fullwide', {useGrouping: false}) : '',
-      } as User;
+      } as UserUploadItem;
       items.push(item);
     });
     this.processData(items);
   }
 
-  private processData(items: User[]): void {
+  private processData(items: UserUploadItem[]): void {
     this.dataSource = new MatTableDataSource(items);
     this.members = items;
   }
@@ -152,44 +106,17 @@ export class UploadComponent implements OnInit {
       if (result.value) {
         const errors = [];
         this.members.forEach(row => {
-          if (!row.firstName || !row.surname || !row.gender || !row.cardNumber) {
+          if (!row.firstName || !row.surname || !row.gender || !row.cardNumber || !row.locationCode) {
             errors.push(row);
           }
         });
         if (errors.length > 0) {
-          this.toast.success('Success!','File has some blank fields, firstName, surname, gender, cardNumber cannot be blank');
+          this.toast.success('Success!', 'File has some blank fields, firstName, surname, gender, cardNumber,locationCode cannot be blank');
         } else {
-          const adminDivision = this.administrativeDivisionControl.value as Division;
-          const admin = {
-            id: adminDivision.id,
-            name: adminDivision.name,
-            number: adminDivision.number
-          } as Division;
-
-          const divisionValue = this.divisionControl.value as Division;
-          const location = {
-            id: divisionValue.id,
-            name: divisionValue.name,
-            number: divisionValue.number
-          } as Division;
-          const payload = {
-            division: location,
-            administrationDivision: admin,
-            users: this.members
-          } as UserUpload;
-          this.store(payload);
+          this.store(this.members);
         }
       }
     });
-  }
-
-  applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
   downloadUploadTemplate(): void {
@@ -201,8 +128,8 @@ export class UploadComponent implements OnInit {
     });
   }
 
-  store(userUpload: UserUpload): void {
-    this.userService.upload(userUpload).subscribe(response => {
+  store(users: UserUploadItem[]): void {
+    this.userService.upload(users).subscribe(response => {
       this.dialogRef.close(response);
     });
   }

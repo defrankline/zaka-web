@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment.prod';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {User, UserUpload} from './user';
+import {GenderEntity, User, UserUploadItem} from './user';
 import {CustomResponse} from "../../shared/custom-response";
 import {PasswordReset} from "../password-reset-form/password-reset";
 
@@ -58,6 +58,13 @@ export class UserService {
     return this.http.get<CustomResponse>(this.URL + '/' + id);
   }
 
+  genderList(): GenderEntity[] {
+    return [
+      {id: 'MALE', name: 'Male'},
+      {id: 'FEMALE', name: 'Female'}
+    ];
+  }
+
   public store(item: User): Observable<CustomResponse> {
     return this.http.post(this.URL, item) as Observable<CustomResponse>;
   }
@@ -70,7 +77,7 @@ export class UserService {
     return this.http.delete(this.URL + '/' + id) as Observable<CustomResponse>;
   }
 
-  upload(data: UserUpload) {
+  upload(data: UserUploadItem[]) {
     return this.http.post(this.URL + '/upload', data) as Observable<CustomResponse>;
   }
 }
