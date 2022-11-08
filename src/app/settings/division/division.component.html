@@ -15,10 +15,10 @@
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col-11">
+      <div class="col-8">
         <input id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" class="form-control col-md-3" placeholder="Search Hierarchy"/>
       </div>
-      <div class="col-1">
+      <div class="col-4">
         <button class="btn btn-info col-md-1 mx-2" (click)="tree.treeModel.clearFilter()"><i class="fa fa-remove"></i>Clear</button>
       </div>
     </div>
