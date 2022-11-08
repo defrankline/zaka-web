@@ -50,8 +50,10 @@ export class FormComponent implements OnInit {
   loadRoles(): void {
     this.roleService.getAll().subscribe(response => {
       this.roles = response.data;
-      const userRole = this.roles.find(row => row.name === 'ROLE_USER') as Role;
-      this.formGroup.get("roles").setValue(userRole)
+      if (this.user === undefined) {
+        const userRole = this.roles.find(row => row.name === 'ROLE_USER') as Role;
+        this.formGroup.get("roles").setValue(userRole)
+      }
     });
   }
 
