@@ -17,6 +17,7 @@ export class FormComponent implements OnInit {
   formGroup = this.formBuilder.group({
     name: ['', Validators.required],
     level: [null, Validators.required],
+    number: ['', Validators.required],
     parent: [null],
     smsCount: [0, [Validators.min(0)]],
     email: ['', [Validators.email]],
@@ -59,6 +60,7 @@ export class FormComponent implements OnInit {
         this.formGroup = this.formBuilder.group({
           name: [this.division.name, Validators.required],
           level: [this.division.level, Validators.required],
+          number: [this.division.number, Validators.required],
           parent: [this.division.parent],
           smsCount: [this.division.smsCount, [Validators.min(0)]],
           email: [this.division.email, [Validators.email]],

@@ -34,7 +34,13 @@
         </mat-form-field>
       </div>
       <div class="col">
-
+        <mat-form-field appearance="outline">
+          <mat-label>Number</mat-label>
+          <input matInput placeholder="Name" autocomplete="off" name="number" formControlName="number" required>
+          <mat-error *ngIf="!formGroup.get('number').valid && formGroup.get('number').touched">
+            Number is required
+          </mat-error>
+        </mat-form-field>
       </div>
     </div>
     <div class="row">
