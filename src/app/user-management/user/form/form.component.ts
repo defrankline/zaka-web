@@ -66,7 +66,7 @@ export class FormComponent implements OnInit {
         username: ['', [Validators.required]],
         cardNumber: ['', [Validators.required]],
         gender: ['', [Validators.required]],
-        dob: [this.datePipe.transform(Date.now(), 'yyyy-MM-dd'), [Validators.required]],
+        dob: [this.datePipe.transform(Date.now(), 'yyyy-MM-dd')],
         mobile: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(12)]],
       });
     } else {
@@ -78,7 +78,7 @@ export class FormComponent implements OnInit {
         username: [this.user.username, [Validators.required]],
         division: [this.user.division, [Validators.required]],
         cardNumber: [this.user.cardNumber, [Validators.required]],
-        dob: [this.datePipe.transform(this.user.dob, 'yyyy-MM-dd'), [Validators.required]],
+        dob: [this.datePipe.transform(this.user.dob, 'yyyy-MM-dd')],
         gender: [this.user.gender, [Validators.required]],
         mobile: [this.user.mobile, [Validators.required, Validators.minLength(12), Validators.maxLength(12)]],
       });
