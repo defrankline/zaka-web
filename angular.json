@@ -20,12 +20,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-          "allowedCommonJsDependencies": [
+            "allowedCommonJsDependencies": [
               "xlsx",
               "file-saver",
               "hammerjs",
               "highcharts",
-              "sockjs-client"
+              "sockjs-client",
+              "sweetalert2",
+              "moment",
+              "mobx"
             ],
             "outputPath": "dist",
             "index": "src/index.html",
