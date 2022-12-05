@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {AccountGroup} from '../account-group';
@@ -21,7 +21,7 @@ export class AccountGroupFormComponent implements OnInit {
   public loading: boolean;
   action: string;
   title: string;
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   accountGroup: AccountGroup;
   storeSubscription: Subscription;
   accountTypes: any;
@@ -34,7 +34,7 @@ export class AccountGroupFormComponent implements OnInit {
     private accountTypeService: AccountTypeService,
     private dialogRef: MatDialogRef<AccountGroupFormComponent>,
     private toast: ToastService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     @Inject(MAT_DIALOG_DATA) private data
   ) {
     this.loading = false;
@@ -68,7 +68,7 @@ export class AccountGroupFormComponent implements OnInit {
     });
   }
 
-  initFormGroup(): FormGroup {
+  initFormGroup(): UntypedFormGroup {
     if (this.action === 'create') {
       return this.formBuilder.group({
         name: ['', Validators.required],

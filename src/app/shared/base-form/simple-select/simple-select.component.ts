@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-simple-select',
@@ -11,6 +11,6 @@ export class SimpleSelectComponent<T> {
   @Input() label: string = null;
   @Input() placeholder: string;
   @Input() errorMsg: string;
-  @Input() formControl: FormControl;
+  @Input() formControl: UntypedFormControl;
   @Input() items: T[];
 }

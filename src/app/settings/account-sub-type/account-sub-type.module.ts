@@ -7,14 +7,13 @@ import {AccountSubTypeRoutingModule} from './account-sub-type-routing.module';
 import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
-  declarations: [AccountSubTypeListComponent, AccountSubTypeFormComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AccountSubTypeRoutingModule,
-  ],
-  providers: [AccountSubTypeService],
-  entryComponents: []
+    declarations: [AccountSubTypeListComponent, AccountSubTypeFormComponent],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AccountSubTypeRoutingModule,
+    ],
+    providers: [AccountSubTypeService]
 })
 export class AccountSubTypeModule {
 }

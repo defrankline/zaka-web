@@ -5,7 +5,7 @@ import {environment} from '../../../../environments/environment.prod';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Role} from '../role';
 import Swal from 'sweetalert2';
-import {FormControl, Validators} from '@angular/forms';
+import {UntypedFormControl, Validators} from '@angular/forms';
 import {TileRole} from '../../../settings/tile/tile-role/tile-role';
 import {Tile} from '../../../settings/tile/tile';
 import {TileRoleService} from '../../../settings/tile/tile-role/tile-role.service';
@@ -26,7 +26,7 @@ export class TileRoleComponent implements OnInit {
   maxSize = environment.maxSize;
   itemListSubject: BehaviorSubject<TileRole[]> = new BehaviorSubject([]);
   tiles: Tile[];
-  tileControl = new FormControl(null, [Validators.required]);
+  tileControl = new UntypedFormControl(null, [Validators.required]);
   showForm = false;
 
   constructor(private router: Router,

@@ -9,7 +9,7 @@ import {RecipientComponent} from './recipient/recipient.component';
 import {Division} from '../../settings/division/division';
 import {DivisionService} from '../../settings/division/division.service';
 import {environment} from '../../../environments/environment.prod';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
 import {ToastService} from "../../shared/services/toast.service";
 
@@ -28,7 +28,7 @@ export class SmsComponent implements OnInit {
   queryString: string;
   company: Division;
   smsListSubject: BehaviorSubject<Sms[]> = new BehaviorSubject(null);
-  searchControl = new FormControl('');
+  searchControl = new UntypedFormControl('');
   query = '_';
   isLoading = false;
 

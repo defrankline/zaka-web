@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Role} from '../role';
-import {FormControl, Validators} from '@angular/forms';
+import {UntypedFormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RoleService} from '../role.service';
 import {ToastService} from "../../../shared/services/toast.service";
@@ -13,8 +13,8 @@ import {ToastService} from "../../../shared/services/toast.service";
 export class FormComponent implements OnInit {
   role: Role;
   id: number = 0;
-  nameControl = new FormControl('', [Validators.required]);
-  levelControl = new FormControl(null, [Validators.required]);
+  nameControl = new UntypedFormControl('', [Validators.required]);
+  levelControl = new UntypedFormControl(null, [Validators.required]);
 
   constructor(private router: Router,
               private roleService: RoleService,

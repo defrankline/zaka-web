@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-simple-input',
@@ -13,5 +13,5 @@ export class SimpleInputComponent {
   @Input() label: string = null;
   @Input() placeholder: string;
   @Input() errorMsg: string;
-  @Input() formControl: FormControl;
+  @Input() formControl: UntypedFormControl;
 }

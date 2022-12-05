@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
@@ -20,11 +20,11 @@ export class FormComponent implements OnInit {
   loading: boolean;
   action: string;
   title: string;
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   contributions: Contribution[];
   contribution?: Contribution;
 
-  gfsCodeControl = new FormControl(null, [Validators.required]);
+  gfsCodeControl = new UntypedFormControl(null, [Validators.required]);
   isLoading = false;
   gfsCodes: GfsCode[] | null = [];
   years: LiturgicalYear[];
@@ -36,7 +36,7 @@ export class FormComponent implements OnInit {
     private liturgicalYearService: LiturgicalYearService,
     private dialogRef: MatDialogRef<FormComponent>,
     private toast: ToastService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     @Inject(MAT_DIALOG_DATA) private data
   ) {
     this.loading = false;
@@ -93,7 +93,7 @@ export class FormComponent implements OnInit {
     });
   }
 
-  initFormGroup(): FormGroup {
+  initFormGroup(): UntypedFormGroup {
     if (this.contribution === undefined) {
       return this.formBuilder.group(
         {

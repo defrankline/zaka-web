@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {SmsService} from '../sms.service';
 import {BulkSmsDto, Sms} from '../sms';
@@ -27,18 +27,18 @@ import {ToastService} from "../../../shared/services/toast.service";
 export class FormComponent implements OnInit {
   action: string;
   title: string;
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   sms: Sms;
   company: Division;
   isLoading = false;
   members: User[] | null = [];
   destinations: User[] | null = [];
-  messageControl = new FormControl('', [Validators.required, Validators.maxLength(160)]);
-  memberControl = new FormControl(null, [Validators.required]);
-  toggleControl = new FormControl(false);
-  internalControlControl = new FormControl(false);
-  publishControl = new FormControl(false);
-  reminderCategoryControl = new FormControl(null, [Validators.required]);
+  messageControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)]);
+  memberControl = new UntypedFormControl(null, [Validators.required]);
+  toggleControl = new UntypedFormControl(false);
+  internalControlControl = new UntypedFormControl(false);
+  publishControl = new UntypedFormControl(false);
+  reminderCategoryControl = new UntypedFormControl(null, [Validators.required]);
 
   displayedColumns: string[] = ['id', 'member', 'mobile', 'status', 'location', 'remove'];
   dataSource: MatTableDataSource<User>;
@@ -60,7 +60,7 @@ export class FormComponent implements OnInit {
     private reminderCategoryService: ReminderCategoryService,
     private recipientService: RecipientService,
     private toast: ToastService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private divisionService: DivisionService,
     private dialogRef: MatDialogRef<FormComponent>,
     @Inject(MAT_DIALOG_DATA) private data

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from '../../../environments/environment.prod';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
@@ -33,7 +33,7 @@ export class UserComponent implements OnInit {
   queryString = '_';
   itemListSubject: BehaviorSubject<User[]> = new BehaviorSubject([]);
   isLoading = false;
-  searchControl = new FormControl('');
+  searchControl = new UntypedFormControl('');
 
   options: ITreeOptions = {
     useCheckbox: false,

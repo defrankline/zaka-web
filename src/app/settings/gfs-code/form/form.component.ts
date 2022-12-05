@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 import {finalize} from 'rxjs/operators';
@@ -18,7 +18,7 @@ export class FormComponent implements OnInit {
   loading: boolean;
   action: string;
   title: string;
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   gfsCode?: GfsCode;
   accounts: LedgerAccount[];
   payingAccounts: LedgerAccount[];
@@ -28,7 +28,7 @@ export class FormComponent implements OnInit {
     private accountService: AccountService,
     private dialogRef: MatDialogRef<FormComponent>,
     private toast: ToastService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     @Inject(MAT_DIALOG_DATA) private data
   ) {
     this.loading = false;
@@ -54,7 +54,7 @@ export class FormComponent implements OnInit {
   }
 
 
-  initFormGroup(): FormGroup {
+  initFormGroup(): UntypedFormGroup {
     if (this.gfsCode === undefined) {
       return this.formBuilder.group({
         name: ['', Validators.required],

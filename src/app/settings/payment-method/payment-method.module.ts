@@ -6,14 +6,13 @@ import {PaymentMethodFormComponent} from './payment-method-form';
 import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
-  declarations: [PaymentMethodListComponent, PaymentMethodFormComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    PaymentMethodRoutingModule
-  ],
-  providers: [],
-  entryComponents: []
+    declarations: [PaymentMethodListComponent, PaymentMethodFormComponent],
+    imports: [
+        CommonModule,
+        SharedModule,
+        PaymentMethodRoutingModule
+    ],
+    providers: []
 })
 export class PaymentMethodModule {
 }

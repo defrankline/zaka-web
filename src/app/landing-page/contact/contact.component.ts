@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {UntypedFormGroup, UntypedFormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
@@ -8,10 +8,10 @@ import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 })
 export class ContactComponent implements OnInit {
   @Input('backgroundGray') public backgroundGray;
-  contactForm: FormGroup;
+  contactForm: UntypedFormGroup;
 
   constructor(
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
   }
 

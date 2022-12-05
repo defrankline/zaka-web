@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {GenderEntity, User} from '../user';
 import {UserService} from '../user.service';
@@ -18,14 +18,14 @@ import {DatePipe} from "@angular/common";
 })
 export class FormComponent implements OnInit {
   user: User = undefined;
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   roles: Role[];
   isLoading = false;
   divisions: Division[] | null = [];
-  level2Control = new FormControl(null)
+  level2Control = new UntypedFormControl(null)
   genderList: GenderEntity[];
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
               private dialogRef: MatDialogRef<FormComponent>,
               @Inject(MAT_DIALOG_DATA) private data: any,
               private userService: UserService,
@@ -57,7 +57,7 @@ export class FormComponent implements OnInit {
     });
   }
 
-  initFormGroup(): FormGroup {
+  initFormGroup(): UntypedFormGroup {
     if (this.user === undefined) {
       return this.formBuilder.group({
         firstName: ['', Validators.required],

@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
@@ -18,9 +18,9 @@ export class PaymentMethodFormComponent implements OnInit {
 
   public loading: boolean;
   isLoading = false;
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   paymentMethod?: PaymentMethod;
-  accountControl = new FormControl('');
+  accountControl = new UntypedFormControl('');
   accounts: LedgerAccount[];
 
   constructor(
@@ -28,7 +28,7 @@ export class PaymentMethodFormComponent implements OnInit {
     private accountService: AccountService,
     private dialogRef: MatDialogRef<PaymentMethodFormComponent>,
     private toast: ToastService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     @Inject(MAT_DIALOG_DATA) private data
   ) {
     this.loading = false;
@@ -69,7 +69,7 @@ export class PaymentMethodFormComponent implements OnInit {
   }
 
 
-  initFormGroup(): FormGroup {
+  initFormGroup(): UntypedFormGroup {
     if (this.paymentMethod === undefined) {
       return this.formBuilder.group({
         name: ['', Validators.required],

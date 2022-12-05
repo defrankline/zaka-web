@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Division} from '../division';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DivisionLevelService} from '../../level/level.service';
 import {DivisionLevel} from '../../level/level';
 import {DivisionService} from '../division.service';
@@ -34,7 +34,7 @@ export class FormComponent implements OnInit {
   parents: Division[];
 
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
               private dialogRef: MatDialogRef<FormComponent>,
               @Inject(MAT_DIALOG_DATA) private data: any,
               private hierarchyService: DivisionService,

@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import {AccountSubType} from '../account-sub-type';
 import {AccountSubTypeService} from '../account-sub-type.service';
 import {AccountSubTypeFormComponent} from '../account-sub-type-form';
-import {FormControl, Validators} from '@angular/forms';
+import {UntypedFormControl, Validators} from '@angular/forms';
 import {AccountTypeService} from '../../account-type/account-type.service';
 import {AccountType} from '../../account-type/account-type';
 import {MatSort} from '@angular/material/sort';
@@ -27,7 +27,7 @@ export class AccountSubTypeListComponent implements OnInit {
   size: number;
   perPageOptions = [];
   totalItems: number;
-  searchControl = new FormControl();
+  searchControl = new UntypedFormControl();
   data: any;
   queryString: string;
   private accountSubTypeListSubject: BehaviorSubject<AccountSubType[]> = new BehaviorSubject(null);
@@ -40,7 +40,7 @@ export class AccountSubTypeListComponent implements OnInit {
   accountTypes: any;
   accountTypeId: number;
 
-  accountTypeControl = new FormControl('', [Validators.required]);
+  accountTypeControl = new UntypedFormControl('', [Validators.required]);
 
   constructor(
     private accountSubTypeService: AccountSubTypeService,

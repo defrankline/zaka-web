@@ -8,17 +8,16 @@ import {BreadcrumbModule} from "./breadcrumb/breadcrumb.module";
 
 
 @NgModule({
-  declarations: [
-    NavigationComponent,
-    MainLayoutComponent,
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    SharedModule,
-    BreadcrumbModule
-  ],
-  entryComponents: []
+    declarations: [
+        NavigationComponent,
+        MainLayoutComponent,
+    ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        SharedModule,
+        BreadcrumbModule
+    ]
 })
 export class LayoutModule {
 }

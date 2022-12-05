@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import {Tile} from './tile';
 import {TileService} from './tile.service';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {ToastService} from "../../shared/services/toast.service";
 
 @Component({
@@ -22,7 +22,7 @@ export class TileComponent implements OnInit {
   queryString = '_';
   itemListSubject: BehaviorSubject<Tile[]> = new BehaviorSubject([]);
   isLoading = false;
-  searchControl = new FormControl('');
+  searchControl = new UntypedFormControl('');
 
   constructor(private tileService: TileService,
               private toast: ToastService,

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TileService} from '../tile.service';
 import {Tile} from '../tile';
@@ -14,13 +14,13 @@ import {ToastService} from "../../../shared/services/toast.service";
 export class FormComponent implements OnInit {
   tile: Tile;
   id: number = 0;
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   parents: Tile[];
 
   constructor(private router: Router,
               private tileService: TileService,
               private toast: ToastService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               private roleService: RoleService,
               private activatedRoute: ActivatedRoute) {
     if (this.activatedRoute.snapshot.params.id) {
@@ -36,7 +36,7 @@ export class FormComponent implements OnInit {
     this.formGroup = this.initFormGroup();
   }
 
-  initFormGroup(): FormGroup {
+  initFormGroup(): UntypedFormGroup {
     return this.formBuilder.group({
       name: ['', Validators.required],
       url: ['', Validators.required],

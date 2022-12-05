@@ -2,7 +2,7 @@ import {Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 
 import Swal from 'sweetalert2';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {Role} from '../../role/role';
 import {RoleService} from '../../role/role.service';
 import {finalize} from 'rxjs/operators';
@@ -33,7 +33,7 @@ export class UserRoleListComponent implements OnInit, OnDestroy {
   getAllPagedSubscription: Subscription;
   getAllRoleSubscription: Subscription;
   deleteSubscription: Subscription;
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   queryString: string;
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
@@ -43,7 +43,7 @@ export class UserRoleListComponent implements OnInit, OnDestroy {
     private roleService: RoleService,
     private dialog: MatDialog,
     private toast: ToastService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private dialogRef: MatDialogRef<UserRoleListComponent>,
     @Inject(MAT_DIALOG_DATA) private data
   ) {
@@ -60,7 +60,7 @@ export class UserRoleListComponent implements OnInit, OnDestroy {
     this.formGroup = this.initFormGroup();
   }
 
-  initFormGroup(): FormGroup {
+  initFormGroup(): UntypedFormGroup {
     return this.formBuilder.group({
       role: [null, Validators.required],
     });

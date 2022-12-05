@@ -9,7 +9,7 @@ import {TileRole} from './tile-role';
 import Swal from 'sweetalert2';
 import {TileService} from '../tile.service';
 import {Tile} from '../tile';
-import {FormControl, Validators} from '@angular/forms';
+import {UntypedFormControl, Validators} from '@angular/forms';
 import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
@@ -26,7 +26,7 @@ export class TileRoleComponent implements OnInit {
   maxSize = environment.maxSize;
   itemListSubject: BehaviorSubject<TileRole[]> = new BehaviorSubject([]);
   roles: Role[];
-  roleControl = new FormControl(null, [Validators.required]);
+  roleControl = new UntypedFormControl(null, [Validators.required]);
   showForm = false;
 
   constructor(private router: Router,

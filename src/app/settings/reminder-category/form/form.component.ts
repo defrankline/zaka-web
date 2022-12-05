@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ReminderCategory} from '../reminder-category';
 import {ReminderCategoryService} from '../reminder-category.service';
@@ -14,14 +14,14 @@ import {ToastService} from "../../../shared/services/toast.service";
 export class FormComponent implements OnInit {
   action: string;
   title: string;
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   reminderCategory: ReminderCategory;
   accounts: LedgerAccount[] = [];
 
   constructor(
     private reminderCategoryService: ReminderCategoryService,
     private toast: ToastService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private dialogRef: MatDialogRef<FormComponent>,
     @Inject(MAT_DIALOG_DATA) private data
   ) {
@@ -36,7 +36,7 @@ export class FormComponent implements OnInit {
     this.formGroup = this.initFormGroup();
   }
 
-  initFormGroup(): FormGroup {
+  initFormGroup(): UntypedFormGroup {
     if (this.action === 'create') {
       return this.formBuilder.group({
         name: ['', Validators.required],

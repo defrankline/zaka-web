@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 
 import {environment} from '../../../environments/environment.prod';
@@ -29,7 +29,7 @@ export class ContributionSetupComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
-  searchControl = new FormControl('');
+  searchControl = new UntypedFormControl('');
   isLoading = false;
   type = 'ALL';
 

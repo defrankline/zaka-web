@@ -3,7 +3,7 @@ import {Subscription} from 'rxjs';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ToastrService} from 'ngx-toastr';
 import {CustomValidators} from '../custom-validators';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {User} from "../user/user";
 import {UserService} from "../user/user.service";
 import {PasswordReset} from "./password-reset";
@@ -17,7 +17,7 @@ export class PasswordResetFormComponent implements OnInit, OnDestroy {
 
   loading: boolean;
   title: string;
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   storeSubscription: Subscription;
   subscribeStore: boolean;
   user: User;
@@ -26,7 +26,7 @@ export class PasswordResetFormComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private dialogRef: MatDialogRef<PasswordResetFormComponent>,
     private toast: ToastrService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     @Inject(MAT_DIALOG_DATA) private data
   ) {
     this.loading = false;
@@ -39,7 +39,7 @@ export class PasswordResetFormComponent implements OnInit, OnDestroy {
     this.formGroup = this.initFormGroup();
   }
 
-  initFormGroup(): FormGroup {
+  initFormGroup(): UntypedFormGroup {
     return this.formBuilder.group(
       {
         password: ['', Validators.compose([

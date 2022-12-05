@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {FormBuilder, Validators} from '@angular/forms';
+import {UntypedFormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from "../auth.service";
 import {StateStorageService} from "../state-storage.service";
@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   });
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private authService: AuthService,
     private stateStorage: StateStorageService,
     private router: Router

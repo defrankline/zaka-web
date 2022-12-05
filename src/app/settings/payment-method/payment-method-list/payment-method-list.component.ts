@@ -10,7 +10,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {environment} from '../../../../environments/environment.prod';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {ToastService} from "../../../shared/services/toast.service";
 
 @Component({
@@ -30,7 +30,7 @@ export class PaymentMethodListComponent implements OnInit {
   paymentMethodListSubject: BehaviorSubject<PaymentMethod[]> = new BehaviorSubject(null);
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
-  searchControl = new FormControl('');
+  searchControl = new UntypedFormControl('');
 
   constructor(
     private paymentMethodService: PaymentMethodService,

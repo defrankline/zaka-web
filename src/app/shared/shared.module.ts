@@ -39,35 +39,34 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 };
 
 @NgModule({
-  declarations: [FooterComponent, AboutComponent, items, GroupByPipe],
-  imports: [
-    CommonModule, RouterModule, TreeModule, MaterialModule, NguCarouselModule, CurrencyMaskModule,
-    NgbPopoverModule, FlexLayoutModule, ModalModule,
-    TranslateModule
-  ],
-  exports: [
-    NgxPermissionsModule, RouterModule, TreeModule, MaterialModule, NguCarouselModule, CurrencyMaskModule,
-    NgbPopoverModule,
-    FlexLayoutModule, ModalModule, TranslateModule, GroupByPipe,
-    items, FooterComponent,
-    BaseTableModule,
-    DialogHeaderModule,
-    SimpleInputModule,
-    SimpleSelectModule,
-    NgxPrintModule,
-    PaginationModule
-  ],
-  providers: [
-    Title,
-    {
-      provide: CURRENCY_MASK_CONFIG,
-      useValue: CustomCurrencyMaskConfig
-    },
-    DatePipe,
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
-  ],
-  entryComponents: [items]
+    declarations: [FooterComponent, AboutComponent, items, GroupByPipe],
+    imports: [
+        CommonModule, RouterModule, TreeModule, MaterialModule, NguCarouselModule, CurrencyMaskModule,
+        NgbPopoverModule, FlexLayoutModule, ModalModule,
+        TranslateModule
+    ],
+    exports: [
+        NgxPermissionsModule, RouterModule, TreeModule, MaterialModule, NguCarouselModule, CurrencyMaskModule,
+        NgbPopoverModule,
+        FlexLayoutModule, ModalModule, TranslateModule, GroupByPipe,
+        items, FooterComponent,
+        BaseTableModule,
+        DialogHeaderModule,
+        SimpleInputModule,
+        SimpleSelectModule,
+        NgxPrintModule,
+        PaginationModule
+    ],
+    providers: [
+        Title,
+        {
+            provide: CURRENCY_MASK_CONFIG,
+            useValue: CustomCurrencyMaskConfig
+        },
+        DatePipe,
+        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+        { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    ]
 })
 export class SharedModule {
   constructor(

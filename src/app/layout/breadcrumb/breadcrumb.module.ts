@@ -7,19 +7,18 @@ import {RouterModule} from '@angular/router';
 
 
 @NgModule({
-  declarations: [
-    BreadcrumbComponent,
-    ClockComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    RouterModule,
-  ],
-  exports: [
-    BreadcrumbComponent
-  ],
-  entryComponents: []
+    declarations: [
+        BreadcrumbComponent,
+        ClockComponent
+    ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        RouterModule,
+    ],
+    exports: [
+        BreadcrumbComponent
+    ]
 })
 export class BreadcrumbModule {
 }

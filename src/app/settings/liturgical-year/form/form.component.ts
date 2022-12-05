@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {LiturgicalYear} from '../liturgical-year';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {LiturgicalYearService} from '../liturgical-year.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
@@ -18,7 +18,7 @@ export class FormComponent implements OnInit {
   loading: boolean;
   action: string;
   title: string;
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   liturgicalYears: LiturgicalYear[];
   liturgicalYear?: LiturgicalYear;
 
@@ -27,7 +27,7 @@ export class FormComponent implements OnInit {
     private liturgicalYearService: LiturgicalYearService,
     private dialogRef: MatDialogRef<FormComponent>,
     private toast: ToastService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     @Inject(MAT_DIALOG_DATA) private data
   ) {
     this.loading = false;
@@ -51,7 +51,7 @@ export class FormComponent implements OnInit {
     });
   }
 
-  initFormGroup(): FormGroup {
+  initFormGroup(): UntypedFormGroup {
     if (this.liturgicalYear === undefined) {
       return this.formBuilder.group(
         {

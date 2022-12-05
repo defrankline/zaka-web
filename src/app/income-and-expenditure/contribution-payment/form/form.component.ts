@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {FormControl, Validators} from '@angular/forms';
+import {UntypedFormControl, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {ToastService} from "../../../shared/services/toast.service";
 import {ContributionService} from '../../../settings/contribution-setup/contribution.service';
@@ -22,15 +22,15 @@ import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 })
 export class FormComponent implements OnInit {
   dateFormat = 'yyyy-MM-dd';
-  amountControl = new FormControl(0, [Validators.required, Validators.min(1)]);
-  paymentVoucherNumberControl = new FormControl('');
-  contributionControl = new FormControl(null, [Validators.required]);
-  paymentMethodControl = new FormControl(null, [Validators.required]);
-  userControl = new FormControl(null, [Validators.required]);
-  level2Control = new FormControl(null);
-  level3Control = new FormControl(null);
-  dateControl = new FormControl(this.datePipe.transform(Date.now(), this.dateFormat), [Validators.required]);
-  intendedDateControl = new FormControl(this.datePipe.transform(Date.now(), this.dateFormat), [Validators.required]);
+  amountControl = new UntypedFormControl(0, [Validators.required, Validators.min(1)]);
+  paymentVoucherNumberControl = new UntypedFormControl('');
+  contributionControl = new UntypedFormControl(null, [Validators.required]);
+  paymentMethodControl = new UntypedFormControl(null, [Validators.required]);
+  userControl = new UntypedFormControl(null, [Validators.required]);
+  level2Control = new UntypedFormControl(null);
+  level3Control = new UntypedFormControl(null);
+  dateControl = new UntypedFormControl(this.datePipe.transform(Date.now(), this.dateFormat), [Validators.required]);
+  intendedDateControl = new UntypedFormControl(this.datePipe.transform(Date.now(), this.dateFormat), [Validators.required]);
   isLoading = false;
   members: User[] | null = [];
   contributions: Contribution[] | null = [];

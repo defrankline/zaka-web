@@ -22,54 +22,53 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import {NgxWebstorageModule} from "ngx-webstorage";
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    CommonModule,
-    AppRoutingModule,
-    BrowserModule,
-    LayoutModule,
-    BrowserAnimationsModule,
-    NgxMatSelectSearchModule,
-    NgxPermissionsModule.forRoot(),
-    ToastrModule.forRoot(),
-    SharedModule,
-    ModalModule,
-    RouterModule.forRoot([], {useHash: true}),
-    FlexLayoutModule,
-    HttpClientModule,
-    NgIdleKeepaliveModule.forRoot(),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    NgxWebstorageModule.forRoot({
-      prefix: 'zaka-app',
-      separator: '-',
-      caseSensitive: true,
-    }),
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpConfigInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoaderInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ServerDownHandlerInterceptor,
-      multi: true
-    },
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: []
+    declarations: [AppComponent],
+    imports: [
+        CommonModule,
+        AppRoutingModule,
+        BrowserModule,
+        LayoutModule,
+        BrowserAnimationsModule,
+        NgxMatSelectSearchModule,
+        NgxPermissionsModule.forRoot(),
+        ToastrModule.forRoot(),
+        SharedModule,
+        ModalModule,
+        RouterModule.forRoot([], { useHash: true }),
+        FlexLayoutModule,
+        HttpClientModule,
+        NgIdleKeepaliveModule.forRoot(),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        NgxWebstorageModule.forRoot({
+            prefix: 'zaka-app',
+            separator: '-',
+            caseSensitive: true,
+        }),
+    ],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpConfigInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LoaderInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ServerDownHandlerInterceptor,
+            multi: true
+        },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

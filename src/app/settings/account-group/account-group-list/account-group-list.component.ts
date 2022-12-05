@@ -3,7 +3,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import Swal from 'sweetalert2';
 import {AccountGroup} from '../account-group';
 import {AccountGroupService} from '../account-group.service';
-import {FormControl, Validators} from '@angular/forms';
+import {UntypedFormControl, Validators} from '@angular/forms';
 import {AccountSubTypeService} from '../../account-sub-type/account-sub-type.service';
 import {AccountSubType} from '../../account-sub-type/account-sub-type';
 import {AccountGroupFormComponent} from '../account-group-form/account-group-form.component';
@@ -32,9 +32,9 @@ export class AccountGroupListComponent implements OnInit {
   accountSubTypes: any;
   accountSubTypeId: number;
   isLoading = false;
-  accountTypeControl = new FormControl('', [Validators.required]);
-  accountSubTypeControl = new FormControl('', [Validators.required]);
-  memberControl = new FormControl('');
+  accountTypeControl = new UntypedFormControl('', [Validators.required]);
+  accountSubTypeControl = new UntypedFormControl('', [Validators.required]);
+  memberControl = new UntypedFormControl('');
 
   constructor(
     private accountGroupService: AccountGroupService,

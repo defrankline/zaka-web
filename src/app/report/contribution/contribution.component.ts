@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from "../../../environments/environment.prod";
-import {FormControl, Validators} from "@angular/forms";
+import {UntypedFormControl, Validators} from "@angular/forms";
 import {BehaviorSubject, Observable} from "rxjs";
 import {ContributionPayment} from "../../income-and-expenditure/contribution-payment/contribution-payment";
 import {Contribution} from "../../settings/contribution-setup/contribution";
@@ -35,12 +35,12 @@ export class ContributionComponent implements OnInit {
   maxSize = environment.maxSize;
   perPageOptions = environment.perPageOptions;
   queryString = '_';
-  startDateControl = new FormControl('', [Validators.required]);
-  endDateControl = new FormControl('', [Validators.required]);
+  startDateControl = new UntypedFormControl('', [Validators.required]);
+  endDateControl = new UntypedFormControl('', [Validators.required]);
   itemListSubject: BehaviorSubject<ContributionPayment[]> = new BehaviorSubject([]);
   isLoading = false;
-  searchControl = new FormControl('');
-  contributionControl = new FormControl(null);
+  searchControl = new UntypedFormControl('');
+  contributionControl = new UntypedFormControl(null);
   products = '';
   contributions: Contribution[];
   start = '';

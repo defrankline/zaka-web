@@ -6,13 +6,12 @@ import {AccountGroupListComponent} from './account-group-list/account-group-list
 import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
-  declarations: [AccountGroupFormComponent, AccountGroupListComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AccountGroupRoutingModule,
-  ],
-  entryComponents: []
+    declarations: [AccountGroupFormComponent, AccountGroupListComponent],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AccountGroupRoutingModule,
+    ]
 })
 export class AccountGroupModule {
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {UntypedFormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DivisionLevel} from '../level';
 import {DivisionLevelService} from '../level.service';
@@ -13,8 +13,8 @@ import {ToastService} from "../../../shared/services/toast.service";
 export class FormComponent implements OnInit {
   divisionLevel: DivisionLevel;
   id: number = 0;
-  nameControl = new FormControl('', [Validators.required]);
-  positionControl = new FormControl('', [Validators.required]);
+  nameControl = new UntypedFormControl('', [Validators.required]);
+  positionControl = new UntypedFormControl('', [Validators.required]);
 
   constructor(private router: Router,
               private service: DivisionLevelService,

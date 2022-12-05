@@ -7,7 +7,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {LedgerAccount} from '../ledger-account';
-import {FormControl, Validators} from '@angular/forms';
+import {UntypedFormControl, Validators} from '@angular/forms';
 import {AccountGroup} from '../../account-group/account-group';
 import {AccountSubTypeService} from '../../account-sub-type/account-sub-type.service';
 import {AccountGroupService} from '../../account-group/account-group.service';
@@ -46,9 +46,9 @@ export class AccountListComponent implements OnInit {
   accountSubType: AccountSubType;
   isLoading = false;
 
-  accountTypeControl = new FormControl('', [Validators.required]);
-  accountSubTypeControl = new FormControl('', [Validators.required]);
-  accountGroupControl = new FormControl('', [Validators.required]);
+  accountTypeControl = new UntypedFormControl('', [Validators.required]);
+  accountSubTypeControl = new UntypedFormControl('', [Validators.required]);
+  accountGroupControl = new UntypedFormControl('', [Validators.required]);
 
   constructor(
     private accountService: AccountService,

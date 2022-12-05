@@ -1,5 +1,5 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {AccountSubType} from '../account-sub-type';
@@ -19,7 +19,7 @@ export class AccountSubTypeFormComponent implements OnInit, OnDestroy {
   public loading: boolean;
   action: string;
   title: string;
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   accountSubType: AccountSubType;
   storeSubscription: Subscription;
   accountTypes: any;
@@ -29,7 +29,7 @@ export class AccountSubTypeFormComponent implements OnInit, OnDestroy {
     private accountTypeService: AccountTypeService,
     private dialogRef: MatDialogRef<AccountSubTypeFormComponent>,
     private toast: ToastService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     @Inject(MAT_DIALOG_DATA) private data
   ) {
     this.loading = false;
@@ -53,7 +53,7 @@ export class AccountSubTypeFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  initFormGroup(): FormGroup {
+  initFormGroup(): UntypedFormGroup {
     if (this.action === 'create') {
       return this.formBuilder.group({
         name: ['', Validators.required],

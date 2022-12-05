@@ -7,14 +7,13 @@ import {AccountListComponent} from './account-list/account-list.component';
 import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
-  declarations: [AccountFormComponent, AccountListComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AccountRoutingModule
-  ],
-  providers: [AccountService],
-  entryComponents: [AccountFormComponent]
+    declarations: [AccountFormComponent, AccountListComponent],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AccountRoutingModule
+    ],
+    providers: [AccountService]
 })
 export class AccountModule {
 }

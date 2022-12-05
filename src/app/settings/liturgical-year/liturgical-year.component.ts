@@ -10,7 +10,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {environment} from '../../../environments/environment.prod';
 import {FormComponent} from './form/form.component';
 import {debounceTime, finalize, switchMap, tap} from 'rxjs/operators';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {ToastService} from "../../shared/services/toast.service";
 
 @Component({
@@ -28,7 +28,7 @@ export class LiturgicalYearComponent implements OnInit {
   data: any;
   queryString: string;
   liturgicalYearListSubject: BehaviorSubject<LiturgicalYear[]> = new BehaviorSubject([]);
-  searchControl = new FormControl();
+  searchControl = new UntypedFormControl();
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;

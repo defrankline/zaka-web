@@ -6,14 +6,13 @@ import {AccountTypeFormComponent} from './account-type-form/account-type-form.co
 import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
-  declarations: [AccountTypeListComponent, AccountTypeFormComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AccountTypeRoutingModule,
-  ],
-  providers: [],
-  entryComponents: []
+    declarations: [AccountTypeListComponent, AccountTypeFormComponent],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AccountTypeRoutingModule,
+    ],
+    providers: []
 })
 export class AccountTypeModule {
 }
