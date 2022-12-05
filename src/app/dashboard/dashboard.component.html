@@ -27,7 +27,35 @@
         </div>
       </div>
       <div class="row my-5">
-
+        <div class="col-4">
+          <div class="row">
+            <div class="col">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'from'|translate}}</mat-label>
+                <input [matDatepicker]="dateStartPicker" (dateChange)="filterByDateRange()"
+                       [formControl]="startDateControl" matInput
+                       placeholder="{{'from'|translate}}"/>
+                <mat-datepicker-toggle [for]="dateStartPicker" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #dateStartPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'to'|translate}}</mat-label>
+                <input [matDatepicker]="dateEndPicker" [max]="max" (dateChange)="filterByDateRange()"
+                       [formControl]="endDateControl" matInput
+                       placeholder="{{'to'|translate}}"/>
+                <mat-datepicker-toggle [for]="dateEndPicker" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #dateEndPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row" *ngIf="getMonthlyStats()|async as data">
+            <div class="col">
+              <div [chart]="chart"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

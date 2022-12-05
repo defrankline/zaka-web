@@ -3,3 +3,8 @@ export interface DashboardStatDto {
   number: number;
   theme: string;
 }
+
+export interface MonthlyStatDto {
+  month: string;
+  amount: number;
+}

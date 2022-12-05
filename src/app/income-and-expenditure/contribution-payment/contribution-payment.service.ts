@@ -29,12 +29,11 @@ export class ContributionPaymentService {
     }) as Observable<CustomResponse>;
   }
 
-  public getAllByCard(cardId: number, page = 0, size = 0): Observable<CustomResponse> {
-    return this.http.get(this.URL + '/getAllByCard', {
+  public monthlyReport(startDate = '', endDate = ''): Observable<CustomResponse> {
+    return this.http.get(this.URL + '/monthlyReport', {
       params: {
-        cardId: `${cardId}`,
-        page: `${page}`,
-        size: `${size}`,
+        startDate: `${startDate}`,
+        endDate: `${endDate}`,
       }
     }) as Observable<CustomResponse>;
   }
