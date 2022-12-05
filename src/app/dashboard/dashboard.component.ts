@@ -18,66 +18,9 @@ import {DatePipe} from "@angular/common";
 export class DashboardComponent implements OnInit {
   statSubject: BehaviorSubject<DashboardStatDto[]> = new BehaviorSubject([]);
   monthlyStatSubject: BehaviorSubject<MonthlyStatDto[]> = new BehaviorSubject([]);
-
-  chart = new Chart(
-    {
-      chart: {
-        type: 'column'
-      },
-      title: {
-        align: 'left',
-        text: 'Browser market shares. January, 2022'
-      },
-      subtitle: {
-        align: 'left',
-        text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
-      },
-      accessibility: {
-        announceNewData: {
-          enabled: true
-        }
-      },
-      xAxis: {
-        type: 'category'
-      },
-      yAxis: {
-        title: {
-          text: 'Total percent market share'
-        }
-
-      },
-      legend: {
-        enabled: false
-      },
-      plotOptions: {
-        series: {
-          borderWidth: 0,
-          dataLabels: {
-            enabled: true,
-            format: '{point.y:.1f}%'
-          }
-        }
-      },
-
-      tooltip: {
-        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-      },
-
-      series: [
-        {
-          type: undefined,
-          name: "Browsers",
-          colorByPoint: true,
-          data: []
-        }
-      ]
-    }
-  );
-
   start = '';
   end = '';
-  productControl = new FormControl();
+  chart: any;
   startDateControl = new FormControl('');
   endDateControl = new FormControl('');
   max = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
@@ -155,9 +98,61 @@ export class DashboardComponent implements OnInit {
 
   private prepareChart(data: MonthlyStatDto[]) {
     if (data.length > 0) {
-      data.map(row => {
-        this.chart.addPoint({name: row.month, y: row.amount} as any)
-      })
+      this.chart = new Chart(
+        {
+          chart: {
+            type: 'column'
+          },
+          title: {
+            align: 'left',
+            text: 'Browser market shares. January, 2022'
+          },
+          subtitle: {
+            align: 'left',
+            text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+          },
+          accessibility: {
+            announceNewData: {
+              enabled: true
+            }
+          },
+          xAxis: {
+            type: 'category'
+          },
+          yAxis: {
+            title: {
+              text: 'Total percent market share'
+            }
+
+          },
+          legend: {
+            enabled: false
+          },
+          plotOptions: {
+            series: {
+              borderWidth: 0,
+              dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+              }
+            }
+          },
+
+          tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+          },
+
+          series: [
+            {
+              type: undefined,
+              name: "Browsers",
+              colorByPoint: true,
+              data: data
+            }
+          ]
+        }
+      );
     }
   }
 }
