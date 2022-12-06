@@ -7,7 +7,6 @@ import {ToastService} from "../shared/services/toast.service";
 import {CustomResponse} from "../shared/custom-response";
 import {DivisionService} from "../settings/division/division.service";
 import {FormComponent} from "../income-and-expenditure/contribution-payment/form/form.component";
-import {Chart} from 'angular-highcharts';
 import {ContributionPaymentService} from "../income-and-expenditure/contribution-payment/contribution-payment.service";
 import {FormControl} from "@angular/forms";
 import {DatePipe} from "@angular/common";
@@ -18,9 +17,63 @@ import {DatePipe} from "@angular/common";
 export class DashboardComponent implements OnInit {
   statSubject: BehaviorSubject<DashboardStatDto[]> = new BehaviorSubject([]);
   monthlyStatSubject: BehaviorSubject<MonthlyStatDto[]> = new BehaviorSubject([]);
+
+  public chart: any = {
+    chart: {
+      type: 'column'
+    },
+    title: {
+      align: 'left',
+      text: 'Browser market shares. January, 2022'
+    },
+    subtitle: {
+      align: 'left',
+      text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+    },
+    accessibility: {
+      announceNewData: {
+        enabled: true
+      }
+    },
+    xAxis: {
+      type: 'category'
+    },
+    yAxis: {
+      title: {
+        text: 'Total percent market share'
+      }
+
+    },
+    legend: {
+      enabled: false
+    },
+    plotOptions: {
+      series: {
+        borderWidth: 0,
+        dataLabels: {
+          enabled: true,
+          format: '{point.y:.1f}%'
+        }
+      }
+    },
+
+    tooltip: {
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+    },
+
+    series: [
+      {
+        type: undefined,
+        name: "Browsers",
+        colorByPoint: true,
+        data: []
+      }
+    ]
+  };
+
   start = '';
   end = '';
-  chart: any;
   startDateControl = new FormControl('');
   endDateControl = new FormControl('');
   max = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
@@ -36,13 +89,13 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadStats();
-    this.loadMonthlyStats(this.start, this.end);
+    /*this.loadMonthlyStats(this.start, this.end);*/
   }
 
   loadMonthlyStats(startDate: string, endDate: string): void {
     this.paymentService.monthlyReport(startDate, endDate).subscribe(response => {
       this.monthlyStatSubject.next(response.data);
-      this.prepareChart(response.data);
+      this.processData(response.data)
     });
   }
 
@@ -96,63 +149,17 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  private prepareChart(data: MonthlyStatDto[]) {
+  private processData(data: MonthlyStatDto[]) {
     if (data.length > 0) {
-      this.chart = new Chart(
-        {
-          chart: {
-            type: 'column'
-          },
-          title: {
-            align: 'left',
-            text: 'Browser market shares. January, 2022'
-          },
-          subtitle: {
-            align: 'left',
-            text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
-          },
-          accessibility: {
-            announceNewData: {
-              enabled: true
-            }
-          },
-          xAxis: {
-            type: 'category'
-          },
-          yAxis: {
-            title: {
-              text: 'Total percent market share'
-            }
-
-          },
-          legend: {
-            enabled: false
-          },
-          plotOptions: {
-            series: {
-              borderWidth: 0,
-              dataLabels: {
-                enabled: true,
-                format: '{point.y:.1f}%'
-              }
-            }
-          },
-
-          tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-          },
-
-          series: [
-            {
-              type: undefined,
-              name: "Browsers",
-              colorByPoint: true,
-              data: data
-            }
-          ]
+      const arrayList = [];
+      data.forEach(row => {
+        const temp_row = {
+          name: row.month,
+          y: row.amount
         }
-      );
+        arrayList.push(temp_row)
+      });
+      this.chart.series[0]['data'] = arrayList;
     }
   }
 }
