@@ -29,8 +29,10 @@ export class FormComponent implements OnInit {
   userControl = new UntypedFormControl(null, [Validators.required]);
   level2Control = new UntypedFormControl(null);
   level3Control = new UntypedFormControl(null);
-  dateControl = new UntypedFormControl(this.datePipe.transform(Date.now(), this.dateFormat), [Validators.required]);
-  intendedDateControl = new UntypedFormControl(this.datePipe.transform(Date.now(), this.dateFormat), [Validators.required]);
+
+  max = this.datePipe.transform(Date.now(),this.dateFormat);
+  dateControl = new UntypedFormControl(this.max, [Validators.required]);
+  intendedDateControl = new UntypedFormControl(this.max, [Validators.required]);
   isLoading = false;
   members: User[] | null = [];
   contributions: Contribution[] | null = [];

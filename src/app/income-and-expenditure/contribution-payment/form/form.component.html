@@ -47,7 +47,7 @@
     <div class="col">
       <mat-form-field appearance="outline">
         <mat-label>{{'date-paid'|translate}}</mat-label>
-        <input matInput [matDatepicker]="datePicker" placeholder="{{'date-paid'|translate}}" [formControl]="dateControl">
+        <input matInput [matDatepicker]="datePicker" placeholder="{{'date-paid'|translate}}" [max]="max" [formControl]="dateControl">
         <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
         <mat-error *ngIf="!dateControl.valid && dateControl.touched">
@@ -58,7 +58,7 @@
     <div class="col">
       <mat-form-field appearance="outline">
         <mat-label>{{'intended-date'|translate}}</mat-label>
-        <input matInput [matDatepicker]="dateIntendedPicker" placeholder="{{'intended-date'|translate}}" [formControl]="intendedDateControl">
+        <input matInput [matDatepicker]="dateIntendedPicker" placeholder="{{'intended-date'|translate}}" [max]="max" [formControl]="intendedDateControl">
         <mat-datepicker-toggle matSuffix [for]="dateIntendedPicker"></mat-datepicker-toggle>
         <mat-datepicker #dateIntendedPicker></mat-datepicker>
         <mat-error *ngIf="!intendedDateControl.valid && intendedDateControl.touched">
